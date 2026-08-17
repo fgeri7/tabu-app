@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="hu">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b0620">
+<meta name="description" content="Tabu Magyar – magyar nyelvű, kétcsapatos szójáték.">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="manifest" href="manifest.json">
+<link rel="stylesheet" href="style.css">
+<title>Tabu Magyar</title>
+<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png"></head>
+<body>
+<main id="app">
+  <section id="home" class="screen active">
+    <div class="hero">
+      <img class="brand-icon" src="icons/icon-512.png" alt="Tabu Magyar"><div class="logo">TABU <span>MAGYAR</span></div>
+      <p>Magyar szójáték baráti társaságoknak</p>
+    </div>
+    <div class="menu">
+      <button class="primary" id="newGameBtn">🎮 Új játék</button>
+      <button id="rulesBtn">📖 Játékszabályok</button>
+      <button id="settingsBtn">⚙️ Beállítások</button>
+    </div>
+  </section>
+
+  <section id="setup" class="screen">
+    <header><button class="back" data-back="home">‹</button><h1>Új játék</h1></header>
+    <div class="card">
+      <label>🔵 Csapat 1 neve<input id="team1" value="Kék csapat"></label>
+      <label>🔴 Csapat 2 neve<input id="team2" value="Piros csapat"></label>
+      <div class="grid2">
+        <label>Körök<select id="rounds"><option>3</option><option selected>5</option><option>7</option><option>10</option></select></label>
+        <label>Idő / kör<select id="duration"><option value="30">30 mp</option><option selected value="60">60 mp</option><option value="90">90 mp</option></select></label>
+      </div>
+      <label>Nehézség<select id="difficulty"><option value="all">Vegyes</option><option value="Könnyű">Könnyű</option><option value="Normál">Normál</option><option value="Nehéz">Nehéz</option></select></label>
+    </div>
+    <button class="primary" id="startBtn">Játék indítása →</button>
+  </section>
+
+  <section id="game" class="screen">
+    <div class="game-top">
+      <div><small id="roundLabel"></small><strong id="teamLabel"></strong></div>
+      <div id="timer">01:00</div>
+      <div class="scoreline"><span id="score1">0</span> – <span id="score2">0</span></div>
+    </div>
+    <div class="progress"><div id="progressBar"></div></div>
+    <article class="tabu-card">
+      <div class="meta"><span id="category"></span><span id="difficultyLabel"></span></div>
+      <h2 id="word">PIZZA</h2>
+      <p class="forbidden-title">TILOS KIMONDANI</p>
+      <ul id="tabooList"></ul>
+    </article>
+    <div class="game-actions">
+      <button class="danger" id="tabooBtn">🚨 TABU!</button>
+      <div class="action-row">
+        <button id="passBtn">⏭ Passz</button>
+        <button class="success" id="correctBtn">✓ Kitaláltuk</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="roundEnd" class="screen center">
+    <div class="big-icon">⏱️</div><h1 id="roundEndTitle">Lejárt az idő!</h1>
+    <p id="roundStats"></p>
+    <button class="primary" id="nextRoundBtn">Következő kör →</button>
+  </section>
+
+  <section id="gameEnd" class="screen center">
+    <div class="big-icon">🏆</div><h1 id="winner"></h1>
+    <div id="finalScores" class="final-scores"></div>
+    <button class="primary" id="againBtn">🔄 Új játék</button>
+    <button id="homeBtn">Főmenü</button>
+  </section>
+
+  <section id="rules" class="screen">
+    <header><button class="back" data-back="home">‹</button><h1>Játékszabályok</h1></header>
+    <div class="card rules">
+      <h2>A cél</h2><p>Mondd körül a feladványszót úgy, hogy a kártyán szereplő tiltott szavakat nem mondhatod ki.</p>
+      <h2>Játékmenet</h2><p>A két csapat felváltva játszik. Az egyik csapat egyik játékosa a magyarázó, a többiek próbálják kitalálni a szót.</p>
+      <h2>Pontozás</h2><p>✓ Kitalált szó: +1 pont. ⏭ Passz: 0 pont. 🚨 TABU: 0 pont, és a kártya lezárul.</p>
+      <h2>Fontos</h2><p>A tiltott szavak ragozott vagy egyértelműen felismerhető alakját se használd.</p>
+    </div>
+  </section>
+
+  <section id="settings" class="screen">
+    <header><button class="back" data-back="home">‹</button><h1>Beállítások</h1></header>
+    <div class="card">
+      <label>Hangok <input type="checkbox" id="sound" checked></label>
+      <label>Rezgés <input type="checkbox" id="vibrate" checked></label>
+      <p class="muted">A beállítások automatikusan mentésre kerülnek.</p>
+    </div>
+  </section>
+</main>
+<script src="cards.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
