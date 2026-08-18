@@ -1,20 +1,15 @@
 {
-  "id": "./",
   "name": "Tabu Magyar",
   "short_name": "Tabu Magyar",
-  "description": "Magyar nyelvű, kétcsapatos Tabu szójáték.",
-  "lang": "hu-HU",
-  "dir": "ltr",
+  "id": "./",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#0b0620",
-  "theme_color": "#0b0620",
-  "categories": [
-    "games",
-    "entertainment"
-  ],
+  "lang": "hu-HU",
+  "description": "Magyar nyelvű, kétcsapatos Tabu szójáték.",
+  "background_color": "#09051c",
+  "theme_color": "#09051c",
   "icons": [
     {
       "src": "icons/icon-192.png",
