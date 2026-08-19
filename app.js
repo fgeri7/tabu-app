@@ -455,32 +455,40 @@ function fitTargetWord(){
 
   el.style.fontSize="";
   el.style.whiteSpace="normal";
-  el.style.overflowWrap="normal";
+  el.style.overflowWrap="break-word";
   el.style.wordBreak="normal";
   el.style.maxHeight="none";
   el.style.overflow="hidden";
+  el.style.display="block";
+  el.style.width="100%";
+  el.style.minWidth="0";
+  el.style.boxSizing="border-box";
 
-  // Keep the normal/v1.3 visual size and shrink only as much as necessary.
-  // The target must fit horizontally AND may use at most two lines.
+  // V1.3-hoz közeli alapméret, de a megfejtés soha nem lóghat ki.
+  // Legfeljebb két sor engedélyezett; háromsoros tördelés helyett
+  // fokozatosan csökkentjük a betűméretet.
   let size=42;
   const minSize=24;
+
+  const fits=()=>{
+    const lineHeight=size*1.05;
+    return el.scrollWidth<=el.clientWidth+2 &&
+           el.scrollHeight<=lineHeight*2+3;
+  };
+
   el.style.fontSize=size+"px";
   el.style.lineHeight="1.05";
 
-  while(size>minSize){
-    const lineHeight=size*1.05;
-    const tooWide=el.scrollWidth>el.clientWidth+2;
-    const tooTall=el.scrollHeight>lineHeight*2+3;
-
-    if(!tooWide && !tooTall) break;
-
+  while(size>minSize && !fits()){
     size-=1;
     el.style.fontSize=size+"px";
+    el.style.lineHeight="1.05";
   }
 
-  el.style.maxHeight=`${size*1.05*2+4}px`;
+  // Végső biztosíték: két soron belül maradjon a kártya.
+  const lineHeight=size*1.05;
+  el.style.maxHeight=`${lineHeight*2+4}px`;
 }
-
 function nextCard(){
   if(!state.deck.length)state.deck=deckFor();
   if(!state.deck.length)return;
@@ -722,7 +730,8 @@ function renderRoundCards(){
   }).join("");
 }
 
-function openRoundCards(){
+function openRoundCards(returnScreen="roundEnd"){
+  roundCardsReturnScreen=returnScreen;
   renderRoundCards();
   show("roundCards");
 }
@@ -1007,13 +1016,41 @@ function renderManualScores(){
 }
 function changeScore(team,delta){
   state.scores[team]=Math.max(0,state.scores[team]+delta);
+
+  if($("#gameEnd")?.classList.contains("active") && state.suddenDeath && state.scores[0]===state.scores[1]){
+    // A korábban lezárt mérkőzés statisztikai rekordját visszavonjuk:
+    // a játék most ténylegesen hirtelen halálba folytatódik.
+    const id=state.completedStatsGameId;
+    if(id){
+      statsDB.games=statsDB.games.filter(g=>g.id!==id);
+      persistPlayersAndStats();
+    }
+    state.statsRecorded=false;
+    state.gameStarted=true;
+    state.resumeGameId=state.resumeGameId||uid("game");
+    state.resumeScreen="roundEnd";
+    state.turnStats={correct:0,pass:0,tabu:0};
+    buildSuddenDeath();
+    state.roundEndSudden=true;
+    renderRoundScores();
+    persistCurrentGame();
+    showTurnEnd(true);
+    return;
+  }
+
   renderManualScores();
   update();
   if(state.gameStarted===false && state.statsRecorded)recordCompletedGameStats();
   persistCurrentGame();
+
   if($("#gameEnd")?.classList.contains("active")){
-    const[a,b]=state.scores; $("#winner").textContent=a===b?"Döntetlen!":`${a>b?state.teams[0]:state.teams[1]} nyert!`;
-    $("#finalScores").innerHTML=`<div>🔵 ${state.teams[0]}: ${a}</div><div>🔴 ${state.teams[1]}: ${b}</div>`;
+    const[a,b]=state.scores;
+    $("#winner").textContent=a===b
+      ?"Döntetlen!"
+      :`${a>b?state.teams[0]:state.teams[1]} nyert!`;
+    $("#finalScores").innerHTML=
+      `<div>🔵 ${state.teams[0]}: ${a}</div>`+
+      `<div>🔴 ${state.teams[1]}: ${b}</div>`;
   }
 }
 
@@ -1065,18 +1102,57 @@ async function resetStats(){
   renderStats();
 }
 
+function winRate(wins,games){
+  return games ? `${Math.round(wins/games*100)}%` : "0%";
+}
+
 function renderStats(){
   const pbox=$("#individualStatsList"),tbox=$("#teamStatsList"); if(!pbox||!tbox)return;
   const historical=new Map();
   statsDB.games.forEach(g=>Object.entries(g.playerNames||{}).forEach(([id,name])=>historical.set(id,name)));
   playersDB.forEach(p=>historical.set(p.id,p.name));
-  const players=[...historical.entries()].map(([id,name])=>({id,name,createdAt:playerById(id)?.createdAt||0})).sort((a,b)=>(a.createdAt||0)-(b.createdAt||0)||a.name.localeCompare(b.name));
-  pbox.innerHTML=players.length?players.map(p=>{const r=statAggregatePlayer(p.id);return `<div class="stats-row"><div><strong>${escapeHtml(p.name)}</strong><small>${r.games} játék · ${r.wins} győzelem · ${r.losses} vereség · ${r.draws} döntetlen</small></div><div class="stats-mini">✓ ${r.correct} · ⏭ ${r.pass} · 🚨 ${r.tabu}</div></div>`}).join(""):`<p class="muted">Még nincs játékos.</p>`;
-  const groups=new Map();
-  statsDB.games.forEach(g=>(g.teams||[]).forEach(t=>{const key=canonicalTeamKey(t.playerIds||[]);if(!groups.has(key))groups.set(key,{ids:canonicalPlayerIds(t.playerIds||[]),name:canonicalTeamLabel(t.playerIds||[],t.name?.split(" & ")||[])});}));
-  tbox.innerHTML=groups.size?[...groups.entries()].map(([key,g])=>{const r=statAggregateTeam(key);return `<div class="stats-row"><div><strong>${escapeHtml(g.name)}</strong><small>${r.games} játék · ${r.wins} győzelem · ${r.losses} vereség · ${r.draws} döntetlen</small></div><div class="stats-mini">${r.pointsFor}–${r.pointsAgainst}</div></div>`}).join(""):`<p class="muted">Még nincs csapatstatisztika.</p>`;
-}
 
+  const players=[...historical.entries()]
+    .map(([id,name])=>({id,name,createdAt:playerById(id)?.createdAt||0}))
+    .sort((a,b)=>(a.createdAt||0)-(b.createdAt||0)||a.name.localeCompare(b.name));
+
+  pbox.innerHTML=players.length
+    ?players.map(p=>{
+      const r=statAggregatePlayer(p.id);
+      return `<div class="stats-row">
+        <div>
+          <strong>${escapeHtml(p.name)}</strong>
+          <small>${r.games} játék · ${r.wins} győzelem · ${r.losses} vereség · ${r.draws} döntetlen</small>
+        </div>
+        <div class="stats-mini">🏆 ${winRate(r.wins,r.games)}</div>
+      </div>`;
+    }).join("")
+    :`<p class="muted">Még nincs játékos.</p>`;
+
+  const groups=new Map();
+  statsDB.games.forEach(g=>(g.teams||[]).forEach(t=>{
+    const key=canonicalTeamKey(t.playerIds||[]);
+    if(!groups.has(key)){
+      groups.set(key,{
+        ids:canonicalPlayerIds(t.playerIds||[]),
+        name:canonicalTeamLabel(t.playerIds||[],t.name?.split(" & ")||[])
+      });
+    }
+  }));
+
+  tbox.innerHTML=groups.size
+    ?[...groups.entries()].map(([key,g])=>{
+      const r=statAggregateTeam(key);
+      return `<div class="stats-row">
+        <div>
+          <strong>${escapeHtml(g.name)}</strong>
+          <small>${r.games} játék · ${r.wins} győzelem · ${r.losses} vereség · ${r.draws} döntetlen</small>
+        </div>
+        <div class="stats-mini">🏆 ${winRate(r.wins,r.games)}</div>
+      </div>`;
+    }).join("")
+    :`<p class="muted">Még nincs csapatstatisztika.</p>`;
+}
 function endGame(){
   state.gameStarted=false;
   clearInterval(timerId);
@@ -1230,6 +1306,11 @@ if($("#pauseMinus1"))$("#pauseMinus1").onclick=()=>changeScore(0,-1);
 if($("#pausePlus1"))$("#pausePlus1").onclick=()=>changeScore(0,1);
 if($("#pauseMinus2"))$("#pauseMinus2").onclick=()=>changeScore(1,-1);
 if($("#pausePlus2"))$("#pausePlus2").onclick=()=>changeScore(1,1);
+if($("#scoreEditMinus1"))$("#scoreEditMinus1").onclick=()=>changeScore(0,-1);
+if($("#scoreEditPlus1"))$("#scoreEditPlus1").onclick=()=>changeScore(0,1);
+if($("#scoreEditMinus2"))$("#scoreEditMinus2").onclick=()=>changeScore(1,-1);
+if($("#scoreEditPlus2"))$("#scoreEditPlus2").onclick=()=>changeScore(1,1);
+
 
 
 if($("#gameUndoBtn")){
@@ -1257,7 +1338,9 @@ if($("#roundScoreMinus2"))$("#roundScoreMinus2").onclick=()=>changeRoundScore(1,
 if($("#roundScorePlus2"))$("#roundScorePlus2").onclick=()=>changeRoundScore(1,1);
 
 $("#roundCardsBtn")?.addEventListener("click",openRoundCards);
-$("#roundCardsBack")?.addEventListener("click",()=>show("roundEnd"));
+$("#gameEndRoundCardsBtn")?.addEventListener("click",()=>openRoundCards("gameEnd"));
+let roundCardsReturnScreen="roundEnd";
+$("#roundCardsBack")?.addEventListener("click",()=>show(roundCardsReturnScreen));
 
 
 

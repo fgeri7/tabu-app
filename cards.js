@@ -87,9 +87,9 @@ const TABU_CARDS = [
     "word": "PORSZÍVÓ",
     "taboo": [
       "takarítás",
-      "por",
+      "bevásárlás",
       "szőnyeg",
-      "szív",
+      "otthon",
       "zaj"
     ]
   },
@@ -151,7 +151,7 @@ const TABU_CARDS = [
     "difficulty": "Normál",
     "word": "FOGKEFE",
     "taboo": [
-      "fog",
+      "bevásárlás",
       "mosás",
       "fogkrém",
       "fürdőszoba",
@@ -165,7 +165,7 @@ const TABU_CARDS = [
     "word": "POSTALÁDA",
     "taboo": [
       "levél",
-      "posta",
+      "bevásárlás",
       "boríték",
       "küldemény",
       "utcai"
@@ -178,7 +178,7 @@ const TABU_CARDS = [
     "word": "CSOMAGAUTOMATA",
     "taboo": [
       "futár",
-      "csomag",
+      "bevásárlás",
       "kód",
       "átvétel",
       "rekesz"
@@ -373,8 +373,8 @@ const TABU_CARDS = [
     "word": "KOVÁSZOS UBORKA",
     "taboo": [
       "savanyúság",
-      "uborka",
-      "kovász",
+      "recept",
+      "fűszer",
       "kapor",
       "üveg"
     ]
@@ -567,7 +567,7 @@ const TABU_CARDS = [
     "difficulty": "Nehéz",
     "word": "SZELLEMIRTÓK",
     "taboo": [
-      "szellem",
+      "szereplő",
       "New York",
       "Ecto-1",
       "protonágyú",
@@ -869,7 +869,7 @@ const TABU_CARDS = [
       "tánc",
       "fény",
       "klub",
-      "gömb",
+      "énekes",
       "tükör"
     ]
   },
@@ -1010,8 +1010,8 @@ const TABU_CARDS = [
     "word": "KOSÁRLABDA",
     "taboo": [
       "palánk",
-      "labda",
-      "kosár",
+      "meccs",
+      "bajnokság",
       "NBA",
       "dobás"
     ]
@@ -1205,7 +1205,7 @@ const TABU_CARDS = [
     "word": "TÚRÓ RUDI",
     "taboo": [
       "csoki",
-      "túró",
+      "Budapest",
       "piros",
       "édesség",
       "hűtő"
@@ -1284,7 +1284,7 @@ const TABU_CARDS = [
     "taboo": [
       "Duna",
       "Budapest",
-      "híd",
+      "Balaton",
       "oroszlán",
       "Széchenyi"
     ]
@@ -1321,7 +1321,7 @@ const TABU_CARDS = [
     "difficulty": "Nehéz",
     "word": "HERENDI PORCELÁN",
     "taboo": [
-      "porcelán",
+      "Budapest",
       "manufaktúra",
       "Veszprém",
       "festett",
@@ -1347,7 +1347,7 @@ const TABU_CARDS = [
     "difficulty": "Nehéz",
     "word": "RUBIK-KOCKA",
     "taboo": [
-      "kocka",
+      "Budapest",
       "színek",
       "Ernő",
       "forgat",
@@ -1594,7 +1594,7 @@ const TABU_CARDS = [
     "difficulty": "Könnyű",
     "word": "VILÁGHÁBORÚ",
     "taboo": [
-      "háború",
+      "király",
       "Németország",
       "katona",
       "front",
@@ -1623,8 +1623,8 @@ const TABU_CARDS = [
       "1526",
       "török",
       "II. Lajos",
-      "Mohács",
-      "csata"
+      "király",
+      "birodalom"
     ]
   },
   {
@@ -1636,7 +1636,7 @@ const TABU_CARDS = [
       "császár",
       "Colosseum",
       "légió",
-      "Róma",
+      "király",
       "ókor"
     ]
   },
@@ -1663,7 +1663,7 @@ const TABU_CARDS = [
       "Kelet",
       "Nyugat",
       "1989",
-      "fal"
+      "Checkpoint Charlie"
     ]
   },
   {
@@ -1700,7 +1700,7 @@ const TABU_CARDS = [
     "taboo": [
       "Egyiptom",
       "hajó",
-      "csatorna",
+      "király",
       "Vörös-tenger",
       "Földközi-tenger"
     ]
@@ -1751,7 +1751,7 @@ const TABU_CARDS = [
     "word": "NAPRENDSZER",
     "taboo": [
       "bolygó",
-      "Nap",
+      "kutatás",
       "Föld",
       "űr",
       "Merkúr"
@@ -1895,7 +1895,7 @@ const TABU_CARDS = [
     "taboo": [
       "részecske",
       "energia",
-      "fizika",
+      "kutatás",
       "szuperpozíció",
       "Heisenberg"
     ]
@@ -1935,7 +1935,7 @@ const TABU_CARDS = [
       "glükóz",
       "inzulin",
       "diabétesz",
-      "vér",
+      "kutatás",
       "mérés"
     ]
   },
@@ -1945,7 +1945,7 @@ const TABU_CARDS = [
     "difficulty": "Könnyű",
     "word": "OKOSTELEFON",
     "taboo": [
-      "telefon",
+      "számítógép",
       "app",
       "képernyő",
       "Android",
@@ -2040,7 +2040,7 @@ const TABU_CARDS = [
       "kamera",
       "beolvas",
       "telefon",
-      "kód"
+      "számítógép"
     ]
   },
   {
@@ -2209,7 +2209,7 @@ const TABU_CARDS = [
       "munka",
       "dátum",
       "leadás",
-      "idő"
+      "iroda"
     ]
   },
   {
@@ -2221,7 +2221,7 @@ const TABU_CARDS = [
       "bér",
       "pénz",
       "főnök",
-      "fizetés",
+      "iroda",
       "több"
     ]
   },
@@ -2244,9 +2244,9 @@ const TABU_CARDS = [
     "difficulty": "Normál",
     "word": "KÁVÉSZÜNET",
     "taboo": [
-      "kávé",
+      "főnök",
       "iroda",
-      "szünet",
+      "meeting",
       "kolléga",
       "gép"
     ]
@@ -2312,7 +2312,7 @@ const TABU_CARDS = [
       "kolléga",
       "munka",
       "program",
-      "csapat",
+      "iroda",
       "tréning"
     ]
   },
@@ -2388,7 +2388,7 @@ const TABU_CARDS = [
     "word": "TANKÖNYV",
     "taboo": [
       "iskola",
-      "könyv",
+      "tanár",
       "tanulás",
       "lecke",
       "diák"
@@ -2439,7 +2439,7 @@ const TABU_CARDS = [
     "difficulty": "Normál",
     "word": "KÖNYVTÁR",
     "taboo": [
-      "könyv",
+      "tanár",
       "csend",
       "olvasás",
       "polc",
@@ -2673,7 +2673,7 @@ const TABU_CARDS = [
     "difficulty": "Nehéz",
     "word": "HÁZASSÁGI ÉVFORDULÓ",
     "taboo": [
-      "év",
+      "karácsony",
       "esküvő",
       "pár",
       "ünnep",
@@ -2700,7 +2700,7 @@ const TABU_CARDS = [
     "word": "KERTIPARTI",
     "taboo": [
       "grill",
-      "kert",
+      "karácsony",
       "nyár",
       "barátok",
       "ital"
@@ -2714,7 +2714,7 @@ const TABU_CARDS = [
     "taboo": [
       "rokon",
       "ebéd",
-      "család",
+      "karácsony",
       "ünnep",
       "asztal"
     ]
@@ -2766,7 +2766,7 @@ const TABU_CARDS = [
     "taboo": [
       "Disney",
       "rajzfilm",
-      "egér",
+      "híresség",
       "Minnie",
       "fül"
     ]
@@ -3027,7 +3027,7 @@ const TABU_CARDS = [
       "verseny",
       "Nintendo",
       "autó",
-      "Mario",
+      "játékos",
       "pálya"
     ]
   },
@@ -3119,7 +3119,7 @@ const TABU_CARDS = [
       "ital",
       "másnapos",
       "buli",
-      "részeg"
+      "zene"
     ]
   },
   {
@@ -3248,7 +3248,7 @@ const TABU_CARDS = [
       "beszélgetés",
       "hallgatás",
       "randi",
-      "csend",
+      "buli",
       "feszültség"
     ]
   },
@@ -3338,7 +3338,7 @@ const TABU_CARDS = [
     "taboo": [
       "bicikli",
       "pedál",
-      "kerék",
+      "autó",
       "sisak",
       "teker"
     ]
@@ -3349,7 +3349,7 @@ const TABU_CARDS = [
     "difficulty": "Könnyű",
     "word": "AUTÓPÁLYA",
     "taboo": [
-      "autó",
+      "busz",
       "M1",
       "út",
       "sebesség",
@@ -3391,7 +3391,7 @@ const TABU_CARDS = [
       "autó",
       "elsőbbség",
       "út",
-      "kör",
+      "busz",
       "tábla"
     ]
   },
@@ -3416,7 +3416,7 @@ const TABU_CARDS = [
     "taboo": [
       "tréler",
       "lerobbant",
-      "autó",
+      "busz",
       "út",
       "sárga"
     ]
@@ -3431,7 +3431,7 @@ const TABU_CARDS = [
       "útvonal",
       "égbolt",
       "irányítás",
-      "légi"
+      "autó"
     ]
   },
   {
@@ -3442,7 +3442,7 @@ const TABU_CARDS = [
     "taboo": [
       "vonat",
       "busz",
-      "jegy",
+      "autó",
       "utazás",
       "állomás"
     ]
@@ -3546,7 +3546,7 @@ const TABU_CARDS = [
     "taboo": [
       "ajtó",
       "zár",
-      "kulcs",
+      "szoba",
       "lakás",
       "nyit"
     ]
@@ -3574,7 +3574,7 @@ const TABU_CARDS = [
       "melegít",
       "étel",
       "gomb",
-      "sütő"
+      "lakás"
     ]
   },
   {
@@ -3596,8 +3596,8 @@ const TABU_CARDS = [
     "difficulty": "Normál",
     "word": "KÖNYVESPOLC",
     "taboo": [
-      "könyv",
-      "polc",
+      "lakás",
+      "ház",
       "szoba",
       "bútor",
       "olvasás"
@@ -3663,7 +3663,7 @@ const TABU_CARDS = [
     "taboo": [
       "riasztó",
       "tűz",
-      "füst",
+      "lakás",
       "mennyezet",
       "elem"
     ]
@@ -3676,8 +3676,8 @@ const TABU_CARDS = [
     "taboo": [
       "ajtó",
       "zár",
-      "kulcs",
-      "lakás",
+      "ház",
+      "szoba",
       "ajtónyitó"
     ]
   },
@@ -3687,7 +3687,7 @@ const TABU_CARDS = [
     "difficulty": "Könnyű",
     "word": "PÉNZTÁRCA",
     "taboo": [
-      "pénz",
+      "bevásárlás",
       "bankkártya",
       "zseb",
       "bőr",
@@ -3715,7 +3715,7 @@ const TABU_CARDS = [
     "taboo": [
       "ajtó",
       "zár",
-      "kulcs",
+      "bevásárlás",
       "karika",
       "nyitás"
     ]
@@ -3726,7 +3726,7 @@ const TABU_CARDS = [
     "difficulty": "Könnyű",
     "word": "FOGKRÉM",
     "taboo": [
-      "fog",
+      "bevásárlás",
       "kefe",
       "mosás",
       "menta",
@@ -3752,10 +3752,10 @@ const TABU_CARDS = [
     "difficulty": "Könnyű",
     "word": "ZUHANYFÜGGÖNY",
     "taboo": [
-      "zuhany",
+      "bevásárlás",
       "fürdőszoba",
       "víz",
-      "függöny",
+      "otthon",
       "kád"
     ]
   },
@@ -3791,8 +3791,8 @@ const TABU_CARDS = [
     "difficulty": "Könnyű",
     "word": "HŰTŐMÁGNES",
     "taboo": [
-      "hűtő",
-      "mágnes",
+      "bevásárlás",
+      "otthon",
       "emlék",
       "konyha",
       "ajtó"
@@ -3804,8 +3804,8 @@ const TABU_CARDS = [
     "difficulty": "Könnyű",
     "word": "NAPSZEMÜVEG",
     "taboo": [
-      "szem",
-      "nap",
+      "bevásárlás",
+      "otthon",
       "lencse",
       "nyár",
       "keret"
@@ -3817,9 +3817,9 @@ const TABU_CARDS = [
     "difficulty": "Könnyű",
     "word": "ESŐKABÁT",
     "taboo": [
-      "eső",
+      "bevásárlás",
       "víz",
-      "kabát",
+      "otthon",
       "kapucni",
       "időjárás"
     ]
@@ -3869,9 +3869,9 @@ const TABU_CARDS = [
     "difficulty": "Könnyű",
     "word": "ASZTALTERÍTŐ",
     "taboo": [
-      "asztal",
+      "bevásárlás",
       "konyha",
-      "terítő",
+      "otthon",
       "evés",
       "textil"
     ]
@@ -3895,7 +3895,7 @@ const TABU_CARDS = [
     "difficulty": "Könnyű",
     "word": "KONYHARUHA",
     "taboo": [
-      "konyha",
+      "bevásárlás",
       "törlés",
       "edény",
       "textil",
@@ -3911,7 +3911,7 @@ const TABU_CARDS = [
       "mérés",
       "hossz",
       "centiméter",
-      "szalag",
+      "bevásárlás",
       "építés"
     ]
   },
@@ -3973,7 +3973,7 @@ const TABU_CARDS = [
     "difficulty": "Könnyű",
     "word": "NÉVJEGYKÁRTYA",
     "taboo": [
-      "név",
+      "bevásárlás",
       "telefon",
       "cég",
       "elérhetőség",
@@ -3999,7 +3999,7 @@ const TABU_CARDS = [
     "difficulty": "Könnyű",
     "word": "TÖLTÖTT KÁPOSZTA",
     "taboo": [
-      "káposzta",
+      "recept",
       "hús",
       "rizs",
       "karácsony",
@@ -4012,10 +4012,10 @@ const TABU_CARDS = [
     "difficulty": "Könnyű",
     "word": "RÁNTOTT SAJT",
     "taboo": [
-      "sajt",
+      "recept",
       "panír",
       "olaj",
-      "rántott",
+      "fűszer",
       "tartár"
     ]
   },
@@ -4025,7 +4025,7 @@ const TABU_CARDS = [
     "difficulty": "Könnyű",
     "word": "PAPRIKÁS KRUMPLI",
     "taboo": [
-      "krumpli",
+      "recept",
       "paprika",
       "kolbász",
       "bogrács",
@@ -4064,7 +4064,7 @@ const TABU_CARDS = [
     "difficulty": "Könnyű",
     "word": "DOBOSTORTA",
     "taboo": [
-      "torta",
+      "recept",
       "karamell",
       "csoki",
       "lap",
@@ -4078,7 +4078,7 @@ const TABU_CARDS = [
     "word": "KRÉMES",
     "taboo": [
       "sütemény",
-      "krém",
+      "recept",
       "vanília",
       "cukrászda",
       "lap"
@@ -4103,10 +4103,10 @@ const TABU_CARDS = [
     "difficulty": "Könnyű",
     "word": "TÚRÓGOMBÓC",
     "taboo": [
-      "túró",
+      "recept",
       "búzadara",
       "tejföl",
-      "gombóc",
+      "fűszer",
       "desszert"
     ]
   },
@@ -4116,7 +4116,7 @@ const TABU_CARDS = [
     "difficulty": "Könnyű",
     "word": "MÁKOS GUBA",
     "taboo": [
-      "mák",
+      "recept",
       "kifli",
       "tej",
       "vanília",
@@ -4142,9 +4142,9 @@ const TABU_CARDS = [
     "difficulty": "Könnyű",
     "word": "HALÁSZLÉ",
     "taboo": [
-      "hal",
+      "recept",
       "paprika",
-      "lé",
+      "fűszer",
       "ponty",
       "bajai"
     ]
@@ -4207,7 +4207,7 @@ const TABU_CARDS = [
     "difficulty": "Könnyű",
     "word": "PALÓCLEVES",
     "taboo": [
-      "leves",
+      "recept",
       "bab",
       "hús",
       "tejföl",
@@ -4220,8 +4220,8 @@ const TABU_CARDS = [
     "difficulty": "Könnyű",
     "word": "BABLEVES",
     "taboo": [
-      "bab",
-      "leves",
+      "recept",
+      "fűszer",
       "füstölt",
       "kolbász",
       "tejföl"
@@ -4233,7 +4233,7 @@ const TABU_CARDS = [
     "difficulty": "Könnyű",
     "word": "FRANCIAKRÉMES",
     "taboo": [
-      "krém",
+      "recept",
       "tészta",
       "cukrász",
       "vanília",
@@ -4285,7 +4285,7 @@ const TABU_CARDS = [
     "difficulty": "Könnyű",
     "word": "PEKINGI KACSA",
     "taboo": [
-      "kacsa",
+      "recept",
       "Kína",
       "palacsinta",
       "ropogós",
@@ -4325,7 +4325,7 @@ const TABU_CARDS = [
     "word": "A GYŰRŰK URA",
     "taboo": [
       "Frodó",
-      "gyűrű",
+      "szereplő",
       "Mordor",
       "hobbit",
       "Gandalf"
@@ -4678,7 +4678,7 @@ const TABU_CARDS = [
       "bank",
       "maszk",
       "Professzor",
-      "rablás",
+      "epizód",
       "Spanyolország"
     ]
   },
@@ -4689,7 +4689,7 @@ const TABU_CARDS = [
     "word": "KÓRHÁZ A VÁROS SZÉLÉN",
     "taboo": [
       "orvos",
-      "kórház",
+      "epizód",
       "cseh",
       "sorozat",
       "beteg"
@@ -4935,7 +4935,7 @@ const TABU_CARDS = [
     "difficulty": "Nehéz",
     "word": "METALLICA",
     "taboo": [
-      "metal",
+      "énekes",
       "gitár",
       "James Hetfield",
       "Nothing Else Matters",
@@ -5132,7 +5132,7 @@ const TABU_CARDS = [
     "taboo": [
       "foci",
       "gól",
-      "labda",
+      "meccs",
       "kapu",
       "csapat"
     ]
@@ -5144,10 +5144,10 @@ const TABU_CARDS = [
     "word": "KÉZILABDA",
     "taboo": [
       "kapu",
-      "labda",
+      "meccs",
       "gól",
       "csapat",
-      "kéz"
+      "bajnokság"
     ]
   },
   {
@@ -5157,7 +5157,7 @@ const TABU_CARDS = [
     "word": "VÍZILABDA",
     "taboo": [
       "medence",
-      "labda",
+      "meccs",
       "gól",
       "úszás",
       "csapat"
@@ -5185,7 +5185,7 @@ const TABU_CARDS = [
       "pingpong",
       "ütő",
       "labda",
-      "asztal",
+      "meccs",
       "háló"
     ]
   },
@@ -5273,9 +5273,9 @@ const TABU_CARDS = [
     "difficulty": "Nehéz",
     "word": "JÉGKORONG",
     "taboo": [
-      "jég",
+      "meccs",
       "korcsolya",
-      "korong",
+      "bajnokság",
       "kapu",
       "NHL"
     ]
@@ -5314,7 +5314,7 @@ const TABU_CARDS = [
     "taboo": [
       "sánc",
       "léc",
-      "ugrás",
+      "meccs",
       "hó",
       "verseny"
     ]
@@ -5326,7 +5326,7 @@ const TABU_CARDS = [
     "word": "MŰUGRÁS",
     "taboo": [
       "medence",
-      "ugrás",
+      "meccs",
       "víz",
       "torony",
       "pontozás"
@@ -5404,9 +5404,9 @@ const TABU_CARDS = [
     "word": "SÚLYEMELÉS",
     "taboo": [
       "rúd",
-      "súly",
+      "meccs",
       "olimpia",
-      "emelés",
+      "bajnokság",
       "sport"
     ]
   },
@@ -5651,7 +5651,7 @@ const TABU_CARDS = [
     "word": "BUDAI VÁR",
     "taboo": [
       "Budapest",
-      "Buda",
+      "Balaton",
       "palota",
       "Mátyás-templom",
       "hegy"
@@ -5677,7 +5677,7 @@ const TABU_CARDS = [
     "word": "SZÉCHÉNYI FÜRDŐ",
     "taboo": [
       "Budapest",
-      "fürdő",
+      "Balaton",
       "termál",
       "medence",
       "Városliget"
@@ -5693,7 +5693,7 @@ const TABU_CARDS = [
       "Citadella",
       "Duna",
       "szobor",
-      "hegy"
+      "Balaton"
     ]
   },
   {
@@ -5704,7 +5704,7 @@ const TABU_CARDS = [
     "taboo": [
       "Budapest",
       "Duna",
-      "híd",
+      "Balaton",
       "oroszlán",
       "Széchenyi"
     ]
@@ -5806,7 +5806,7 @@ const TABU_CARDS = [
     "difficulty": "Normál",
     "word": "ATLANTI-ÓCEÁN",
     "taboo": [
-      "óceán",
+      "ország",
       "Amerika",
       "Európa",
       "víz",
@@ -5819,7 +5819,7 @@ const TABU_CARDS = [
     "difficulty": "Normál",
     "word": "CSENDES-ÓCEÁN",
     "taboo": [
-      "óceán",
+      "ország",
       "legnagyobb",
       "Japán",
       "Amerika",
@@ -5832,8 +5832,8 @@ const TABU_CARDS = [
     "difficulty": "Normál",
     "word": "INDIAI-ÓCEÁN",
     "taboo": [
-      "óceán",
-      "India",
+      "ország",
+      "város",
       "Afrika",
       "víz",
       "tenger"
@@ -5845,7 +5845,7 @@ const TABU_CARDS = [
     "difficulty": "Normál",
     "word": "FÖLDKÖZI-TENGER",
     "taboo": [
-      "tenger",
+      "város",
       "Európa",
       "Afrika",
       "Görögország",
@@ -5910,10 +5910,10 @@ const TABU_CARDS = [
     "difficulty": "Normál",
     "word": "NIAGARA-VÍZESÉS",
     "taboo": [
-      "vízesés",
+      "ország",
       "Kanada",
       "USA",
-      "víz",
+      "város",
       "határ"
     ]
   },
@@ -5953,7 +5953,7 @@ const TABU_CARDS = [
       "Eiffel-torony",
       "Európa",
       "bor",
-      "francia"
+      "város"
     ]
   },
   {
@@ -5965,7 +5965,7 @@ const TABU_CARDS = [
       "Berlin",
       "Európa",
       "autó",
-      "német",
+      "város",
       "sör"
     ]
   },
@@ -6030,7 +6030,7 @@ const TABU_CARDS = [
       "Hunyadi",
       "fekete sereg",
       "Corvinák",
-      "király",
+      "birodalom",
       "Buda"
     ]
   },
@@ -6044,7 +6044,7 @@ const TABU_CARDS = [
       "török",
       "ostrom",
       "1552",
-      "vár"
+      "király"
     ]
   },
   {
@@ -6053,11 +6053,11 @@ const TABU_CARDS = [
     "difficulty": "Nehéz",
     "word": "RÁKÓCZI-SZABADSÁGHARC",
     "taboo": [
-      "Rákóczi",
+      "király",
       "kuruc",
       "Habsburg",
       "1703",
-      "szabadságharc"
+      "birodalom"
     ]
   },
   {
@@ -6132,7 +6132,7 @@ const TABU_CARDS = [
     "word": "ELSŐ VILÁGHÁBORÚ",
     "taboo": [
       "1914",
-      "háború",
+      "király",
       "Monarchia",
       "front",
       "1918"
@@ -6159,7 +6159,7 @@ const TABU_CARDS = [
     "taboo": [
       "1939",
       "Hitler",
-      "háború",
+      "király",
       "Németország",
       "1945"
     ]
@@ -6185,7 +6185,7 @@ const TABU_CARDS = [
     "taboo": [
       "Budapest",
       "szovjet",
-      "forradalom",
+      "király",
       "október 23",
       "Kádár"
     ]
@@ -6225,7 +6225,7 @@ const TABU_CARDS = [
       "Franciaország",
       "Párizs",
       "1830",
-      "forradalom",
+      "birodalom",
       "király"
     ]
   },
@@ -6239,7 +6239,7 @@ const TABU_CARDS = [
       "Anglia",
       "Washington",
       "1776",
-      "függetlenség"
+      "király"
     ]
   },
   {
@@ -6252,7 +6252,7 @@ const TABU_CARDS = [
       "1789",
       "Bastille",
       "király",
-      "forradalom"
+      "birodalom"
     ]
   },
   {
@@ -6265,7 +6265,7 @@ const TABU_CARDS = [
       "fáraó",
       "Nílus",
       "múmia",
-      "ókor"
+      "király"
     ]
   },
   {
@@ -6278,7 +6278,7 @@ const TABU_CARDS = [
       "Spárta",
       "olimpia",
       "istenek",
-      "ókor"
+      "király"
     ]
   },
   {
@@ -6352,8 +6352,8 @@ const TABU_CARDS = [
     "difficulty": "Nehéz",
     "word": "FÖLDRENGÉS",
     "taboo": [
-      "föld",
-      "rengés",
+      "kutatás",
+      "kísérlet",
       "tektonikus",
       "Richter",
       "katasztrófa"
@@ -6651,7 +6651,7 @@ const TABU_CARDS = [
     "difficulty": "Nehéz",
     "word": "NINTENDO SWITCH",
     "taboo": [
-      "Nintendo",
+      "számítógép",
       "konzol",
       "Mario",
       "kézi",
@@ -6666,7 +6666,7 @@ const TABU_CARDS = [
     "taboo": [
       "virtuális",
       "játék",
-      "szemüveg",
+      "számítógép",
       "3D",
       "metaverzum"
     ]
@@ -6692,7 +6692,7 @@ const TABU_CARDS = [
     "taboo": [
       "repülés",
       "videó",
-      "kamera",
+      "számítógép",
       "távirányító",
       "felvétel"
     ]
@@ -7093,7 +7093,7 @@ const TABU_CARDS = [
     "difficulty": "Könnyű",
     "word": "TOLLTARTÓ",
     "taboo": [
-      "toll",
+      "tanár",
       "ceruza",
       "iskola",
       "füzet",
@@ -7162,7 +7162,7 @@ const TABU_CARDS = [
       "füzet",
       "iskola",
       "hát",
-      "táska"
+      "tanár"
     ]
   },
   {
@@ -7171,8 +7171,8 @@ const TABU_CARDS = [
     "difficulty": "Könnyű",
     "word": "KRÉTATÁBLA",
     "taboo": [
-      "tábla",
-      "kréta",
+      "diák",
+      "osztály",
       "tanár",
       "óra",
       "iskola"
@@ -7185,7 +7185,7 @@ const TABU_CARDS = [
     "word": "FEHÉRTÁBLA",
     "taboo": [
       "filc",
-      "tábla",
+      "diák",
       "tanár",
       "óra",
       "iskola"
@@ -7200,7 +7200,7 @@ const TABU_CARDS = [
       "iskola",
       "busz",
       "diák",
-      "kirándulás",
+      "óra",
       "tanár"
     ]
   },
@@ -7329,7 +7329,7 @@ const TABU_CARDS = [
     "taboo": [
       "március",
       "virág",
-      "nő",
+      "karácsony",
       "ajándék",
       "köszöntés"
     ]
@@ -7392,7 +7392,7 @@ const TABU_CARDS = [
     "difficulty": "Normál",
     "word": "NÉVNAP",
     "taboo": [
-      "név",
+      "karácsony",
       "virág",
       "köszöntés",
       "naptár",
@@ -7461,7 +7461,7 @@ const TABU_CARDS = [
       "München",
       "német",
       "fesztivál",
-      "október"
+      "karácsony"
     ]
   },
   {
@@ -7472,7 +7472,7 @@ const TABU_CARDS = [
     "taboo": [
       "sárkány",
       "piros",
-      "Kína",
+      "karácsony",
       "holdév",
       "ünnep"
     ]
@@ -7641,7 +7641,7 @@ const TABU_CARDS = [
     "taboo": [
       "Disney",
       "Mickey",
-      "egér",
+      "híresség",
       "piros",
       "rajzfilm"
     ]
@@ -8071,7 +8071,7 @@ const TABU_CARDS = [
       "foci",
       "FIFA",
       "Ultimate Team",
-      "EA",
+      "pont",
       "játék"
     ]
   },
@@ -8175,7 +8175,7 @@ const TABU_CARDS = [
       "áram",
       "vezeték",
       "Budapest",
-      "busz",
+      "autó",
       "BKV"
     ]
   },
@@ -8224,7 +8224,7 @@ const TABU_CARDS = [
     "difficulty": "Könnyű",
     "word": "ELEKTROMOS ROLLER",
     "taboo": [
-      "roller",
+      "autó",
       "akku",
       "Budapest",
       "két kerék",
@@ -8289,9 +8289,9 @@ const TABU_CARDS = [
     "difficulty": "Könnyű",
     "word": "TŰZOLTÓAUTÓ",
     "taboo": [
-      "tűz",
+      "busz",
       "sziréna",
-      "tűzoltó",
+      "vonat",
       "piros",
       "létrák"
     ]
@@ -8302,7 +8302,7 @@ const TABU_CARDS = [
     "difficulty": "Könnyű",
     "word": "RENDŐRAUTÓ",
     "taboo": [
-      "rendőr",
+      "busz",
       "sziréna",
       "kék",
       "jármű",
@@ -8367,10 +8367,10 @@ const TABU_CARDS = [
     "difficulty": "Könnyű",
     "word": "BENZINKÚT",
     "taboo": [
-      "benzin",
+      "busz",
       "tankolás",
       "autó",
-      "kút",
+      "vonat",
       "üzemanyag"
     ]
   },
@@ -8406,7 +8406,7 @@ const TABU_CARDS = [
     "difficulty": "Könnyű",
     "word": "KARÁCSONYI VONAT",
     "taboo": [
-      "vonat",
+      "autó",
       "ünnep",
       "állomás",
       "utazás",
@@ -8498,7 +8498,7 @@ const TABU_CARDS = [
     "word": "HANGFAL",
     "taboo": [
       "zene",
-      "hang",
+      "lakás",
       "sztereó",
       "erősítő",
       "Bluetooth"
@@ -8549,7 +8549,7 @@ const TABU_CARDS = [
     "difficulty": "Könnyű",
     "word": "KÁVÉFŐZŐ",
     "taboo": [
-      "kávé",
+      "lakás",
       "gép",
       "reggel",
       "csésze",
@@ -8562,7 +8562,7 @@ const TABU_CARDS = [
     "difficulty": "Könnyű",
     "word": "VÍZFORRALÓ",
     "taboo": [
-      "víz",
+      "lakás",
       "tea",
       "konyha",
       "forralás",
@@ -8575,7 +8575,7 @@ const TABU_CARDS = [
     "difficulty": "Könnyű",
     "word": "KENYÉRPIRÍTÓ",
     "taboo": [
-      "kenyér",
+      "lakás",
       "pirítás",
       "reggeli",
       "konyha",
@@ -8721,7 +8721,7 @@ const TABU_CARDS = [
       "lakás",
       "barátok",
       "zene",
-      "buli",
+      "tánc",
       "szomszéd"
     ]
   },
@@ -8783,7 +8783,7 @@ const TABU_CARDS = [
     "difficulty": "Könnyű",
     "word": "GIN TONIC",
     "taboo": [
-      "gin",
+      "buli",
       "tonik",
       "citrom",
       "jég",
@@ -8864,7 +8864,7 @@ const TABU_CARDS = [
       "kártya",
       "kocka",
       "csapat",
-      "játék",
+      "buli",
       "asztal"
     ]
   },
@@ -8956,7 +8956,7 @@ const TABU_CARDS = [
       "titok",
       "barátok",
       "buli",
-      "meglepetés"
+      "zene"
     ]
   },
   {
@@ -9017,7 +9017,7 @@ const TABU_CARDS = [
     "difficulty": "Könnyű",
     "word": "KULCSTARTÓ",
     "taboo": [
-      "kulcs",
+      "bevásárlás",
       "zseb",
       "ajtó",
       "karika",
@@ -9422,7 +9422,7 @@ const TABU_CARDS = [
     "taboo": [
       "atlétika",
       "dobás",
-      "kalapács",
+      "meccs",
       "kör",
       "olimpia"
     ]
@@ -9434,7 +9434,7 @@ const TABU_CARDS = [
     "word": "GERELYHAJÍTÁS",
     "taboo": [
       "atlétika",
-      "gerely",
+      "meccs",
       "dobás",
       "táv",
       "olimpia"
@@ -9448,7 +9448,7 @@ const TABU_CARDS = [
     "taboo": [
       "atlétika",
       "homok",
-      "ugrás",
+      "meccs",
       "nekifutás",
       "verseny"
     ]
@@ -9460,7 +9460,7 @@ const TABU_CARDS = [
     "word": "MAGASUGRÁS",
     "taboo": [
       "léc",
-      "ugrás",
+      "meccs",
       "atlétika",
       "magasság",
       "verseny"
@@ -9485,7 +9485,7 @@ const TABU_CARDS = [
     "difficulty": "Normál",
     "word": "BALATONFÜRED",
     "taboo": [
-      "Balaton",
+      "Budapest",
       "város",
       "Tagore",
       "Anna-bál",
@@ -9654,7 +9654,7 @@ const TABU_CARDS = [
     "difficulty": "Nehéz",
     "word": "HUNYADI JÁNOS",
     "taboo": [
-      "Hunyadi",
+      "király",
       "Nándorfehérvár",
       "török",
       "kormányzó",
@@ -9784,11 +9784,11 @@ const TABU_CARDS = [
     "difficulty": "Nehéz",
     "word": "NAPFOGYATKOZÁS",
     "taboo": [
-      "Nap",
+      "kutatás",
       "Hold",
       "árnyék",
       "égbolt",
-      "fogyatkozás"
+      "kísérlet"
     ]
   },
   {
@@ -9797,11 +9797,11 @@ const TABU_CARDS = [
     "difficulty": "Nehéz",
     "word": "HOLDFOGYATKOZÁS",
     "taboo": [
-      "Hold",
+      "kutatás",
       "Föld",
       "árnyék",
       "éjszaka",
-      "fogyatkozás"
+      "kísérlet"
     ]
   },
   {
@@ -9810,7 +9810,7 @@ const TABU_CARDS = [
     "difficulty": "Nehéz",
     "word": "FÉNYSEBESSÉG",
     "taboo": [
-      "fény",
+      "kutatás",
       "299792",
       "km/s",
       "Einstein",
@@ -9916,7 +9916,7 @@ const TABU_CARDS = [
     "taboo": [
       "térkép",
       "útvonal",
-      "Google",
+      "számítógép",
       "navigáció",
       "telefon"
     ]
@@ -9967,7 +9967,7 @@ const TABU_CARDS = [
     "word": "FIZETÉSI PAPÍR",
     "taboo": [
       "bér",
-      "fizetés",
+      "iroda",
       "nettó",
       "bruttó",
       "munka"
@@ -9983,7 +9983,7 @@ const TABU_CARDS = [
       "aláírás",
       "főnök",
       "jog",
-      "munka"
+      "iroda"
     ]
   },
   {
@@ -9994,7 +9994,7 @@ const TABU_CARDS = [
     "taboo": [
       "teendő",
       "munka",
-      "lista",
+      "iroda",
       "határidő",
       "projekt"
     ]
@@ -10151,7 +10151,7 @@ const TABU_CARDS = [
       "fenyő",
       "dísz",
       "gömb",
-      "karácsony",
+      "húsvét",
       "égősor"
     ]
   },
@@ -10175,7 +10175,7 @@ const TABU_CARDS = [
     "word": "LOCsolóVERS",
     "taboo": [
       "húsvét",
-      "vers",
+      "karácsony",
       "kölnivíz",
       "fiú",
       "tojás"
@@ -10201,10 +10201,10 @@ const TABU_CARDS = [
     "word": "SZÜLETÉSNAPI TORTA",
     "taboo": [
       "gyertya",
-      "torta",
+      "karácsony",
       "ünnep",
       "csoki",
-      "születésnap"
+      "húsvét"
     ]
   },
   {
@@ -10345,7 +10345,7 @@ const TABU_CARDS = [
     "taboo": [
       "lap",
       "pakli",
-      "játék",
+      "játékos",
       "osztás",
       "ász"
     ]
@@ -10438,7 +10438,7 @@ const TABU_CARDS = [
       "megállás",
       "út",
       "KRESZ",
-      "tábla"
+      "autó"
     ]
   },
   {
@@ -10460,7 +10460,7 @@ const TABU_CARDS = [
     "difficulty": "Könnyű",
     "word": "AUTÓBUSZ-MEGÁLLÓ",
     "taboo": [
-      "busz",
+      "vonat",
       "tábla",
       "járat",
       "várakozás",
@@ -10473,7 +10473,7 @@ const TABU_CARDS = [
     "difficulty": "Könnyű",
     "word": "VONATÁLLOMÁS",
     "taboo": [
-      "vonat",
+      "autó",
       "peron",
       "sín",
       "jegy",
@@ -10499,7 +10499,7 @@ const TABU_CARDS = [
     "difficulty": "Könnyű",
     "word": "TAXIÓRA",
     "taboo": [
-      "taxi",
+      "autó",
       "ár",
       "fuvar",
       "sofőr",
@@ -10554,7 +10554,7 @@ const TABU_CARDS = [
       "ágy",
       "alvás",
       "szekrény",
-      "szoba",
+      "lakás",
       "párna"
     ]
   },
@@ -10668,11 +10668,11 @@ const TABU_CARDS = [
     "difficulty": "Könnyű",
     "word": "BULIZÓS DJ",
     "taboo": [
-      "DJ",
+      "barátok",
       "zene",
       "pult",
       "tánc",
-      "buli"
+      "ital"
     ]
   },
   {
@@ -10774,7 +10774,7 @@ const TABU_CARDS = [
     "taboo": [
       "Marvel",
       "Thanos",
-      "Avengers",
+      "szereplő",
       "idő",
       "film"
     ]
@@ -10838,7 +10838,7 @@ const TABU_CARDS = [
     "word": "RÖPLABDA",
     "taboo": [
       "háló",
-      "labda",
+      "meccs",
       "ütés",
       "csapat",
       "pálya"
@@ -10928,7 +10928,7 @@ const TABU_CARDS = [
     "difficulty": "Nehéz",
     "word": "TRÓJAI HÁBORÚ",
     "taboo": [
-      "Trója",
+      "király",
       "görög",
       "faló",
       "Akhilleusz",
@@ -10995,7 +10995,7 @@ const TABU_CARDS = [
     "taboo": [
       "iskola",
       "kártya",
-      "diák",
+      "tanár",
       "igazolás",
       "kedvezmény"
     ]
@@ -11019,7 +11019,7 @@ const TABU_CARDS = [
     "difficulty": "Könnyű",
     "word": "SZÓLJON A ZENE",
     "taboo": [
-      "zene",
+      "barátok",
       "buli",
       "DJ",
       "hangszóró",
@@ -11035,7 +11035,7 @@ const TABU_CARDS = [
       "tábla",
       "kocka",
       "létra",
-      "kígyó",
+      "pont",
       "játék"
     ]
   },

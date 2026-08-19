@@ -305,3 +305,5 @@ input,textarea,select{
   touch-action:manipulation;
 }
 .all-play-team-btn:active{transform:scale(.98)}
+
+.stats-mini{font-weight:900;white-space:nowrap;font-size:14px}
