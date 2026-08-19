@@ -1,6 +1,5 @@
-// Tabu Magyar – eredeti, saját kártyapakli
+// Tabu Magyar – eredeti, saját 1200 kártyás pakli
 // A kártyák nem a Hasbro fizikai paklijának másolatai.
-// A pakli 850 eredeti, magyar nyelvű feladványból áll.
 const TABU_CARDS = [
   {
     "id": "HU0001",
@@ -151,11 +150,11 @@ const TABU_CARDS = [
     "difficulty": "Normál",
     "word": "FOGKEFE",
     "taboo": [
-      "bevásárlás",
-      "mosás",
+      "fogmosás",
       "fogkrém",
       "fürdőszoba",
-      "sörték"
+      "sörték",
+      "szájápolás"
     ]
   },
   {
@@ -219,7 +218,7 @@ const TABU_CARDS = [
       "hús",
       "zsemle",
       "sajt",
-      "hamburgerhús",
+      "buci",
       "étterem"
     ]
   },
@@ -451,7 +450,7 @@ const TABU_CARDS = [
     "word": "GLADIÁTOR",
     "taboo": [
       "Róma",
-      "arénа",
+      "aréna",
       "Russell Crowe",
       "harcos",
       "császár"
@@ -792,7 +791,7 @@ const TABU_CARDS = [
       "hangszer",
       "fekete",
       "fehér",
-      "kottta"
+      "kotta"
     ]
   },
   {
@@ -1033,7 +1032,7 @@ const TABU_CARDS = [
     "id": "HU0080",
     "category": "Sport",
     "difficulty": "Normál",
-    "word": "PADel",
+    "word": "PADEL",
     "taboo": [
       "ütő",
       "üveg",
@@ -1215,13 +1214,13 @@ const TABU_CARDS = [
     "id": "HU0094",
     "category": "Magyarország",
     "difficulty": "Könnyű",
-    "word": "GULYÁSLEKVES",
+    "word": "GULYÁSLEVES",
     "taboo": [
       "magyar",
       "paprika",
       "hús",
-      "leves",
-      "bogrács"
+      "bogrács",
+      "marha"
     ]
   },
   {
@@ -1585,7 +1584,7 @@ const TABU_CARDS = [
       "vár",
       "király",
       "feudalizmus",
-      "középkori"
+      "sötét kor"
     ]
   },
   {
@@ -2833,7 +2832,7 @@ const TABU_CARDS = [
       "Avengers",
       "képregény",
       "Disney",
-      "Marvel Studios"
+      "képregényfilm"
     ]
   },
   {
@@ -3964,7 +3963,7 @@ const TABU_CARDS = [
       "levél",
       "boríték",
       "ragasztó",
-      "bélyegzés"
+      "postai"
     ]
   },
   {
@@ -5756,7 +5755,7 @@ const TABU_CARDS = [
     "taboo": [
       "kontinens",
       "ország",
-      "Európai Unió",
+      "unió",
       "Ázsia",
       "földrész"
     ]
@@ -8215,7 +8214,7 @@ const TABU_CARDS = [
       "sisak",
       "benzin",
       "jármű",
-      "motoros"
+      "robogó"
     ]
   },
   {
@@ -9371,7 +9370,7 @@ const TABU_CARDS = [
       "rock",
       "New Jersey",
       "Livin' on a Prayer",
-      "Jon Bon Jovi",
+      "énekes",
       "zenekar"
     ]
   },
@@ -11050,6 +11049,4556 @@ const TABU_CARDS = [
       "tánc",
       "gót",
       "sorozat"
+    ]
+  },
+  {
+    "id": "HU0851",
+    "category": "Filmek",
+    "difficulty": "Normál",
+    "word": "JOHNNY DEPP",
+    "taboo": [
+      "tom hanks",
+      "meryl streep",
+      "leonardo dicaprio",
+      "robert de niro",
+      "jack nicholson"
+    ]
+  },
+  {
+    "id": "HU0852",
+    "category": "Filmek",
+    "difficulty": "Normál",
+    "word": "MACI LACI",
+    "taboo": [
+      "mickey egér",
+      "donald kacsa",
+      "tom",
+      "jerry",
+      "bugs bunny"
+    ]
+  },
+  {
+    "id": "HU0853",
+    "category": "Filmek",
+    "difficulty": "Normál",
+    "word": "VIVIEN LEIGH",
+    "taboo": [
+      "audrey hepburn",
+      "marilyn monroe",
+      "grace kelly",
+      "elizabeth taylor",
+      "ingrid bergman"
+    ]
+  },
+  {
+    "id": "HU0854",
+    "category": "Filmek",
+    "difficulty": "Normál",
+    "word": "PINOCCHIO",
+    "taboo": [
+      "coraline",
+      "a karácsonyi lidércnyomás",
+      "kubo és a varázshúrok",
+      "wallace és gromit: az elvetemült veteménylény",
+      "a fantasztikus róka úr"
+    ]
+  },
+  {
+    "id": "HU0855",
+    "category": "Filmek",
+    "difficulty": "Normál",
+    "word": "MARY POPPINS",
+    "taboo": [
+      "grease",
+      "mamma mia!",
+      "chicago",
+      "az operaház fantomja",
+      "west side story"
+    ]
+  },
+  {
+    "id": "HU0856",
+    "category": "Filmek",
+    "difficulty": "Normál",
+    "word": "JOHN BARRY",
+    "taboo": [
+      "john williams",
+      "hans zimmer",
+      "ennio morricone",
+      "howard shore",
+      "danny elfman"
+    ]
+  },
+  {
+    "id": "HU0857",
+    "category": "Filmek",
+    "difficulty": "Normál",
+    "word": "PHILADELPHIA",
+    "taboo": [
+      "forrest gump",
+      "big",
+      "apollo 13",
+      "számkivetett",
+      "a zöld mérföld"
+    ]
+  },
+  {
+    "id": "HU0858",
+    "category": "Filmek",
+    "difficulty": "Normál",
+    "word": "ROBERT RICHARDSON",
+    "taboo": [
+      "roger deakins",
+      "emmanuel lubezki",
+      "vittorio storaro",
+      "janusz kamiński",
+      "hoyte van hoytema"
+    ]
+  },
+  {
+    "id": "HU0859",
+    "category": "Filmek",
+    "difficulty": "Normál",
+    "word": "DIRTY DANCING",
+    "taboo": [
+      "titanic",
+      "pretty woman",
+      "ghost",
+      "notting hill",
+      "micsoda nő!"
+    ]
+  },
+  {
+    "id": "HU0860",
+    "category": "Filmek",
+    "difficulty": "Normál",
+    "word": "RIDLEY SCOTT",
+    "taboo": [
+      "steven spielberg",
+      "quentin tarantino",
+      "christopher nolan",
+      "martin scorsese",
+      "alfred hitchcock"
+    ]
+  },
+  {
+    "id": "HU0861",
+    "category": "Filmek",
+    "difficulty": "Normál",
+    "word": "NAGY DURRANÁS",
+    "taboo": [
+      "reszkessetek betörők",
+      "a maszk",
+      "ace ventura",
+      "mr. bean",
+      "dumb és dumber"
+    ]
+  },
+  {
+    "id": "HU0862",
+    "category": "Filmek",
+    "difficulty": "Normál",
+    "word": "JUDY GARLAND",
+    "taboo": [
+      "audrey hepburn",
+      "marilyn monroe",
+      "grace kelly",
+      "elizabeth taylor",
+      "vivien leigh"
+    ]
+  },
+  {
+    "id": "HU0863",
+    "category": "Filmek",
+    "difficulty": "Nehéz",
+    "word": "BRIDGET JONES NAPLÓJA",
+    "taboo": [
+      "reszkessetek betörők",
+      "a maszk",
+      "ace ventura",
+      "mr. bean",
+      "dumb és dumber"
+    ]
+  },
+  {
+    "id": "HU0864",
+    "category": "Filmek",
+    "difficulty": "Nehéz",
+    "word": "20TH CENTURY STUDIOS",
+    "taboo": [
+      "warner bros.",
+      "universal pictures",
+      "paramount pictures",
+      "columbia pictures",
+      "walt disney pictures"
+    ]
+  },
+  {
+    "id": "HU0865",
+    "category": "Filmek",
+    "difficulty": "Nehéz",
+    "word": "TELLURIDE FILMFESZTIVÁL",
+    "taboo": [
+      "cannes-i filmfesztivál",
+      "velencei filmfesztivál",
+      "berlini nemzetközi filmfesztivál",
+      "torontói nemzetközi filmfesztivál",
+      "sundance filmfesztivál"
+    ]
+  },
+  {
+    "id": "HU0866",
+    "category": "Filmek",
+    "difficulty": "Nehéz",
+    "word": "VOLT EGYSZER EGY HOLLYWOOD",
+    "taboo": [
+      "titanic",
+      "a viharsziget",
+      "django elszabadul",
+      "a wall street farkasa",
+      "aviátor"
+    ]
+  },
+  {
+    "id": "HU0867",
+    "category": "Filmek",
+    "difficulty": "Nehéz",
+    "word": "AZ ELVESZETT FRIGYLÁDA FOSZTOGATÓI",
+    "taboo": [
+      "cápa",
+      "e.t. – a földönkívüli",
+      "jurassic park",
+      "schindler listája",
+      "ryan közlegény megmentése"
+    ]
+  },
+  {
+    "id": "HU0868",
+    "category": "Filmek",
+    "difficulty": "Nehéz",
+    "word": "SCREEN ACTORS GUILD-DÍJ",
+    "taboo": [
+      "oscar-díj",
+      "golden globe-díj",
+      "bafta-díj",
+      "cannes-i arany pálma",
+      "velencei arany oroszlán"
+    ]
+  },
+  {
+    "id": "HU0869",
+    "category": "Filmek",
+    "difficulty": "Nehéz",
+    "word": "TŰZOLTÓ UTCA 25.",
+    "taboo": [
+      "apa",
+      "szerelmesfilm",
+      "bizalom",
+      "mephisto",
+      "redl ezredes"
+    ]
+  },
+  {
+    "id": "HU0870",
+    "category": "Filmek",
+    "difficulty": "Nehéz",
+    "word": "A SÖTÉT LOVAG – FELEMELKEDÉS",
+    "taboo": [
+      "memento",
+      "batman – kezdődik",
+      "origó (inception)",
+      "csillagok között",
+      "dunkirk – a második világháború pokla"
+    ]
+  },
+  {
+    "id": "HU0871",
+    "category": "Filmek",
+    "difficulty": "Nehéz",
+    "word": "RESERVOIR DOGS – KUTYASZORÍTÓBAN",
+    "taboo": [
+      "ponyvaregény",
+      "kill bill",
+      "django elszabadul",
+      "aljas nyolcas",
+      "becstelen brigantyk"
+    ]
+  },
+  {
+    "id": "HU0872",
+    "category": "Filmek",
+    "difficulty": "Nehéz",
+    "word": "ROBERT DE NIRO",
+    "taboo": [
+      "tom hanks",
+      "meryl streep",
+      "leonardo dicaprio",
+      "jack nicholson",
+      "denzel washington"
+    ]
+  },
+  {
+    "id": "HU0873",
+    "category": "Filmek",
+    "difficulty": "Nehéz",
+    "word": "WALT DISNEY PICTURES",
+    "taboo": [
+      "warner bros.",
+      "universal pictures",
+      "paramount pictures",
+      "columbia pictures",
+      "20th century studios"
+    ]
+  },
+  {
+    "id": "HU0874",
+    "category": "Filmek",
+    "difficulty": "Nehéz",
+    "word": "CANNES-I FILMFESZTIVÁL",
+    "taboo": [
+      "velencei filmfesztivál",
+      "berlini nemzetközi filmfesztivál",
+      "torontói nemzetközi filmfesztivál",
+      "sundance filmfesztivál",
+      "san sebastián-i filmfesztivál"
+    ]
+  },
+  {
+    "id": "HU0875",
+    "category": "Filmek",
+    "difficulty": "Nehéz",
+    "word": "A FANTASZTIKUS RÓKA ÚR",
+    "taboo": [
+      "coraline",
+      "a karácsonyi lidércnyomás",
+      "kubo és a varázshúrok",
+      "wallace és gromit: az elvetemült veteménylény",
+      "mary és max"
+    ]
+  },
+  {
+    "id": "HU0876",
+    "category": "Filmek",
+    "difficulty": "Nehéz",
+    "word": "NEW LINE CINEMA",
+    "taboo": [
+      "warner bros.",
+      "paramount",
+      "universal pictures",
+      "columbia pictures",
+      "20th century studios"
+    ]
+  },
+  {
+    "id": "HU0877",
+    "category": "Filmek",
+    "difficulty": "Nehéz",
+    "word": "NEW YORK BANDÁI",
+    "taboo": [
+      "titanic",
+      "a viharsziget",
+      "django elszabadul",
+      "a wall street farkasa",
+      "aviátor"
+    ]
+  },
+  {
+    "id": "HU0878",
+    "category": "Földrajz",
+    "difficulty": "Normál",
+    "word": "IBIZA TOWN",
+    "taboo": [
+      "palermo",
+      "catania",
+      "heraklion",
+      "valletta",
+      "nassau"
+    ]
+  },
+  {
+    "id": "HU0879",
+    "category": "Földrajz",
+    "difficulty": "Normál",
+    "word": "MONTPELLIER",
+    "taboo": [
+      "párizs",
+      "marseille",
+      "lyon",
+      "toulouse",
+      "nizza"
+    ]
+  },
+  {
+    "id": "HU0880",
+    "category": "Földrajz",
+    "difficulty": "Normál",
+    "word": "KALAMATA",
+    "taboo": [
+      "athén",
+      "szaloniki",
+      "patrasz",
+      "heraklion",
+      "lárisza"
+    ]
+  },
+  {
+    "id": "HU0881",
+    "category": "Földrajz",
+    "difficulty": "Normál",
+    "word": "TOKYO SKYTREE",
+    "taboo": [
+      "empire state building",
+      "burj khalifa",
+      "london eye",
+      "eiffel-torony",
+      "gellért-hegy"
+    ]
+  },
+  {
+    "id": "HU0882",
+    "category": "Földrajz",
+    "difficulty": "Normál",
+    "word": "VALENCIA",
+    "taboo": [
+      "monterey",
+      "atlanta",
+      "dubai",
+      "lisszabon",
+      "okinawa"
+    ]
+  },
+  {
+    "id": "HU0883",
+    "category": "Földrajz",
+    "difficulty": "Normál",
+    "word": "KANÁRI-SZIGETEK",
+    "taboo": [
+      "izland",
+      "szicília (etna)",
+      "hawaii",
+      "santorini",
+      "réunion"
+    ]
+  },
+  {
+    "id": "HU0884",
+    "category": "Földrajz",
+    "difficulty": "Normál",
+    "word": "ROTTERDAMI KIKÖTŐ",
+    "taboo": [
+      "szingapúri kikötő",
+      "sanghaji kikötő",
+      "hongkongi kikötő",
+      "hamburgi kikötő",
+      "busani kikötő"
+    ]
+  },
+  {
+    "id": "HU0885",
+    "category": "Földrajz",
+    "difficulty": "Normál",
+    "word": "TAJ MAHAL",
+    "taboo": [
+      "machu picchu",
+      "petra",
+      "angkor wat",
+      "chichén itzá",
+      "gízai piramisok"
+    ]
+  },
+  {
+    "id": "HU0886",
+    "category": "Földrajz",
+    "difficulty": "Normál",
+    "word": "SZINGAPÚR",
+    "taboo": [
+      "szaúd-arábia",
+      "szenegál",
+      "szerbia",
+      "seychelle-szigetek",
+      "sierra leone"
+    ]
+  },
+  {
+    "id": "HU0887",
+    "category": "Földrajz",
+    "difficulty": "Normál",
+    "word": "KAMBODZSA",
+    "taboo": [
+      "kanada",
+      "kína",
+      "kolumbia",
+      "kenya",
+      "katar"
+    ]
+  },
+  {
+    "id": "HU0888",
+    "category": "Földrajz",
+    "difficulty": "Normál",
+    "word": "BANGLADES",
+    "taboo": [
+      "belgium",
+      "brazília",
+      "bulgária",
+      "bolívia",
+      "botswana"
+    ]
+  },
+  {
+    "id": "HU0889",
+    "category": "Földrajz",
+    "difficulty": "Normál",
+    "word": "DÜSSELDORF",
+    "taboo": [
+      "berlin",
+      "münchen",
+      "hamburg",
+      "köln",
+      "frankfurt"
+    ]
+  },
+  {
+    "id": "HU0890",
+    "category": "Földrajz",
+    "difficulty": "Normál",
+    "word": "CENTRAL PARK",
+    "taboo": [
+      "hyde park",
+      "városliget",
+      "retiro park",
+      "villa borghese",
+      "stanley park"
+    ]
+  },
+  {
+    "id": "HU0891",
+    "category": "Földrajz",
+    "difficulty": "Normál",
+    "word": "TOWER BRIDGE",
+    "taboo": [
+      "országház",
+      "notre-dame",
+      "ponte vecchio",
+      "rialto híd",
+      "brooklyn híd"
+    ]
+  },
+  {
+    "id": "HU0892",
+    "category": "Földrajz",
+    "difficulty": "Normál",
+    "word": "MONTREUX",
+    "taboo": [
+      "zürich",
+      "genf",
+      "bázel",
+      "bern",
+      "lausanne"
+    ]
+  },
+  {
+    "id": "HU0893",
+    "category": "Földrajz",
+    "difficulty": "Nehéz",
+    "word": "DOVER-SZOROS",
+    "taboo": [
+      "gibraltári-szoros",
+      "boszporusz",
+      "dardanellák",
+      "malaka-szoros",
+      "bering-szoros"
+    ]
+  },
+  {
+    "id": "HU0894",
+    "category": "Földrajz",
+    "difficulty": "Nehéz",
+    "word": "YOSEMITE-VÍZESÉS",
+    "taboo": [
+      "niagara-vízesés",
+      "viktória-vízesés",
+      "iguazú-vízesések",
+      "angel-vízesés",
+      "gullfoss"
+    ]
+  },
+  {
+    "id": "HU0895",
+    "category": "Földrajz",
+    "difficulty": "Nehéz",
+    "word": "ORDESA Y MONTE PERDIDO",
+    "taboo": [
+      "plitvicei-tavak",
+      "triglav nemzeti park",
+      "saxon switzerland",
+      "hohe tauern",
+      "gran paradiso"
+    ]
+  },
+  {
+    "id": "HU0896",
+    "category": "Földrajz",
+    "difficulty": "Nehéz",
+    "word": "KRUGER NEMZETI PARK",
+    "taboo": [
+      "yellowstone nemzeti park",
+      "yosemite nemzeti park",
+      "grand canyon nemzeti park",
+      "banff nemzeti park",
+      "serengeti nemzeti park"
+    ]
+  },
+  {
+    "id": "HU0897",
+    "category": "Földrajz",
+    "difficulty": "Nehéz",
+    "word": "EGYESÜLT ARAB EMÍRSÉGEK",
+    "taboo": [
+      "ecuador",
+      "egyenlítői-guinea",
+      "egyesült államok",
+      "egyesült királyság",
+      "egyiptom"
+    ]
+  },
+  {
+    "id": "HU0898",
+    "category": "Iskola",
+    "difficulty": "Könnyű",
+    "word": "GUMIZÁS",
+    "taboo": [
+      "fogócska",
+      "bújócska",
+      "ugróiskola",
+      "métázás",
+      "karikázás"
+    ]
+  },
+  {
+    "id": "HU0899",
+    "category": "Iskola",
+    "difficulty": "Könnyű",
+    "word": "PAD",
+    "taboo": [
+      "ugrószekrény",
+      "zsámoly",
+      "bordásfal",
+      "szőnyeg",
+      "karika"
+    ]
+  },
+  {
+    "id": "HU0900",
+    "category": "Iskola",
+    "difficulty": "Könnyű",
+    "word": "ELTE",
+    "taboo": [
+      "harvard",
+      "oxford",
+      "cambridge",
+      "yale",
+      "stanford"
+    ]
+  },
+  {
+    "id": "HU0901",
+    "category": "Iskola",
+    "difficulty": "Normál",
+    "word": "BALLAGÁSI INDULÓ",
+    "taboo": [
+      "szalag",
+      "ballagási meghívó",
+      "ballagási tarisznya",
+      "búcsúbeszéd",
+      "iskolazászló"
+    ]
+  },
+  {
+    "id": "HU0902",
+    "category": "Iskola",
+    "difficulty": "Normál",
+    "word": "SORBAN ÁLLÁS",
+    "taboo": [
+      "padtörlés",
+      "táblatörlés",
+      "csendben ülés",
+      "feleletre készülés",
+      "füzetellenőrzés"
+    ]
+  },
+  {
+    "id": "HU0903",
+    "category": "Iskola",
+    "difficulty": "Normál",
+    "word": "SORBONNE",
+    "taboo": [
+      "harvard",
+      "oxford",
+      "cambridge",
+      "yale",
+      "stanford"
+    ]
+  },
+  {
+    "id": "HU0904",
+    "category": "Iskola",
+    "difficulty": "Normál",
+    "word": "BALLAGÁSI TARISZNYA",
+    "taboo": [
+      "szalag",
+      "ballagási meghívó",
+      "búcsúbeszéd",
+      "iskolazászló",
+      "ballagási induló"
+    ]
+  },
+  {
+    "id": "HU0905",
+    "category": "Iskola",
+    "difficulty": "Normál",
+    "word": "NAPLÓ VEZETÉSE",
+    "taboo": [
+      "padtörlés",
+      "táblatörlés",
+      "sorban állás",
+      "csendben ülés",
+      "feleletre készülés"
+    ]
+  },
+  {
+    "id": "HU0906",
+    "category": "Iskola",
+    "difficulty": "Normál",
+    "word": "UGRÓISKOLA",
+    "taboo": [
+      "fogócska",
+      "bújócska",
+      "métázás",
+      "gumizás",
+      "karikázás"
+    ]
+  },
+  {
+    "id": "HU0907",
+    "category": "Iskola",
+    "difficulty": "Normál",
+    "word": "BÚCSÚBESZÉD",
+    "taboo": [
+      "szalag",
+      "ballagási meghívó",
+      "ballagási tarisznya",
+      "iskolazászló",
+      "ballagási induló"
+    ]
+  },
+  {
+    "id": "HU0908",
+    "category": "Iskola",
+    "difficulty": "Normál",
+    "word": "IGAZOLÁS LEADÁSA",
+    "taboo": [
+      "padtörlés",
+      "táblatörlés",
+      "sorban állás",
+      "csendben ülés",
+      "feleletre készülés"
+    ]
+  },
+  {
+    "id": "HU0909",
+    "category": "Iskola",
+    "difficulty": "Normál",
+    "word": "CAMBRIDGE",
+    "taboo": [
+      "harvard",
+      "oxford",
+      "yale",
+      "stanford",
+      "mit"
+    ]
+  },
+  {
+    "id": "HU0910",
+    "category": "Iskola",
+    "difficulty": "Normál",
+    "word": "TORNAZSÁK",
+    "taboo": [
+      "tankönyv",
+      "füzet",
+      "tolltartó",
+      "uzsonna",
+      "kulacs"
+    ]
+  },
+  {
+    "id": "HU0911",
+    "category": "Iskola",
+    "difficulty": "Nehéz",
+    "word": "PRÁGAI KÁROLY EGYETEM",
+    "taboo": [
+      "bolognai egyetem",
+      "oxfordi egyetem",
+      "párizsi egyetem",
+      "cambridge-i egyetem",
+      "salamancai egyetem"
+    ]
+  },
+  {
+    "id": "HU0912",
+    "category": "Iskola",
+    "difficulty": "Nehéz",
+    "word": "OXFORDI EGYETEM",
+    "taboo": [
+      "bolognai egyetem",
+      "párizsi egyetem",
+      "cambridge-i egyetem",
+      "salamancai egyetem",
+      "prágai károly egyetem"
+    ]
+  },
+  {
+    "id": "HU0913",
+    "category": "Iskola",
+    "difficulty": "Nehéz",
+    "word": "PÁRIZSI EGYETEM",
+    "taboo": [
+      "bolognai egyetem",
+      "oxfordi egyetem",
+      "cambridge-i egyetem",
+      "salamancai egyetem",
+      "prágai károly egyetem"
+    ]
+  },
+  {
+    "id": "HU0914",
+    "category": "Iskola",
+    "difficulty": "Nehéz",
+    "word": "KRAKKÓI EGYETEM",
+    "taboo": [
+      "bolognai egyetem",
+      "oxfordi egyetem",
+      "párizsi egyetem",
+      "cambridge-i egyetem",
+      "salamancai egyetem"
+    ]
+  },
+  {
+    "id": "HU0915",
+    "category": "Iskola",
+    "difficulty": "Nehéz",
+    "word": "BOLOGNAI EGYETEM",
+    "taboo": [
+      "oxfordi egyetem",
+      "párizsi egyetem",
+      "cambridge-i egyetem",
+      "salamancai egyetem",
+      "prágai károly egyetem"
+    ]
+  },
+  {
+    "id": "HU0916",
+    "category": "Iskola",
+    "difficulty": "Nehéz",
+    "word": "CAMBRIDGE-I EGYETEM",
+    "taboo": [
+      "bolognai egyetem",
+      "oxfordi egyetem",
+      "párizsi egyetem",
+      "salamancai egyetem",
+      "prágai károly egyetem"
+    ]
+  },
+  {
+    "id": "HU0917",
+    "category": "Játékok",
+    "difficulty": "Könnyű",
+    "word": "WHIST",
+    "taboo": [
+      "póker",
+      "bridzs",
+      "black jack",
+      "baccarat",
+      "solitaire"
+    ]
+  },
+  {
+    "id": "HU0918",
+    "category": "Játékok",
+    "difficulty": "Könnyű",
+    "word": "ROBLOX",
+    "taboo": [
+      "minecraft",
+      "super mario",
+      "grand theft auto",
+      "fortnite",
+      "the sims"
+    ]
+  },
+  {
+    "id": "HU0919",
+    "category": "Játékok",
+    "difficulty": "Könnyű",
+    "word": "MAHJONG",
+    "taboo": [
+      "póker",
+      "blackjack",
+      "rulett",
+      "baccarat",
+      "craps"
+    ]
+  },
+  {
+    "id": "HU0920",
+    "category": "Játékok",
+    "difficulty": "Könnyű",
+    "word": "KAKURO",
+    "taboo": [
+      "sudoku",
+      "rubik-kocka",
+      "keresztrejtvény",
+      "tangram",
+      "nonogram"
+    ]
+  },
+  {
+    "id": "HU0921",
+    "category": "Játékok",
+    "difficulty": "Könnyű",
+    "word": "SHOGI",
+    "taboo": [
+      "senet",
+      "royal game of ur",
+      "mahjong",
+      "backgammon",
+      "mancala"
+    ]
+  },
+  {
+    "id": "HU0922",
+    "category": "Játékok",
+    "difficulty": "Könnyű",
+    "word": "COYOTE",
+    "taboo": [
+      "uno",
+      "activity kártyák",
+      "dixit",
+      "taboo",
+      "sztereotípiák"
+    ]
+  },
+  {
+    "id": "HU0923",
+    "category": "Játékok",
+    "difficulty": "Könnyű",
+    "word": "LOTTÓ",
+    "taboo": [
+      "póker",
+      "blackjack",
+      "rulett",
+      "baccarat",
+      "craps"
+    ]
+  },
+  {
+    "id": "HU0924",
+    "category": "Játékok",
+    "difficulty": "Könnyű",
+    "word": "SONIC",
+    "taboo": [
+      "mario",
+      "link",
+      "pikachu",
+      "lara croft",
+      "pac-man"
+    ]
+  },
+  {
+    "id": "HU0925",
+    "category": "Játékok",
+    "difficulty": "Könnyű",
+    "word": "PAC-MAN",
+    "taboo": [
+      "space invaders",
+      "donkey kong",
+      "galaga",
+      "frogger",
+      "asteroids"
+    ]
+  },
+  {
+    "id": "HU0926",
+    "category": "Játékok",
+    "difficulty": "Könnyű",
+    "word": "SKAT",
+    "taboo": [
+      "póker",
+      "bridzs",
+      "black jack",
+      "baccarat",
+      "solitaire"
+    ]
+  },
+  {
+    "id": "HU0927",
+    "category": "Játékok",
+    "difficulty": "Normál",
+    "word": "CENTIPEDE",
+    "taboo": [
+      "pac-man",
+      "space invaders",
+      "donkey kong",
+      "galaga",
+      "frogger"
+    ]
+  },
+  {
+    "id": "HU0928",
+    "category": "Játékok",
+    "difficulty": "Nehéz",
+    "word": "NINTENDO 64",
+    "taboo": [
+      "playstation",
+      "xbox",
+      "nintendo switch",
+      "game boy",
+      "wii"
+    ]
+  },
+  {
+    "id": "HU0929",
+    "category": "Játékok",
+    "difficulty": "Nehéz",
+    "word": "CALL OF DUTY",
+    "taboo": [
+      "minecraft",
+      "super mario",
+      "grand theft auto",
+      "fortnite",
+      "the sims"
+    ]
+  },
+  {
+    "id": "HU0930",
+    "category": "Játékok",
+    "difficulty": "Nehéz",
+    "word": "MICHAEL VAN GERWEN",
+    "taboo": [
+      "phil taylor",
+      "raymond van barneveld",
+      "gary anderson",
+      "peter wright",
+      "adrian lewis"
+    ]
+  },
+  {
+    "id": "HU0931",
+    "category": "Közlekedés",
+    "difficulty": "Könnyű",
+    "word": "RENAULT",
+    "taboo": [
+      "toyota",
+      "ford",
+      "bmw",
+      "audi",
+      "mercedes"
+    ]
+  },
+  {
+    "id": "HU0932",
+    "category": "Közlekedés",
+    "difficulty": "Könnyű",
+    "word": "OPEL",
+    "taboo": [
+      "toyota",
+      "ford",
+      "bmw",
+      "audi",
+      "mercedes"
+    ]
+  },
+  {
+    "id": "HU0933",
+    "category": "Közlekedés",
+    "difficulty": "Könnyű",
+    "word": "HÉV",
+    "taboo": [
+      "busz",
+      "villamos",
+      "metró",
+      "trolibusz",
+      "taxi"
+    ]
+  },
+  {
+    "id": "HU0934",
+    "category": "Közlekedés",
+    "difficulty": "Könnyű",
+    "word": "AUDI",
+    "taboo": [
+      "toyota",
+      "ford",
+      "bmw",
+      "mercedes",
+      "volkswagen"
+    ]
+  },
+  {
+    "id": "HU0935",
+    "category": "Közlekedés",
+    "difficulty": "Könnyű",
+    "word": "GŐZHAJÓ",
+    "taboo": [
+      "vízibusz",
+      "komp",
+      "vitorlás",
+      "kajak",
+      "kenu"
+    ]
+  },
+  {
+    "id": "HU0936",
+    "category": "Közlekedés",
+    "difficulty": "Normál",
+    "word": "AMSZTERDAM-SCHIPHOL",
+    "taboo": [
+      "london-heathrow",
+      "dubai nemzetközi repülőtér",
+      "párizs–charles de gaulle",
+      "frankfurti repülőtér",
+      "szingapúr-changi"
+    ]
+  },
+  {
+    "id": "HU0937",
+    "category": "Közlekedés",
+    "difficulty": "Nehéz",
+    "word": "INDY 500",
+    "taboo": [
+      "le mans 24 hours",
+      "monaco grand prix",
+      "daytona 500",
+      "dakar rally",
+      "nürburgring 24h"
+    ]
+  },
+  {
+    "id": "HU0938",
+    "category": "Közlekedés",
+    "difficulty": "Nehéz",
+    "word": "GRAND CENTRAL TERMINAL",
+    "taboo": [
+      "st pancras",
+      "king's cross",
+      "gare du nord",
+      "gare de lyon",
+      "keleti pályaudvar"
+    ]
+  },
+  {
+    "id": "HU0939",
+    "category": "Közlekedés",
+    "difficulty": "Nehéz",
+    "word": "CALIFORNIA ZEPHYR",
+    "taboo": [
+      "orient expressz",
+      "transzszibériai vasút",
+      "rocky mountaineer",
+      "bernina express",
+      "glacier express"
+    ]
+  },
+  {
+    "id": "HU0940",
+    "category": "Közlekedés",
+    "difficulty": "Nehéz",
+    "word": "F-16",
+    "taboo": [
+      "boeing 747",
+      "boeing 737",
+      "airbus a320",
+      "airbus a380",
+      "concorde"
+    ]
+  },
+  {
+    "id": "HU0941",
+    "category": "Közlekedés",
+    "difficulty": "Nehéz",
+    "word": "FÖLDKÖZI-TENGERI ÚTVONAL",
+    "taboo": [
+      "selyemút tengeri útvonala",
+      "balti-tengeri útvonal",
+      "karib-tengeri hajóút",
+      "norvég fjordok",
+      "alaszka inside passage"
+    ]
+  },
+  {
+    "id": "HU0942",
+    "category": "Közlekedés",
+    "difficulty": "Nehéz",
+    "word": "TRANSZSZIBÉRIAI EXPRESSZ",
+    "taboo": [
+      "orient expressz",
+      "shinkansen",
+      "eurostar",
+      "tgv",
+      "ice"
+    ]
+  },
+  {
+    "id": "HU0943",
+    "category": "Közlekedés",
+    "difficulty": "Nehéz",
+    "word": "BATHURST 1000",
+    "taboo": [
+      "le mans 24 hours",
+      "indy 500",
+      "monaco grand prix",
+      "daytona 500",
+      "dakar rally"
+    ]
+  },
+  {
+    "id": "HU0944",
+    "category": "Közlekedés",
+    "difficulty": "Nehéz",
+    "word": "AIRBUS A380",
+    "taboo": [
+      "boeing 747",
+      "boeing 737",
+      "airbus a320",
+      "concorde",
+      "f-16"
+    ]
+  },
+  {
+    "id": "HU0945",
+    "category": "Közlekedés",
+    "difficulty": "Nehéz",
+    "word": "BMW 3-AS",
+    "taboo": [
+      "volkswagen golf",
+      "toyota corolla",
+      "ford mustang",
+      "porsche 911",
+      "mini cooper"
+    ]
+  },
+  {
+    "id": "HU0946",
+    "category": "Közlekedés",
+    "difficulty": "Nehéz",
+    "word": "LOS ANGELES-I NEMZETKÖZI REPÜLŐTÉR",
+    "taboo": [
+      "london-heathrow",
+      "dubai nemzetközi repülőtér",
+      "párizs–charles de gaulle",
+      "amszterdam-schiphol",
+      "frankfurti repülőtér"
+    ]
+  },
+  {
+    "id": "HU0947",
+    "category": "Közlekedés",
+    "difficulty": "Nehéz",
+    "word": "GARE DU NORD",
+    "taboo": [
+      "grand central terminal",
+      "st pancras",
+      "king's cross",
+      "gare de lyon",
+      "keleti pályaudvar"
+    ]
+  },
+  {
+    "id": "HU0948",
+    "category": "Közlekedés",
+    "difficulty": "Nehéz",
+    "word": "ELSŐBBSÉGADÁS KÖTELEZŐ",
+    "taboo": [
+      "stop",
+      "behajtani tilos",
+      "sebességkorlátozás",
+      "gyalogosátkelőhely",
+      "főútvonal"
+    ]
+  },
+  {
+    "id": "HU0949",
+    "category": "Közlekedés",
+    "difficulty": "Nehéz",
+    "word": "BOEING 737",
+    "taboo": [
+      "boeing 747",
+      "airbus a320",
+      "airbus a380",
+      "concorde",
+      "f-16"
+    ]
+  },
+  {
+    "id": "HU0950",
+    "category": "Közlekedés",
+    "difficulty": "Nehéz",
+    "word": "DUNA–FEKETE-TENGER ÚTVONAL",
+    "taboo": [
+      "északi-tengeri útvonal",
+      "földközi-tengeri útvonal",
+      "karib-tengeri hajóút",
+      "alaszka inside passage",
+      "balti-tengeri útvonal"
+    ]
+  },
+  {
+    "id": "HU0951",
+    "category": "Magyarország",
+    "difficulty": "Normál",
+    "word": "FESTETICS-KASTÉLY",
+    "taboo": [
+      "gödöllői királyi kastély",
+      "fertődi esterházy-kastély",
+      "nagycenki széchenyi-kastély",
+      "edelényi kastély",
+      "andrássy-kastély, tiszadob"
+    ]
+  },
+  {
+    "id": "HU0952",
+    "category": "Magyarország",
+    "difficulty": "Normál",
+    "word": "AQUAWORLD",
+    "taboo": [
+      "caramell élményfürdő",
+      "aquapalace",
+      "zalakaros gyógyfürdő",
+      "aquarena",
+      "sárvári gyógyfürdő"
+    ]
+  },
+  {
+    "id": "HU0953",
+    "category": "Magyarország",
+    "difficulty": "Normál",
+    "word": "VELENCEI-TÓ",
+    "taboo": [
+      "balaton",
+      "tisza-tó",
+      "fertő-tó",
+      "hévízi-tó",
+      "szelidi-tó"
+    ]
+  },
+  {
+    "id": "HU0954",
+    "category": "Magyarország",
+    "difficulty": "Normál",
+    "word": "LUDWIG MÚZEUM",
+    "taboo": [
+      "magyar állami operaház",
+      "müpa budapest",
+      "magyar nemzeti múzeum",
+      "magyar nemzeti galéria",
+      "nemzeti színház"
+    ]
+  },
+  {
+    "id": "HU0955",
+    "category": "Magyarország",
+    "difficulty": "Normál",
+    "word": "BLÁTHY OTTÓ",
+    "taboo": [
+      "bíró lászló",
+      "jedlik ányos",
+      "rubik ernő",
+      "irinyi jános",
+      "semmelweis ignác"
+    ]
+  },
+  {
+    "id": "HU0956",
+    "category": "Magyarország",
+    "difficulty": "Normál",
+    "word": "LEHÁR FERENC",
+    "taboo": [
+      "bartók béla",
+      "kodály zoltán",
+      "erkel ferenc",
+      "liszt ferenc",
+      "dohnányi ernő"
+    ]
+  },
+  {
+    "id": "HU0957",
+    "category": "Magyarország",
+    "difficulty": "Nehéz",
+    "word": "BALATON-FELVIDÉKI NEMZETI PARK",
+    "taboo": [
+      "hortobágyi nemzeti park",
+      "kiskunsági nemzeti park",
+      "bükki nemzeti park",
+      "aggteleki nemzeti park",
+      "duna–dráva nemzeti park"
+    ]
+  },
+  {
+    "id": "HU0958",
+    "category": "Magyarország",
+    "difficulty": "Nehéz",
+    "word": "BUDAI ÚT, ÁRKÁD ÜZLETHÁZ",
+    "taboo": [
+      "marcalváros, kovács margit utca",
+      "vasvári pál utca, kórház",
+      "tihanyi árpád út, kórház",
+      "ipar utca, volán-telep",
+      "mátyás király tér"
+    ]
+  },
+  {
+    "id": "HU0959",
+    "category": "Magyarország",
+    "difficulty": "Nehéz",
+    "word": "SZEGEDI SZABADTÉRI JÁTÉKOK",
+    "taboo": [
+      "művészetek völgye",
+      "busójárás",
+      "debreceni virágkarnevál",
+      "savaria történelmi karnevál",
+      "mesterségek ünnepe"
+    ]
+  },
+  {
+    "id": "HU0960",
+    "category": "Magyarország",
+    "difficulty": "Nehéz",
+    "word": "ANNA AND THE BARBIES",
+    "taboo": [
+      "republic",
+      "neoton família",
+      "omega",
+      "kispál és a borz",
+      "quimby"
+    ]
+  },
+  {
+    "id": "HU0961",
+    "category": "Magyarország",
+    "difficulty": "Nehéz",
+    "word": "KISPÁL ÉS A BORZ",
+    "taboo": [
+      "omega",
+      "illés",
+      "locomotiv gt",
+      "edda",
+      "tankcsapda"
+    ]
+  },
+  {
+    "id": "HU0962",
+    "category": "Magyarország",
+    "difficulty": "Nehéz",
+    "word": "KOSSUTH LAJOS TÉR",
+    "taboo": [
+      "déli pályaudvar",
+      "széll kálmán tér",
+      "deák ferenc tér",
+      "astoria",
+      "blaha lujza tér"
+    ]
+  },
+  {
+    "id": "HU0963",
+    "category": "Magyarország",
+    "difficulty": "Nehéz",
+    "word": "SYLVESTER JÁNOS",
+    "taboo": [
+      "janus pannonius",
+      "vitéz jános",
+      "bonfini antonio",
+      "balassi bálint",
+      "heltai gáspár"
+    ]
+  },
+  {
+    "id": "HU0964",
+    "category": "Magyarország",
+    "difficulty": "Nehéz",
+    "word": "VISEGRÁDI VÁR",
+    "taboo": [
+      "egri vár",
+      "diósgyőri vár",
+      "sümegi vár",
+      "siklósi vár",
+      "boldogkői vár"
+    ]
+  },
+  {
+    "id": "HU0965",
+    "category": "Mindennapok",
+    "difficulty": "Könnyű",
+    "word": "SÉTA",
+    "taboo": [
+      "filmnézés",
+      "zenehallgatás",
+      "olvasás",
+      "sportolás",
+      "játék"
+    ]
+  },
+  {
+    "id": "HU0966",
+    "category": "Mindennapok",
+    "difficulty": "Könnyű",
+    "word": "AJTÓKULCS",
+    "taboo": [
+      "zár",
+      "kulcstartó",
+      "kilincs",
+      "kulcslyuk",
+      "nyitás"
+    ]
+  },
+  {
+    "id": "HU0967",
+    "category": "Mindennapok",
+    "difficulty": "Könnyű",
+    "word": "BEVÁSÁRLÓKOSÁR",
+    "taboo": [
+      "bolt",
+      "vásárlás",
+      "áruház",
+      "fogantyú",
+      "termék"
+    ]
+  },
+  {
+    "id": "HU0968",
+    "category": "Mindennapok",
+    "difficulty": "Könnyű",
+    "word": "TELEFONHÍVÁS",
+    "taboo": [
+      "mobil",
+      "csörgés",
+      "beszélgetés",
+      "szám",
+      "felhív"
+    ]
+  },
+  {
+    "id": "HU0969",
+    "category": "Mindennapok",
+    "difficulty": "Könnyű",
+    "word": "SZEMÜVEGTOK",
+    "taboo": [
+      "lencse",
+      "táska",
+      "védelem",
+      "optika",
+      "dioptria"
+    ]
+  },
+  {
+    "id": "HU0970",
+    "category": "Mindennapok",
+    "difficulty": "Könnyű",
+    "word": "FÜRDŐLEPEDŐ",
+    "taboo": [
+      "strand",
+      "törölköző",
+      "víz",
+      "medence",
+      "napozás"
+    ]
+  },
+  {
+    "id": "HU0971",
+    "category": "Mindennapok",
+    "difficulty": "Könnyű",
+    "word": "POSTAI LEVÉL",
+    "taboo": [
+      "boríték",
+      "bélyeg",
+      "feladó",
+      "címzett",
+      "címzés"
+    ]
+  },
+  {
+    "id": "HU0972",
+    "category": "Mindennapok",
+    "difficulty": "Normál",
+    "word": "MOSOGATÓSZIVACS",
+    "taboo": [
+      "hab",
+      "edény",
+      "konyha",
+      "tányér",
+      "mosás"
+    ]
+  },
+  {
+    "id": "HU0973",
+    "category": "Mindennapok",
+    "difficulty": "Normál",
+    "word": "MÁSZÓKÖTÉL",
+    "taboo": [
+      "csúszda",
+      "mászóháló",
+      "mászóka",
+      "homokozó",
+      "libikóka"
+    ]
+  },
+  {
+    "id": "HU0974",
+    "category": "Mindennapok",
+    "difficulty": "Normál",
+    "word": "RÖVIDNADRÁG",
+    "taboo": [
+      "szoknya",
+      "ujjatlan felső",
+      "napkalap",
+      "szandál",
+      "fürdőruha"
+    ]
+  },
+  {
+    "id": "HU0975",
+    "category": "Mindennapok",
+    "difficulty": "Normál",
+    "word": "NEPTUN-KÚT",
+    "taboo": [
+      "trevi-kút",
+      "bellagio szökőkútjai",
+      "dubaji szökőkút",
+      "fontana dei quattro fiumi",
+      "magyarország nemzeti színház szökőkútja"
+    ]
+  },
+  {
+    "id": "HU0976",
+    "category": "Mindennapok",
+    "difficulty": "Normál",
+    "word": "SZEMETESZSÁK",
+    "taboo": [
+      "kuka",
+      "hulladék",
+      "műanyag",
+      "szemét",
+      "zacskó"
+    ]
+  },
+  {
+    "id": "HU0977",
+    "category": "Mindennapok",
+    "difficulty": "Nehéz",
+    "word": "KÉZBESÍTÉSI ÉRTESÍTŐ",
+    "taboo": [
+      "futár",
+      "csomag",
+      "posta",
+      "érkezés",
+      "üzenet"
+    ]
+  },
+  {
+    "id": "HU0978",
+    "category": "Mindennapok",
+    "difficulty": "Nehéz",
+    "word": "GARANCIAPAPÍR",
+    "taboo": [
+      "vásárlás",
+      "számla",
+      "javítás",
+      "jótállás",
+      "termék"
+    ]
+  },
+  {
+    "id": "HU0979",
+    "category": "Mindennapok",
+    "difficulty": "Nehéz",
+    "word": "KAPCSOLÓTÁBLA",
+    "taboo": [
+      "villany",
+      "áram",
+      "gomb",
+      "elektromos",
+      "biztosíték"
+    ]
+  },
+  {
+    "id": "HU0980",
+    "category": "Mindennapok",
+    "difficulty": "Nehéz",
+    "word": "SZERVIZIDŐPONT",
+    "taboo": [
+      "javítás",
+      "telefon",
+      "autó",
+      "szerelő",
+      "foglalás"
+    ]
+  },
+  {
+    "id": "HU0981",
+    "category": "Munka",
+    "difficulty": "Normál",
+    "word": "FÉNYKÉPÉSZ",
+    "taboo": [
+      "orvos",
+      "mérnök",
+      "ügyvéd",
+      "újságíró",
+      "szakács"
+    ]
+  },
+  {
+    "id": "HU0982",
+    "category": "Munka",
+    "difficulty": "Normál",
+    "word": "CITIGROUP",
+    "taboo": [
+      "jpmorgan chase",
+      "bank of america",
+      "hsbc",
+      "goldman sachs",
+      "morgan stanley"
+    ]
+  },
+  {
+    "id": "HU0983",
+    "category": "Munka",
+    "difficulty": "Normál",
+    "word": "ELEKTRONIKAI BOLT",
+    "taboo": [
+      "ruhabolt",
+      "cipőbolt",
+      "élelmiszerbolt",
+      "könyvesbolt",
+      "mozi"
+    ]
+  },
+  {
+    "id": "HU0984",
+    "category": "Munka",
+    "difficulty": "Normál",
+    "word": "MORGAN STANLEY",
+    "taboo": [
+      "jpmorgan chase",
+      "bank of america",
+      "hsbc",
+      "citigroup",
+      "goldman sachs"
+    ]
+  },
+  {
+    "id": "HU0985",
+    "category": "Munka",
+    "difficulty": "Normál",
+    "word": "JÁTÉKBOLT",
+    "taboo": [
+      "ruhabolt",
+      "cipőbolt",
+      "élelmiszerbolt",
+      "könyvesbolt",
+      "mozi"
+    ]
+  },
+  {
+    "id": "HU0986",
+    "category": "Munka",
+    "difficulty": "Normál",
+    "word": "DEUTSCHE BANK",
+    "taboo": [
+      "jpmorgan chase",
+      "bank of america",
+      "hsbc",
+      "citigroup",
+      "goldman sachs"
+    ]
+  },
+  {
+    "id": "HU0987",
+    "category": "Munka",
+    "difficulty": "Normál",
+    "word": "CIPŐBOLT",
+    "taboo": [
+      "ruhabolt",
+      "élelmiszerbolt",
+      "könyvesbolt",
+      "mozi",
+      "játékbolt"
+    ]
+  },
+  {
+    "id": "HU0988",
+    "category": "Munka",
+    "difficulty": "Normál",
+    "word": "ÉKSZERBOLT",
+    "taboo": [
+      "ruhabolt",
+      "cipőbolt",
+      "élelmiszerbolt",
+      "könyvesbolt",
+      "mozi"
+    ]
+  },
+  {
+    "id": "HU0989",
+    "category": "Munka",
+    "difficulty": "Normál",
+    "word": "RUHABOLT",
+    "taboo": [
+      "cipőbolt",
+      "élelmiszerbolt",
+      "könyvesbolt",
+      "mozi",
+      "játékbolt"
+    ]
+  },
+  {
+    "id": "HU0990",
+    "category": "Munka",
+    "difficulty": "Normál",
+    "word": "ENTERPRISE",
+    "taboo": [
+      "hertz",
+      "avis",
+      "europcar",
+      "sixt",
+      "budget"
+    ]
+  },
+  {
+    "id": "HU0991",
+    "category": "Munka",
+    "difficulty": "Normál",
+    "word": "MICROSOFT",
+    "taboo": [
+      "apple",
+      "google",
+      "samsung",
+      "sony",
+      "nintendo"
+    ]
+  },
+  {
+    "id": "HU0992",
+    "category": "Munka",
+    "difficulty": "Normál",
+    "word": "GOLDMAN SACHS",
+    "taboo": [
+      "jpmorgan chase",
+      "bank of america",
+      "hsbc",
+      "citigroup",
+      "morgan stanley"
+    ]
+  },
+  {
+    "id": "HU0993",
+    "category": "Munka",
+    "difficulty": "Normál",
+    "word": "KÖNYVESBOLT",
+    "taboo": [
+      "ruhabolt",
+      "cipőbolt",
+      "élelmiszerbolt",
+      "mozi",
+      "játékbolt"
+    ]
+  },
+  {
+    "id": "HU0994",
+    "category": "Munka",
+    "difficulty": "Könnyű",
+    "word": "NVIDIA",
+    "taboo": [
+      "apple",
+      "microsoft",
+      "google",
+      "samsung",
+      "sony"
+    ]
+  },
+  {
+    "id": "HU0995",
+    "category": "Munka",
+    "difficulty": "Normál",
+    "word": "DROGÉRIA",
+    "taboo": [
+      "ruhabolt",
+      "cipőbolt",
+      "élelmiszerbolt",
+      "könyvesbolt",
+      "mozi"
+    ]
+  },
+  {
+    "id": "HU0996",
+    "category": "Munka",
+    "difficulty": "Normál",
+    "word": "SANTANDER",
+    "taboo": [
+      "jpmorgan chase",
+      "bank of america",
+      "hsbc",
+      "citigroup",
+      "goldman sachs"
+    ]
+  },
+  {
+    "id": "HU0997",
+    "category": "Munka",
+    "difficulty": "Normál",
+    "word": "EUROPCAR",
+    "taboo": [
+      "hertz",
+      "avis",
+      "sixt",
+      "budget",
+      "enterprise"
+    ]
+  },
+  {
+    "id": "HU0998",
+    "category": "Munka",
+    "difficulty": "Normál",
+    "word": "ADIDAS",
+    "taboo": [
+      "sport",
+      "cipő",
+      "három csík",
+      "német",
+      "Nike"
+    ]
+  },
+  {
+    "id": "HU0999",
+    "category": "Munka",
+    "difficulty": "Normál",
+    "word": "TESLA",
+    "taboo": [
+      "elektromos",
+      "autó",
+      "Elon Musk",
+      "akkumulátor",
+      "USA"
+    ]
+  },
+  {
+    "id": "HU1000",
+    "category": "Munka",
+    "difficulty": "Nehéz",
+    "word": "BANK OF AMERICA",
+    "taboo": [
+      "jpmorgan chase",
+      "hsbc",
+      "citigroup",
+      "goldman sachs",
+      "morgan stanley"
+    ]
+  },
+  {
+    "id": "HU1001",
+    "category": "Otthon",
+    "difficulty": "Könnyű",
+    "word": "TORTA",
+    "taboo": [
+      "sütemény",
+      "fagylalt",
+      "puding",
+      "palacsinta",
+      "gofri"
+    ]
+  },
+  {
+    "id": "HU1002",
+    "category": "Otthon",
+    "difficulty": "Könnyű",
+    "word": "TÉVÉZÉS",
+    "taboo": [
+      "főzés",
+      "takarítás",
+      "mosás",
+      "porszívózás",
+      "mosogatás"
+    ]
+  },
+  {
+    "id": "HU1003",
+    "category": "Otthon",
+    "difficulty": "Könnyű",
+    "word": "KACSA",
+    "taboo": [
+      "kutya",
+      "macska",
+      "tehén",
+      "disznó",
+      "birka"
+    ]
+  },
+  {
+    "id": "HU1004",
+    "category": "Otthon",
+    "difficulty": "Könnyű",
+    "word": "SÜTŐLAP",
+    "taboo": [
+      "tortaforma",
+      "muffinsütő",
+      "habzsák",
+      "nyújtófa",
+      "habverő"
+    ]
+  },
+  {
+    "id": "HU1005",
+    "category": "Otthon",
+    "difficulty": "Könnyű",
+    "word": "VAJ",
+    "taboo": [
+      "liszt",
+      "cukor",
+      "tojás",
+      "tej",
+      "élesztő"
+    ]
+  },
+  {
+    "id": "HU1006",
+    "category": "Otthon",
+    "difficulty": "Könnyű",
+    "word": "VILLA",
+    "taboo": [
+      "spatula",
+      "serpenyő",
+      "fazék",
+      "kés",
+      "kanál"
+    ]
+  },
+  {
+    "id": "HU1007",
+    "category": "Otthon",
+    "difficulty": "Könnyű",
+    "word": "VÉCÉ",
+    "taboo": [
+      "törölköző",
+      "szappan",
+      "sampon",
+      "fogkefe",
+      "fürdőkád"
+    ]
+  },
+  {
+    "id": "HU1008",
+    "category": "Otthon",
+    "difficulty": "Könnyű",
+    "word": "PUDING",
+    "taboo": [
+      "sütemény",
+      "torta",
+      "fagylalt",
+      "palacsinta",
+      "gofri"
+    ]
+  },
+  {
+    "id": "HU1009",
+    "category": "Otthon",
+    "difficulty": "Könnyű",
+    "word": "OLVASÁS",
+    "taboo": [
+      "főzés",
+      "takarítás",
+      "mosás",
+      "porszívózás",
+      "mosogatás"
+    ]
+  },
+  {
+    "id": "HU1010",
+    "category": "Otthon",
+    "difficulty": "Könnyű",
+    "word": "OREGÁNÓ",
+    "taboo": [
+      "bors",
+      "pirospaprika",
+      "fokhagyma",
+      "bazsalikom",
+      "kömény"
+    ]
+  },
+  {
+    "id": "HU1011",
+    "category": "Otthon",
+    "difficulty": "Könnyű",
+    "word": "BIRKA",
+    "taboo": [
+      "kutya",
+      "macska",
+      "tehén",
+      "disznó",
+      "kecske"
+    ]
+  },
+  {
+    "id": "HU1012",
+    "category": "Otthon",
+    "difficulty": "Könnyű",
+    "word": "HABZSÁK",
+    "taboo": [
+      "tortaforma",
+      "muffinsütő",
+      "sütőlap",
+      "nyújtófa",
+      "habverő"
+    ]
+  },
+  {
+    "id": "HU1013",
+    "category": "Otthon",
+    "difficulty": "Könnyű",
+    "word": "OLAJ",
+    "taboo": [
+      "liszt",
+      "cukor",
+      "tojás",
+      "vaj",
+      "tej"
+    ]
+  },
+  {
+    "id": "HU1014",
+    "category": "Otthon",
+    "difficulty": "Könnyű",
+    "word": "VÁZA",
+    "taboo": [
+      "függöny",
+      "fényképkeret",
+      "gyertya",
+      "asztaldísz",
+      "fali óra"
+    ]
+  },
+  {
+    "id": "HU1015",
+    "category": "Otthon",
+    "difficulty": "Könnyű",
+    "word": "HABVERŐ",
+    "taboo": [
+      "spatula",
+      "serpenyő",
+      "fazék",
+      "kés",
+      "villa"
+    ]
+  },
+  {
+    "id": "HU1016",
+    "category": "Otthon",
+    "difficulty": "Könnyű",
+    "word": "DIÓFA",
+    "taboo": [
+      "almafa",
+      "körtefa",
+      "szilvafa",
+      "cseresznyefa",
+      "barackfa"
+    ]
+  },
+  {
+    "id": "HU1017",
+    "category": "Otthon",
+    "difficulty": "Könnyű",
+    "word": "SÚLYZÓ",
+    "taboo": [
+      "jógamatrac",
+      "gumiszalag",
+      "ugrókötél",
+      "fitneszlabda",
+      "kettlebell"
+    ]
+  },
+  {
+    "id": "HU1018",
+    "category": "Otthon",
+    "difficulty": "Könnyű",
+    "word": "SZÉN",
+    "taboo": [
+      "grillsütő",
+      "nyárs",
+      "sör",
+      "szalvéta",
+      "papírtányér"
+    ]
+  },
+  {
+    "id": "HU1019",
+    "category": "Otthon",
+    "difficulty": "Könnyű",
+    "word": "METSZÉS",
+    "taboo": [
+      "ültetés",
+      "gyomlálás",
+      "locsolás",
+      "kapálás",
+      "trágyázás"
+    ]
+  },
+  {
+    "id": "HU1020",
+    "category": "Party",
+    "difficulty": "Könnyű",
+    "word": "TANGÓ",
+    "taboo": [
+      "jive",
+      "palotás",
+      "csárdás",
+      "polka",
+      "cha-cha-cha"
+    ]
+  },
+  {
+    "id": "HU1021",
+    "category": "Party",
+    "difficulty": "Könnyű",
+    "word": "POLKA",
+    "taboo": [
+      "jive",
+      "palotás",
+      "csárdás",
+      "cha-cha-cha",
+      "bécsi keringő"
+    ]
+  },
+  {
+    "id": "HU1022",
+    "category": "Party",
+    "difficulty": "Könnyű",
+    "word": "SZAMBA",
+    "taboo": [
+      "jive",
+      "palotás",
+      "csárdás",
+      "polka",
+      "cha-cha-cha"
+    ]
+  },
+  {
+    "id": "HU1023",
+    "category": "Party",
+    "difficulty": "Könnyű",
+    "word": "RUMBA",
+    "taboo": [
+      "jive",
+      "palotás",
+      "csárdás",
+      "polka",
+      "cha-cha-cha"
+    ]
+  },
+  {
+    "id": "HU1024",
+    "category": "Party",
+    "difficulty": "Könnyű",
+    "word": "CSÁRDÁS",
+    "taboo": [
+      "jive",
+      "palotás",
+      "polka",
+      "cha-cha-cha",
+      "bécsi keringő"
+    ]
+  },
+  {
+    "id": "HU1025",
+    "category": "Party",
+    "difficulty": "Könnyű",
+    "word": "JIVE",
+    "taboo": [
+      "palotás",
+      "csárdás",
+      "polka",
+      "cha-cha-cha",
+      "bécsi keringő"
+    ]
+  },
+  {
+    "id": "HU1026",
+    "category": "Party",
+    "difficulty": "Könnyű",
+    "word": "PALOTÁS",
+    "taboo": [
+      "jive",
+      "csárdás",
+      "polka",
+      "cha-cha-cha",
+      "bécsi keringő"
+    ]
+  },
+  {
+    "id": "HU1027",
+    "category": "Party",
+    "difficulty": "Könnyű",
+    "word": "BÁL",
+    "taboo": [
+      "tánc",
+      "ruha",
+      "zene",
+      "iskola",
+      "terem"
+    ]
+  },
+  {
+    "id": "HU1028",
+    "category": "Party",
+    "difficulty": "Könnyű",
+    "word": "TÁNCOS MULATSÁG",
+    "taboo": [
+      "néptánc",
+      "bál",
+      "zenekar",
+      "ritmus",
+      "falusi"
+    ]
+  },
+  {
+    "id": "HU1029",
+    "category": "Party",
+    "difficulty": "Könnyű",
+    "word": "TÁRSASJÁTÉK EST",
+    "taboo": [
+      "barátok",
+      "dobókocka",
+      "kártya",
+      "asztal",
+      "társaság"
+    ]
+  },
+  {
+    "id": "HU1030",
+    "category": "Party",
+    "difficulty": "Könnyű",
+    "word": "NYÁRI BÁR",
+    "taboo": [
+      "terasz",
+      "naplemente",
+      "ital",
+      "meleg",
+      "pult"
+    ]
+  },
+  {
+    "id": "HU1031",
+    "category": "Party",
+    "difficulty": "Könnyű",
+    "word": "KARSZALAG",
+    "taboo": [
+      "csukló",
+      "belépő",
+      "fesztivál",
+      "papír",
+      "rendezvény"
+    ]
+  },
+  {
+    "id": "HU1032",
+    "category": "Party",
+    "difficulty": "Normál",
+    "word": "CHA-CHA-CHA",
+    "taboo": [
+      "jive",
+      "palotás",
+      "csárdás",
+      "polka",
+      "bécsi keringő"
+    ]
+  },
+  {
+    "id": "HU1033",
+    "category": "Party",
+    "difficulty": "Normál",
+    "word": "SZERGEJ GYAGILEV",
+    "taboo": [
+      "rudolf nurejev",
+      "mihail barisnyikov",
+      "anna pavlova",
+      "vaszlav nizsinszkij",
+      "george balanchine"
+    ]
+  },
+  {
+    "id": "HU1034",
+    "category": "Party",
+    "difficulty": "Normál",
+    "word": "GEORGE BALANCHINE",
+    "taboo": [
+      "rudolf nurejev",
+      "mihail barisnyikov",
+      "anna pavlova",
+      "vaszlav nizsinszkij",
+      "margot fonteyn"
+    ]
+  },
+  {
+    "id": "HU1035",
+    "category": "Party",
+    "difficulty": "Normál",
+    "word": "PINA BAUSCH",
+    "taboo": [
+      "rudolf nurejev",
+      "mihail barisnyikov",
+      "anna pavlova",
+      "vaszlav nizsinszkij",
+      "george balanchine"
+    ]
+  },
+  {
+    "id": "HU1036",
+    "category": "Party",
+    "difficulty": "Normál",
+    "word": "MARIUS PETIPA",
+    "taboo": [
+      "rudolf nurejev",
+      "mihail barisnyikov",
+      "anna pavlova",
+      "vaszlav nizsinszkij",
+      "george balanchine"
+    ]
+  },
+  {
+    "id": "HU1037",
+    "category": "Party",
+    "difficulty": "Normál",
+    "word": "FOXTROTT",
+    "taboo": [
+      "jive",
+      "palotás",
+      "csárdás",
+      "polka",
+      "cha-cha-cha"
+    ]
+  },
+  {
+    "id": "HU1038",
+    "category": "Popkultúra",
+    "difficulty": "Könnyű",
+    "word": "AQUAMAN",
+    "taboo": [
+      "pókember",
+      "batman",
+      "superman",
+      "vasember",
+      "amerika kapitány"
+    ]
+  },
+  {
+    "id": "HU1039",
+    "category": "Popkultúra",
+    "difficulty": "Könnyű",
+    "word": "VUK",
+    "taboo": [
+      "miki egér",
+      "frakk",
+      "pom pom",
+      "micimackó",
+      "alvin és a mókusok"
+    ]
+  },
+  {
+    "id": "HU1040",
+    "category": "Popkultúra",
+    "difficulty": "Könnyű",
+    "word": "BELLE",
+    "taboo": [
+      "hamupipőke",
+      "hófehérke",
+      "piroska",
+      "csizmás kandúr",
+      "pinokkió"
+    ]
+  },
+  {
+    "id": "HU1041",
+    "category": "Popkultúra",
+    "difficulty": "Könnyű",
+    "word": "SÜSÜ",
+    "taboo": [
+      "miki egér",
+      "frakk",
+      "pom pom",
+      "vuk",
+      "micimackó"
+    ]
+  },
+  {
+    "id": "HU1042",
+    "category": "Popkultúra",
+    "difficulty": "Könnyű",
+    "word": "ALADDIN",
+    "taboo": [
+      "hamupipőke",
+      "hófehérke",
+      "piroska",
+      "csizmás kandúr",
+      "pinokkió"
+    ]
+  },
+  {
+    "id": "HU1043",
+    "category": "Popkultúra",
+    "difficulty": "Könnyű",
+    "word": "RUMINI",
+    "taboo": [
+      "harry potter",
+      "micimackó",
+      "pöttyös panni",
+      "a két lotti",
+      "pettson és findus"
+    ]
+  },
+  {
+    "id": "HU1044",
+    "category": "Popkultúra",
+    "difficulty": "Könnyű",
+    "word": "FLASH",
+    "taboo": [
+      "superman",
+      "batman",
+      "wonder woman",
+      "spider-man",
+      "iron man"
+    ]
+  },
+  {
+    "id": "HU1045",
+    "category": "Popkultúra",
+    "difficulty": "Könnyű",
+    "word": "PIROSKA",
+    "taboo": [
+      "hamupipőke",
+      "hófehérke",
+      "csizmás kandúr",
+      "pinokkió",
+      "aladdin"
+    ]
+  },
+  {
+    "id": "HU1046",
+    "category": "Popkultúra",
+    "difficulty": "Könnyű",
+    "word": "ARIEL",
+    "taboo": [
+      "hamupipőke",
+      "hófehérke",
+      "piroska",
+      "csizmás kandúr",
+      "pinokkió"
+    ]
+  },
+  {
+    "id": "HU1047",
+    "category": "Popkultúra",
+    "difficulty": "Könnyű",
+    "word": "FRAKK",
+    "taboo": [
+      "miki egér",
+      "pom pom",
+      "vuk",
+      "micimackó",
+      "alvin és a mókusok"
+    ]
+  },
+  {
+    "id": "HU1048",
+    "category": "Popkultúra",
+    "difficulty": "Normál",
+    "word": "VALIANT COMICS",
+    "taboo": [
+      "marvel comics",
+      "dc comics",
+      "image comics",
+      "dark horse comics",
+      "idw publishing"
+    ]
+  },
+  {
+    "id": "HU1049",
+    "category": "Popkultúra",
+    "difficulty": "Normál",
+    "word": "DEADPOOL",
+    "taboo": [
+      "pókember",
+      "batman",
+      "superman",
+      "vasember",
+      "amerika kapitány"
+    ]
+  },
+  {
+    "id": "HU1050",
+    "category": "Popkultúra",
+    "difficulty": "Normál",
+    "word": "CSIZMÁS KANDÚR",
+    "taboo": [
+      "hamupipőke",
+      "hófehérke",
+      "piroska",
+      "pinokkió",
+      "aladdin"
+    ]
+  },
+  {
+    "id": "HU1051",
+    "category": "Popkultúra",
+    "difficulty": "Nehéz",
+    "word": "A KÉT LOTTI",
+    "taboo": [
+      "harry potter",
+      "micimackó",
+      "pöttyös panni",
+      "pettson és findus",
+      "a kis herceg"
+    ]
+  },
+  {
+    "id": "HU1052",
+    "category": "Popkultúra",
+    "difficulty": "Nehéz",
+    "word": "MAJA A MÉHECSKE",
+    "taboo": [
+      "miki egér",
+      "frakk",
+      "pom pom",
+      "vuk",
+      "micimackó"
+    ]
+  },
+  {
+    "id": "HU1053",
+    "category": "Popkultúra",
+    "difficulty": "Nehéz",
+    "word": "A KIS HERCEG",
+    "taboo": [
+      "harry potter",
+      "micimackó",
+      "pöttyös panni",
+      "a két lotti",
+      "pettson és findus"
+    ]
+  },
+  {
+    "id": "HU1054",
+    "category": "Popkultúra",
+    "difficulty": "Nehéz",
+    "word": "DARK HORSE COMICS",
+    "taboo": [
+      "marvel comics",
+      "dc comics",
+      "image comics",
+      "idw publishing",
+      "boom! studios"
+    ]
+  },
+  {
+    "id": "HU1055",
+    "category": "Popkultúra",
+    "difficulty": "Nehéz",
+    "word": "BOGYÓ ÉS BABÓCA",
+    "taboo": [
+      "miki egér",
+      "frakk",
+      "pom pom",
+      "vuk",
+      "micimackó"
+    ]
+  },
+  {
+    "id": "HU1056",
+    "category": "Popkultúra",
+    "difficulty": "Nehéz",
+    "word": "POM POM MESÉI",
+    "taboo": [
+      "harry potter",
+      "micimackó",
+      "pöttyös panni",
+      "a két lotti",
+      "pettson és findus"
+    ]
+  },
+  {
+    "id": "HU1057",
+    "category": "Popkultúra",
+    "difficulty": "Nehéz",
+    "word": "PETTSON ÉS FINDUS",
+    "taboo": [
+      "harry potter",
+      "micimackó",
+      "pöttyös panni",
+      "a két lotti",
+      "a kis herceg"
+    ]
+  },
+  {
+    "id": "HU1058",
+    "category": "Sorozatok",
+    "difficulty": "Könnyű",
+    "word": "ELEVEN",
+    "taboo": [
+      "sherlock holmes",
+      "dr. house",
+      "walter white",
+      "michael scott",
+      "dexter morgan"
+    ]
+  },
+  {
+    "id": "HU1059",
+    "category": "Sorozatok",
+    "difficulty": "Könnyű",
+    "word": "SEINFELD",
+    "taboo": [
+      "Jerry",
+      "George",
+      "Elaine",
+      "Kramer",
+      "New York"
+    ]
+  },
+  {
+    "id": "HU1060",
+    "category": "Sorozatok",
+    "difficulty": "Könnyű",
+    "word": "A SIMPSON CSALÁD",
+    "taboo": [
+      "Homer",
+      "Bart",
+      "Marge",
+      "Springfield",
+      "rajzfilm"
+    ]
+  },
+  {
+    "id": "HU1061",
+    "category": "Sorozatok",
+    "difficulty": "Könnyű",
+    "word": "A NAGY PÉNZRABLÁS",
+    "taboo": [
+      "bank",
+      "maszk",
+      "professzor",
+      "spanyol",
+      "vörös ruhák"
+    ]
+  },
+  {
+    "id": "HU1062",
+    "category": "Sorozatok",
+    "difficulty": "Normál",
+    "word": "MODERN CSALÁD",
+    "taboo": [
+      "jóbarátok",
+      "így jártam anyátokkal",
+      "két pasi meg egy kicsi",
+      "az irodisták",
+      "brooklyn 99"
+    ]
+  },
+  {
+    "id": "HU1063",
+    "category": "Sorozatok",
+    "difficulty": "Normál",
+    "word": "DEXTER MORGAN",
+    "taboo": [
+      "sherlock holmes",
+      "dr. house",
+      "walter white",
+      "michael scott",
+      "don draper"
+    ]
+  },
+  {
+    "id": "HU1064",
+    "category": "Sorozatok",
+    "difficulty": "Normál",
+    "word": "PEPPA MALAC",
+    "taboo": [
+      "spongyabob kockanadrág",
+      "tom és jerry",
+      "scooby-doo",
+      "looney tunes",
+      "pokémon"
+    ]
+  },
+  {
+    "id": "HU1065",
+    "category": "Sorozatok",
+    "difficulty": "Normál",
+    "word": "AZ IRODISTÁK",
+    "taboo": [
+      "jóbarátok",
+      "így jártam anyátokkal",
+      "két pasi meg egy kicsi",
+      "brooklyn 99",
+      "family guy"
+    ]
+  },
+  {
+    "id": "HU1066",
+    "category": "Sorozatok",
+    "difficulty": "Normál",
+    "word": "RACHEL GREEN",
+    "taboo": [
+      "sherlock holmes",
+      "dr. house",
+      "walter white",
+      "michael scott",
+      "dexter morgan"
+    ]
+  },
+  {
+    "id": "HU1067",
+    "category": "Sorozatok",
+    "difficulty": "Normál",
+    "word": "LOONEY TUNES",
+    "taboo": [
+      "spongyabob kockanadrág",
+      "tom és jerry",
+      "scooby-doo",
+      "pokémon",
+      "peppa malac"
+    ]
+  },
+  {
+    "id": "HU1068",
+    "category": "Sorozatok",
+    "difficulty": "Normál",
+    "word": "MICHAEL SCOTT",
+    "taboo": [
+      "sherlock holmes",
+      "dr. house",
+      "walter white",
+      "dexter morgan",
+      "don draper"
+    ]
+  },
+  {
+    "id": "HU1069",
+    "category": "Sorozatok",
+    "difficulty": "Normál",
+    "word": "SCOOBY-DOO",
+    "taboo": [
+      "spongyabob kockanadrág",
+      "tom és jerry",
+      "looney tunes",
+      "pokémon",
+      "peppa malac"
+    ]
+  },
+  {
+    "id": "HU1070",
+    "category": "Sorozatok",
+    "difficulty": "Normál",
+    "word": "WALTER WHITE",
+    "taboo": [
+      "sherlock holmes",
+      "dr. house",
+      "michael scott",
+      "dexter morgan",
+      "don draper"
+    ]
+  },
+  {
+    "id": "HU1071",
+    "category": "Sorozatok",
+    "difficulty": "Nehéz",
+    "word": "SPONGYABOB KOCKANADRÁG",
+    "taboo": [
+      "tom és jerry",
+      "scooby-doo",
+      "looney tunes",
+      "pokémon",
+      "peppa malac"
+    ]
+  },
+  {
+    "id": "HU1072",
+    "category": "Sorozatok",
+    "difficulty": "Nehéz",
+    "word": "A NAGY BUMM ELMÉLET",
+    "taboo": [
+      "jóbarátok",
+      "így jártam anyátokkal",
+      "két pasi meg egy kicsi",
+      "az irodisták",
+      "brooklyn 99"
+    ]
+  },
+  {
+    "id": "HU1073",
+    "category": "Sorozatok",
+    "difficulty": "Nehéz",
+    "word": "ÍGY JÁRTAM ANYÁTOKKAL",
+    "taboo": [
+      "jóbarátok",
+      "két pasi meg egy kicsi",
+      "az irodisták",
+      "brooklyn 99",
+      "family guy"
+    ]
+  },
+  {
+    "id": "HU1074",
+    "category": "Sorozatok",
+    "difficulty": "Nehéz",
+    "word": "KÉT PASI MEG EGY KICSI",
+    "taboo": [
+      "jóbarátok",
+      "így jártam anyátokkal",
+      "az irodisták",
+      "brooklyn 99",
+      "family guy"
+    ]
+  },
+  {
+    "id": "HU1075",
+    "category": "Sorozatok",
+    "difficulty": "Nehéz",
+    "word": "BROOKLYN 99",
+    "taboo": [
+      "jóbarátok",
+      "így jártam anyátokkal",
+      "két pasi meg egy kicsi",
+      "az irodisták",
+      "family guy"
+    ]
+  },
+  {
+    "id": "HU1076",
+    "category": "Sorozatok",
+    "difficulty": "Nehéz",
+    "word": "TOM ÉS JERRY",
+    "taboo": [
+      "spongyabob kockanadrág",
+      "scooby-doo",
+      "looney tunes",
+      "pokémon",
+      "peppa malac"
+    ]
+  },
+  {
+    "id": "HU1077",
+    "category": "Sport",
+    "difficulty": "Könnyű",
+    "word": "MEZ",
+    "taboo": [
+      "sportcipő",
+      "rövidnadrág",
+      "labda",
+      "ugrókötél",
+      "jógamatrac"
+    ]
+  },
+  {
+    "id": "HU1078",
+    "category": "Sport",
+    "difficulty": "Könnyű",
+    "word": "KESZTYŰ",
+    "taboo": [
+      "labda",
+      "ütő",
+      "háló",
+      "kapu",
+      "sisak"
+    ]
+  },
+  {
+    "id": "HU1079",
+    "category": "Sport",
+    "difficulty": "Normál",
+    "word": "WENGEN DOWNHILL",
+    "taboo": [
+      "lauberhorn",
+      "hahnenkamm",
+      "streif",
+      "vierschanzentournee",
+      "holmenkollen"
+    ]
+  },
+  {
+    "id": "HU1080",
+    "category": "Sport",
+    "difficulty": "Normál",
+    "word": "LIONEL MESSI",
+    "taboo": [
+      "cristiano ronaldo",
+      "luka modrić",
+      "karim benzema",
+      "zinedine zidane",
+      "ronaldinho"
+    ]
+  },
+  {
+    "id": "HU1081",
+    "category": "Sport",
+    "difficulty": "Normál",
+    "word": "SÍPCSONTVÉDŐ",
+    "taboo": [
+      "sportcipő",
+      "mez",
+      "rövidnadrág",
+      "labda",
+      "ugrókötél"
+    ]
+  },
+  {
+    "id": "HU1082",
+    "category": "Sport",
+    "difficulty": "Normál",
+    "word": "ALLIANZ ARENA",
+    "taboo": [
+      "wembley stadion",
+      "camp nou",
+      "santiago bernabéu stadion",
+      "old trafford",
+      "maracanã"
+    ]
+  },
+  {
+    "id": "HU1083",
+    "category": "Sport",
+    "difficulty": "Normál",
+    "word": "KERÉKPÁRÚT",
+    "taboo": [
+      "zebra",
+      "buszmegálló",
+      "vasútállomás",
+      "repülőtér",
+      "kikötő"
+    ]
+  },
+  {
+    "id": "HU1084",
+    "category": "Sport",
+    "difficulty": "Normál",
+    "word": "THREE LIONS",
+    "taboo": [
+      "seleção",
+      "azzurri",
+      "la roja",
+      "les bleus",
+      "die mannschaft"
+    ]
+  },
+  {
+    "id": "HU1085",
+    "category": "Sport",
+    "difficulty": "Normál",
+    "word": "SUPER BOWL-TRÓFEA",
+    "taboo": [
+      "világkupa",
+      "fifa-világbajnoki trófea",
+      "bajnokok ligája-trófea",
+      "wimbledon-trófea",
+      "stanley kupa"
+    ]
+  },
+  {
+    "id": "HU1086",
+    "category": "Sport",
+    "difficulty": "Normál",
+    "word": "JOSÉ MOURINHO",
+    "taboo": [
+      "sir alex ferguson",
+      "pep guardiola",
+      "carlo ancelotti",
+      "jürgen klopp",
+      "arsène wenger"
+    ]
+  },
+  {
+    "id": "HU1087",
+    "category": "Sport",
+    "difficulty": "Normál",
+    "word": "LIÈGE–BASTOGNE–LIÈGE",
+    "taboo": [
+      "tour de france",
+      "giro d’italia",
+      "vuelta a españa",
+      "milano–san remo",
+      "flandriai körverseny"
+    ]
+  },
+  {
+    "id": "HU1088",
+    "category": "Sport",
+    "difficulty": "Nehéz",
+    "word": "BIRKÓZÓ VÁLOGATOTT MEZ",
+    "taboo": [
+      "válogatott focimez",
+      "kézilabda válogatott mez",
+      "vízilabda válogatott sapka",
+      "olimpiai csapat mez",
+      "kajak-kenu válogatott mez"
+    ]
+  },
+  {
+    "id": "HU1089",
+    "category": "Sport",
+    "difficulty": "Nehéz",
+    "word": "200 MÉTER",
+    "taboo": [
+      "100 méter",
+      "400 méter",
+      "800 méter",
+      "1500 méter",
+      "maraton"
+    ]
+  },
+  {
+    "id": "HU1090",
+    "category": "Sport",
+    "difficulty": "Nehéz",
+    "word": "FLORENCE GRIFFITH-JOYNER",
+    "taboo": [
+      "billie jean king",
+      "jackie joyner-kersee",
+      "nadia comăneci",
+      "nawal el moutawakel",
+      "fatma samoura"
+    ]
+  },
+  {
+    "id": "HU1091",
+    "category": "Sport",
+    "difficulty": "Nehéz",
+    "word": "SANTIAGO BERNABÉU STADION",
+    "taboo": [
+      "wembley stadion",
+      "camp nou",
+      "old trafford",
+      "maracanã",
+      "san siro"
+    ]
+  },
+  {
+    "id": "HU1092",
+    "category": "Sport",
+    "difficulty": "Nehéz",
+    "word": "TOUR DE FRANCE SÁRGA TRIKÓ",
+    "taboo": [
+      "világkupa",
+      "fifa-világbajnoki trófea",
+      "bajnokok ligája-trófea",
+      "wimbledon-trófea",
+      "stanley kupa"
+    ]
+  },
+  {
+    "id": "HU1093",
+    "category": "Sport",
+    "difficulty": "Nehéz",
+    "word": "SIR ALEX FERGUSON",
+    "taboo": [
+      "pep guardiola",
+      "josé mourinho",
+      "carlo ancelotti",
+      "jürgen klopp",
+      "arsène wenger"
+    ]
+  },
+  {
+    "id": "HU1094",
+    "category": "Technológia",
+    "difficulty": "Könnyű",
+    "word": "HTTP",
+    "taboo": [
+      "usb",
+      "bluetooth",
+      "wi-fi",
+      "html",
+      "pdf"
+    ]
+  },
+  {
+    "id": "HU1095",
+    "category": "Technológia",
+    "difficulty": "Könnyű",
+    "word": "TWITCH",
+    "taboo": [
+      "youtube",
+      "vimeo",
+      "dailymotion",
+      "tiktok",
+      "rumble"
+    ]
+  },
+  {
+    "id": "HU1096",
+    "category": "Technológia",
+    "difficulty": "Könnyű",
+    "word": "LEICA",
+    "taboo": [
+      "canon",
+      "nikon",
+      "sony",
+      "fujifilm",
+      "olympus"
+    ]
+  },
+  {
+    "id": "HU1097",
+    "category": "Technológia",
+    "difficulty": "Normál",
+    "word": "APPLE PAY",
+    "taboo": [
+      "paypal",
+      "google pay",
+      "revolut",
+      "wise",
+      "venmo"
+    ]
+  },
+  {
+    "id": "HU1098",
+    "category": "Technológia",
+    "difficulty": "Normál",
+    "word": "HERE WEGO",
+    "taboo": [
+      "google maps",
+      "waze",
+      "apple maps",
+      "bing maps",
+      "mapquest"
+    ]
+  },
+  {
+    "id": "HU1099",
+    "category": "Technológia",
+    "difficulty": "Normál",
+    "word": "SAMSUNG PAY",
+    "taboo": [
+      "paypal",
+      "revolut",
+      "apple pay",
+      "google pay",
+      "wise"
+    ]
+  },
+  {
+    "id": "HU1100",
+    "category": "Technológia",
+    "difficulty": "Normál",
+    "word": "NOKIA LUMIA",
+    "taboo": [
+      "iphone",
+      "galaxy",
+      "pixel",
+      "xperia",
+      "huawei p"
+    ]
+  },
+  {
+    "id": "HU1101",
+    "category": "Technológia",
+    "difficulty": "Normál",
+    "word": "UC BROWSER",
+    "taboo": [
+      "google chrome",
+      "mozilla firefox",
+      "safari",
+      "microsoft edge",
+      "opera"
+    ]
+  },
+  {
+    "id": "HU1102",
+    "category": "Technológia",
+    "difficulty": "Normál",
+    "word": "GOOGLE PAY",
+    "taboo": [
+      "paypal",
+      "apple pay",
+      "revolut",
+      "wise",
+      "venmo"
+    ]
+  },
+  {
+    "id": "HU1103",
+    "category": "Technológia",
+    "difficulty": "Normál",
+    "word": "BILIBILI",
+    "taboo": [
+      "youtube",
+      "vimeo",
+      "dailymotion",
+      "twitch",
+      "tiktok"
+    ]
+  },
+  {
+    "id": "HU1104",
+    "category": "Technológia",
+    "difficulty": "Normál",
+    "word": "PROJEKTOR",
+    "taboo": [
+      "okostelefon",
+      "tablet",
+      "laptop",
+      "asztali számítógép",
+      "interaktív tábla"
+    ]
+  },
+  {
+    "id": "HU1105",
+    "category": "Technológia",
+    "difficulty": "Normál",
+    "word": "PANASONIC",
+    "taboo": [
+      "samsung",
+      "sony",
+      "philips",
+      "tcl",
+      "hisense"
+    ]
+  },
+  {
+    "id": "HU1106",
+    "category": "Technológia",
+    "difficulty": "Normál",
+    "word": "BING MAPS",
+    "taboo": [
+      "google maps",
+      "waze",
+      "apple maps",
+      "here wego",
+      "mapquest"
+    ]
+  },
+  {
+    "id": "HU1107",
+    "category": "Technológia",
+    "difficulty": "Normál",
+    "word": "MOTOROLA RAZR",
+    "taboo": [
+      "iphone",
+      "galaxy",
+      "pixel",
+      "xperia",
+      "huawei p"
+    ]
+  },
+  {
+    "id": "HU1108",
+    "category": "Technológia",
+    "difficulty": "Normál",
+    "word": "INTERNET EXPLORER",
+    "taboo": [
+      "google chrome",
+      "mozilla firefox",
+      "safari",
+      "microsoft edge",
+      "opera"
+    ]
+  },
+  {
+    "id": "HU1109",
+    "category": "Technológia",
+    "difficulty": "Normál",
+    "word": "OTP SIMPLEPAY",
+    "taboo": [
+      "paypal",
+      "apple pay",
+      "google pay",
+      "revolut",
+      "wise"
+    ]
+  },
+  {
+    "id": "HU1110",
+    "category": "Technológia",
+    "difficulty": "Normál",
+    "word": "PEERTUBE",
+    "taboo": [
+      "youtube",
+      "vimeo",
+      "dailymotion",
+      "twitch",
+      "tiktok"
+    ]
+  },
+  {
+    "id": "HU1111",
+    "category": "Technológia",
+    "difficulty": "Normál",
+    "word": "E-BOOK OLVASÓ",
+    "taboo": [
+      "okostelefon",
+      "tablet",
+      "laptop",
+      "asztali számítógép",
+      "projektor"
+    ]
+  },
+  {
+    "id": "HU1112",
+    "category": "Technológia",
+    "difficulty": "Normál",
+    "word": "FUJIFILM",
+    "taboo": [
+      "canon",
+      "nikon",
+      "sony",
+      "olympus",
+      "panasonic"
+    ]
+  },
+  {
+    "id": "HU1113",
+    "category": "Technológia",
+    "difficulty": "Normál",
+    "word": "GOOGLE CHROME",
+    "taboo": [
+      "mozilla firefox",
+      "safari",
+      "microsoft edge",
+      "opera",
+      "internet explorer"
+    ]
+  },
+  {
+    "id": "HU1114",
+    "category": "Technológia",
+    "difficulty": "Nehéz",
+    "word": "MP3",
+    "taboo": [
+      "usb",
+      "bluetooth",
+      "wi-fi",
+      "html",
+      "http"
+    ]
+  },
+  {
+    "id": "HU1115",
+    "category": "Tudomány",
+    "difficulty": "Könnyű",
+    "word": "SZÉNSAV",
+    "taboo": [
+      "sósav",
+      "kénsav",
+      "salétromsav",
+      "ecetsav",
+      "foszforsav"
+    ]
+  },
+  {
+    "id": "HU1116",
+    "category": "Tudomány",
+    "difficulty": "Könnyű",
+    "word": "VESE",
+    "taboo": [
+      "szív",
+      "tüdő",
+      "máj",
+      "gyomor",
+      "hasnyálmirigy"
+    ]
+  },
+  {
+    "id": "HU1117",
+    "category": "Tudomány",
+    "difficulty": "Könnyű",
+    "word": "INZULIN",
+    "taboo": [
+      "aspirin",
+      "penicillin",
+      "viagra",
+      "ibuprofen",
+      "paracetamol"
+    ]
+  },
+  {
+    "id": "HU1118",
+    "category": "Tudomány",
+    "difficulty": "Könnyű",
+    "word": "BORDÁK",
+    "taboo": [
+      "combcsont",
+      "sípcsont",
+      "szárkapocscsont",
+      "medencecsont",
+      "koponya"
+    ]
+  },
+  {
+    "id": "HU1119",
+    "category": "Tudomány",
+    "difficulty": "Könnyű",
+    "word": "WATT",
+    "taboo": [
+      "méter",
+      "kilogramm",
+      "másodperc",
+      "amper",
+      "kelvin"
+    ]
+  },
+  {
+    "id": "HU1120",
+    "category": "Tudomány",
+    "difficulty": "Könnyű",
+    "word": "MEDÚZA",
+    "taboo": [
+      "cápa",
+      "delfin",
+      "bálna",
+      "polip",
+      "tengeri csillag"
+    ]
+  },
+  {
+    "id": "HU1121",
+    "category": "Tudomány",
+    "difficulty": "Könnyű",
+    "word": "BÓRSAV",
+    "taboo": [
+      "sósav",
+      "kénsav",
+      "salétromsav",
+      "ecetsav",
+      "szénsav"
+    ]
+  },
+  {
+    "id": "HU1122",
+    "category": "Tudomány",
+    "difficulty": "Könnyű",
+    "word": "GYOMOR",
+    "taboo": [
+      "szív",
+      "tüdő",
+      "máj",
+      "vese",
+      "hasnyálmirigy"
+    ]
+  },
+  {
+    "id": "HU1123",
+    "category": "Tudomány",
+    "difficulty": "Könnyű",
+    "word": "SÁSKA",
+    "taboo": [
+      "katicabogár",
+      "pillangó",
+      "hangya",
+      "szitakötő",
+      "cserebogár"
+    ]
+  },
+  {
+    "id": "HU1124",
+    "category": "Tudomány",
+    "difficulty": "Normál",
+    "word": "SEMMELWEIS IGNÁC",
+    "taboo": [
+      "louis pasteur",
+      "alexander fleming",
+      "edward jenner",
+      "florence nightingale",
+      "hippokratész"
+    ]
+  },
+  {
+    "id": "HU1125",
+    "category": "Tudomány",
+    "difficulty": "Normál",
+    "word": "ANTOINE LAVOISIER",
+    "taboo": [
+      "humphry davy",
+      "marie curie",
+      "joseph priestley",
+      "dmitrij mengyelejev",
+      "glenn seaborg"
+    ]
+  },
+  {
+    "id": "HU1126",
+    "category": "Tudomány",
+    "difficulty": "Normál",
+    "word": "NITROGÉN",
+    "taboo": [
+      "hidrogén",
+      "hélium",
+      "oxigén",
+      "szén",
+      "vas"
+    ]
+  },
+  {
+    "id": "HU1127",
+    "category": "Tudomány",
+    "difficulty": "Normál",
+    "word": "VÁDLIIZOM",
+    "taboo": [
+      "bicepsz",
+      "tricepsz",
+      "deltaizom",
+      "négyfejű combizom",
+      "hasizom"
+    ]
+  },
+  {
+    "id": "HU1128",
+    "category": "Tudomány",
+    "difficulty": "Nehéz",
+    "word": "TENGERI TEKNŐSÖK VÁNDORLÁSA",
+    "taboo": [
+      "gnúvándorlás",
+      "lazacok ívóvándorlása",
+      "uralkodólepkék vándorlása",
+      "karibuk vándorlása",
+      "szardíniarajzás"
+    ]
+  },
+  {
+    "id": "HU1129",
+    "category": "Tudomány",
+    "difficulty": "Nehéz",
+    "word": "ROSZKOSZMOSZ",
+    "taboo": [
+      "nasa",
+      "európai űrügynökség (esa)",
+      "kínai nemzeti űrügynökség (cnsa)",
+      "jaxa",
+      "isro"
+    ]
+  },
+  {
+    "id": "HU1130",
+    "category": "Tudomány",
+    "difficulty": "Nehéz",
+    "word": "RICHARD FEYNMAN",
+    "taboo": [
+      "albert einstein",
+      "marie curie",
+      "niels bohr",
+      "max planck",
+      "erwin schrödinger"
+    ]
+  },
+  {
+    "id": "HU1131",
+    "category": "Tudomány",
+    "difficulty": "Nehéz",
+    "word": "NULLA FOGALMA",
+    "taboo": [
+      "pitagorasz-tétel",
+      "derékszögű koordinátarendszer",
+      "logaritmus",
+      "integrálszámítás",
+      "valószínűségszámítás"
+    ]
+  },
+  {
+    "id": "HU1132",
+    "category": "Tudomány",
+    "difficulty": "Nehéz",
+    "word": "PITAGORASZ-TÉTEL",
+    "taboo": [
+      "pitagorasz-számhármasok",
+      "fibonacci-sorozat",
+      "aranymetszés",
+      "prímszámok",
+      "nulla"
+    ]
+  },
+  {
+    "id": "HU1133",
+    "category": "Tudomány",
+    "difficulty": "Nehéz",
+    "word": "FRAKTÁL",
+    "taboo": [
+      "pitagorasz",
+      "fibonacci",
+      "prímszám",
+      "koordináta-rendszer",
+      "algebra"
+    ]
+  },
+  {
+    "id": "HU1134",
+    "category": "Tudomány",
+    "difficulty": "Nehéz",
+    "word": "PTOLEMAIOSZ",
+    "taboo": [
+      "kopernikusz",
+      "galilei",
+      "kepler",
+      "newton",
+      "tycho brahe"
+    ]
+  },
+  {
+    "id": "HU1135",
+    "category": "Tudomány",
+    "difficulty": "Nehéz",
+    "word": "AMUNDSEN DÉLI-SARKI EXPEDÍCIÓJA",
+    "taboo": [
+      "kolumbusz első útja",
+      "magellán expedíciója",
+      "cook első útja",
+      "cook második útja",
+      "cook harmadik útja"
+    ]
+  },
+  {
+    "id": "HU1136",
+    "category": "Tudomány",
+    "difficulty": "Nehéz",
+    "word": "NASA",
+    "taboo": [
+      "európai űrügynökség (esa)",
+      "roszkoszmosz",
+      "kínai nemzeti űrügynökség (cnsa)",
+      "jaxa",
+      "isro"
+    ]
+  },
+  {
+    "id": "HU1137",
+    "category": "Tudomány",
+    "difficulty": "Nehéz",
+    "word": "ARTHUR COMPTON",
+    "taboo": [
+      "albert einstein",
+      "marie curie",
+      "niels bohr",
+      "richard feynman",
+      "max planck"
+    ]
+  },
+  {
+    "id": "HU1138",
+    "category": "Tudomány",
+    "difficulty": "Nehéz",
+    "word": "MÁTRIXSZÁMÍTÁS",
+    "taboo": [
+      "pitagorasz-tétel",
+      "nulla fogalma",
+      "derékszögű koordinátarendszer",
+      "logaritmus",
+      "integrálszámítás"
+    ]
+  },
+  {
+    "id": "HU1139",
+    "category": "Történelem",
+    "difficulty": "Nehéz",
+    "word": "CSIN-DINASZTIA",
+    "taboo": [
+      "han-dinasztia",
+      "tang-dinasztia",
+      "szung-dinasztia",
+      "ming-dinasztia",
+      "csing-dinasztia"
+    ]
+  },
+  {
+    "id": "HU1140",
+    "category": "Történelem",
+    "difficulty": "Nehéz",
+    "word": "ERECHTHEION",
+    "taboo": [
+      "parthenón",
+      "zeusz-templom olympiában",
+      "apollón-templom delphoiban",
+      "artemisz-templom",
+      "knósszosz"
+    ]
+  },
+  {
+    "id": "HU1141",
+    "category": "Történelem",
+    "difficulty": "Nehéz",
+    "word": "MONTE CASSINÓI CSATA",
+    "taboo": [
+      "sztálingrádi csata",
+      "verduni csata",
+      "somme-i csata",
+      "midway-i csata",
+      "el-alameini csata"
+    ]
+  },
+  {
+    "id": "HU1142",
+    "category": "Történelem",
+    "difficulty": "Nehéz",
+    "word": "AVIZ-REND",
+    "taboo": [
+      "templomos lovagrend",
+      "johannita lovagrend",
+      "német lovagrend",
+      "szent lázár-rend",
+      "szent sír lovagrendje"
+    ]
+  },
+  {
+    "id": "HU1143",
+    "category": "Történelem",
+    "difficulty": "Nehéz",
+    "word": "TUNG CSUNG-SU",
+    "taboo": [
+      "konfuciusz",
+      "lao-ce",
+      "mengzi",
+      "mozi",
+      "han fej-ce"
+    ]
+  },
+  {
+    "id": "HU1144",
+    "category": "Történelem",
+    "difficulty": "Nehéz",
+    "word": "TRAIANUS FÓRUMA",
+    "taboo": [
+      "pantheon",
+      "colosseum",
+      "circus maximus",
+      "forum romanum",
+      "caracalla termái"
+    ]
+  },
+  {
+    "id": "HU1145",
+    "category": "Történelem",
+    "difficulty": "Nehéz",
+    "word": "RICHARD SORGE",
+    "taboo": [
+      "mata hari",
+      "kim philby",
+      "oleg penkovszkij",
+      "virginia hall",
+      "eli cohen"
+    ]
+  },
+  {
+    "id": "HU1146",
+    "category": "Történelem",
+    "difficulty": "Normál",
+    "word": "BENITO MUSSOLINI",
+    "taboo": [
+      "adolf hitler",
+      "joszif sztálin",
+      "mao ce-tung",
+      "pol pot",
+      "kim ir szen"
+    ]
+  },
+  {
+    "id": "HU1147",
+    "category": "Történelem",
+    "difficulty": "Nehéz",
+    "word": "GYERMEKEK KERESZTES HADJÁRATA",
+    "taboo": [
+      "első keresztes hadjárat",
+      "második keresztes hadjárat",
+      "harmadik keresztes hadjárat",
+      "negyedik keresztes hadjárat",
+      "ötödik keresztes hadjárat"
+    ]
+  },
+  {
+    "id": "HU1148",
+    "category": "Történelem",
+    "difficulty": "Nehéz",
+    "word": "AKASHI KAIKYŌ",
+    "taboo": [
+      "tower bridge",
+      "golden gate",
+      "brooklyn híd",
+      "lánchíd",
+      "károly híd"
+    ]
+  },
+  {
+    "id": "HU1149",
+    "category": "Történelem",
+    "difficulty": "Nehéz",
+    "word": "NÉMETORSZÁG ÚJRAEGYESÍTÉSE",
+    "taboo": [
+      "berlini blokád",
+      "berlini fal felépítése",
+      "kubai rakétaválság",
+      "koreai háború",
+      "vietnámi háború"
+    ]
+  },
+  {
+    "id": "HU1150",
+    "category": "Történelem",
+    "difficulty": "Nehéz",
+    "word": "HABSBURG-HÁZ",
+    "taboo": [
+      "bourbon-ház",
+      "windsor-ház",
+      "romanov-ház",
+      "hohenzollern-ház",
+      "plantagenet-ház"
+    ]
+  },
+  {
+    "id": "HU1151",
+    "category": "Történelem",
+    "difficulty": "Nehéz",
+    "word": "BILL OF RIGHTS",
+    "taboo": [
+      "magna carta",
+      "függetlenségi nyilatkozat",
+      "egyesült államok alkotmánya",
+      "emberi és polgári jogok nyilatkozata",
+      "napóleoni törvénykönyv"
+    ]
+  },
+  {
+    "id": "HU1152",
+    "category": "Történelem",
+    "difficulty": "Nehéz",
+    "word": "NELSON MANDELA",
+    "taboo": [
+      "barack obama",
+      "malala juszafzai",
+      "dalai láma",
+      "desmond tutu",
+      "kofi annan"
+    ]
+  },
+  {
+    "id": "HU1153",
+    "category": "Történelem",
+    "difficulty": "Nehéz",
+    "word": "SEVILLAI KATEDRÁLIS",
+    "taboo": [
+      "notre-dame",
+      "chartres-i katedrális",
+      "canterbury katedrális",
+      "milánói dóm",
+      "kölni dóm"
+    ]
+  },
+  {
+    "id": "HU1154",
+    "category": "Történelem",
+    "difficulty": "Nehéz",
+    "word": "APOLLÓN-TEMPLOM DELPHOIBAN",
+    "taboo": [
+      "parthenón",
+      "erechtheion",
+      "zeusz-templom olympiában",
+      "artemisz-templom",
+      "knósszosz"
+    ]
+  },
+  {
+    "id": "HU1155",
+    "category": "Történelem",
+    "difficulty": "Nehéz",
+    "word": "EL-ALAMEINI CSATA",
+    "taboo": [
+      "sztálingrádi csata",
+      "verduni csata",
+      "somme-i csata",
+      "midway-i csata",
+      "normandiai partraszállás"
+    ]
+  },
+  {
+    "id": "HU1156",
+    "category": "Zene",
+    "difficulty": "Könnyű",
+    "word": "FUVOLA",
+    "taboo": [
+      "gitár",
+      "zongora",
+      "hegedű",
+      "dob",
+      "trombita"
+    ]
+  },
+  {
+    "id": "HU1157",
+    "category": "Zene",
+    "difficulty": "Könnyű",
+    "word": "MOZART",
+    "taboo": [
+      "bach",
+      "beethoven",
+      "chopin",
+      "liszt ferenc",
+      "brahms"
+    ]
+  },
+  {
+    "id": "HU1158",
+    "category": "Zene",
+    "difficulty": "Könnyű",
+    "word": "CSELLÓ",
+    "taboo": [
+      "gitár",
+      "zongora",
+      "hegedű",
+      "dob",
+      "szaxofon"
+    ]
+  },
+  {
+    "id": "HU1159",
+    "category": "Zene",
+    "difficulty": "Könnyű",
+    "word": "LICEU",
+    "taboo": [
+      "la scala",
+      "bécsi állami operaház",
+      "párizsi opera",
+      "royal opera house",
+      "semperoper"
+    ]
+  },
+  {
+    "id": "HU1160",
+    "category": "Zene",
+    "difficulty": "Könnyű",
+    "word": "DOB",
+    "taboo": [
+      "gitár",
+      "zongora",
+      "hegedű",
+      "fuvola",
+      "trombita"
+    ]
+  },
+  {
+    "id": "HU1161",
+    "category": "Zene",
+    "difficulty": "Nehéz",
+    "word": "ORLANDO DI LASSO",
+    "taboo": [
+      "josquin des prez",
+      "palestrina",
+      "thomas tallis",
+      "william byrd",
+      "claudio monteverdi"
+    ]
+  },
+  {
+    "id": "HU1162",
+    "category": "Zene",
+    "difficulty": "Nehéz",
+    "word": "NIBELUNG-ÉNEK",
+    "taboo": [
+      "iliász",
+      "odüsszeia",
+      "aeneis",
+      "kalevala",
+      "gilgames-eposz"
+    ]
+  },
+  {
+    "id": "HU1163",
+    "category": "Zene",
+    "difficulty": "Nehéz",
+    "word": "ROCK IN RIO",
+    "taboo": [
+      "glastonbury",
+      "coachella",
+      "tomorrowland",
+      "lollapalooza",
+      "woodstock"
+    ]
+  },
+  {
+    "id": "HU1164",
+    "category": "Zene",
+    "difficulty": "Nehéz",
+    "word": "KÉK DUNA KERINGŐ",
+    "taboo": [
+      "holdfény-szonáta",
+      "négy évszak",
+      "bolero",
+      "für elise",
+      "újvilág-szimfónia"
+    ]
+  },
+  {
+    "id": "HU1165",
+    "category": "Zene",
+    "difficulty": "Nehéz",
+    "word": "JOSQUIN DES PREZ",
+    "taboo": [
+      "palestrina",
+      "orlando di lasso",
+      "thomas tallis",
+      "william byrd",
+      "claudio monteverdi"
+    ]
+  },
+  {
+    "id": "HU1166",
+    "category": "Ételek",
+    "difficulty": "Könnyű",
+    "word": "PAPRIKA",
+    "taboo": [
+      "paradicsom",
+      "uborka",
+      "répa",
+      "burgonya",
+      "hagyma"
+    ]
+  },
+  {
+    "id": "HU1167",
+    "category": "Ételek",
+    "difficulty": "Könnyű",
+    "word": "LÓBAB",
+    "taboo": [
+      "zöldborsó",
+      "mungóbab",
+      "lencse",
+      "csicseriborsó",
+      "szójabab"
+    ]
+  },
+  {
+    "id": "HU1168",
+    "category": "Ételek",
+    "difficulty": "Könnyű",
+    "word": "TACO",
+    "taboo": [
+      "hamburger",
+      "hot dog",
+      "gyros",
+      "pizza",
+      "lángos"
+    ]
+  },
+  {
+    "id": "HU1169",
+    "category": "Ételek",
+    "difficulty": "Könnyű",
+    "word": "NYALÓKA",
+    "taboo": [
+      "csokoládé",
+      "rágógumi",
+      "zselécukor",
+      "marcipán",
+      "karamella"
+    ]
+  },
+  {
+    "id": "HU1170",
+    "category": "Ételek",
+    "difficulty": "Könnyű",
+    "word": "EPER",
+    "taboo": [
+      "málna",
+      "szeder",
+      "áfonya",
+      "ribizli",
+      "egres"
+    ]
+  },
+  {
+    "id": "HU1171",
+    "category": "Ételek",
+    "difficulty": "Könnyű",
+    "word": "KEFIR",
+    "taboo": [
+      "tej",
+      "joghurt",
+      "tejföl",
+      "vaj",
+      "túró"
+    ]
+  },
+  {
+    "id": "HU1172",
+    "category": "Ételek",
+    "difficulty": "Könnyű",
+    "word": "ROPI",
+    "taboo": [
+      "burgonyachips",
+      "nachos",
+      "sós mogyoró",
+      "popcorn",
+      "sajtos snack"
+    ]
+  },
+  {
+    "id": "HU1173",
+    "category": "Ételek",
+    "difficulty": "Könnyű",
+    "word": "PEPSI",
+    "taboo": [
+      "coca-cola",
+      "sprite",
+      "fanta",
+      "7up",
+      "schweppes"
+    ]
+  },
+  {
+    "id": "HU1174",
+    "category": "Ételek",
+    "difficulty": "Könnyű",
+    "word": "ISCHLER",
+    "taboo": [
+      "eperfagyi",
+      "habcsók",
+      "piskótatekercs",
+      "bejgli",
+      "karamellás krémes"
+    ]
+  },
+  {
+    "id": "HU1175",
+    "category": "Ételek",
+    "difficulty": "Könnyű",
+    "word": "CANNOLI",
+    "taboo": [
+      "sacher-torta",
+      "dobos torta",
+      "kürtőskalács",
+      "linzer",
+      "apfelstrudel"
+    ]
+  },
+  {
+    "id": "HU1176",
+    "category": "Ételek",
+    "difficulty": "Könnyű",
+    "word": "TÖLCSÉR",
+    "taboo": [
+      "kémcső",
+      "főzőpohár",
+      "lombik",
+      "büretta",
+      "pipetta"
+    ]
+  },
+  {
+    "id": "HU1177",
+    "category": "Ételek",
+    "difficulty": "Könnyű",
+    "word": "BAGEL",
+    "taboo": [
+      "kifli",
+      "zsemle",
+      "croissant",
+      "pogácsa",
+      "fánk"
+    ]
+  },
+  {
+    "id": "HU1178",
+    "category": "Ételek",
+    "difficulty": "Könnyű",
+    "word": "EDAMI",
+    "taboo": [
+      "trappista",
+      "gouda",
+      "camembert",
+      "brie",
+      "mozzarella"
+    ]
+  },
+  {
+    "id": "HU1179",
+    "category": "Ételek",
+    "difficulty": "Könnyű",
+    "word": "ANANÁSZ",
+    "taboo": [
+      "mangó",
+      "papaya",
+      "maracuja",
+      "kókusz",
+      "pitaja"
+    ]
+  },
+  {
+    "id": "HU1180",
+    "category": "Ételek",
+    "difficulty": "Könnyű",
+    "word": "ALMA",
+    "taboo": [
+      "körte",
+      "szilva",
+      "szőlő",
+      "dió",
+      "gesztenye"
+    ]
+  },
+  {
+    "id": "HU1181",
+    "category": "Ételek",
+    "difficulty": "Könnyű",
+    "word": "NANDO'S",
+    "taboo": [
+      "mcdonald's",
+      "burger king",
+      "kfc",
+      "subway",
+      "pizza hut"
+    ]
+  },
+  {
+    "id": "HU1182",
+    "category": "Ételek",
+    "difficulty": "Nehéz",
+    "word": "MEXIKÓI HUEVOS RANCHEROS",
+    "taboo": [
+      "angol reggeli",
+      "kontinentális reggeli",
+      "amerikai palacsinta",
+      "francia croissant",
+      "török reggeli"
+    ]
+  },
+  {
+    "id": "HU1183",
+    "category": "Ételek",
+    "difficulty": "Nehéz",
+    "word": "MAC AND CHEESE",
+    "taboo": [
+      "spaghetti bolognese",
+      "carbonara",
+      "pesto pasta",
+      "arrabbiata",
+      "lasagne"
+    ]
+  },
+  {
+    "id": "HU1184",
+    "category": "Ünnepek",
+    "difficulty": "Könnyű",
+    "word": "ÉDESSÉG",
+    "taboo": [
+      "tök",
+      "jelmez",
+      "pók",
+      "denevér",
+      "szellem"
+    ]
+  },
+  {
+    "id": "HU1185",
+    "category": "Ünnepek",
+    "difficulty": "Könnyű",
+    "word": "BARKA",
+    "taboo": [
+      "nyuszi",
+      "locsolóvíz",
+      "locsolkodás",
+      "sonka",
+      "kalács"
+    ]
+  },
+  {
+    "id": "HU1186",
+    "category": "Ünnepek",
+    "difficulty": "Könnyű",
+    "word": "TÖK",
+    "taboo": [
+      "jelmez",
+      "édesség",
+      "pók",
+      "denevér",
+      "szellem"
+    ]
+  },
+  {
+    "id": "HU1187",
+    "category": "Ünnepek",
+    "difficulty": "Könnyű",
+    "word": "SONKA",
+    "taboo": [
+      "nyuszi",
+      "locsolóvíz",
+      "locsolkodás",
+      "kalács",
+      "bárány"
+    ]
+  },
+  {
+    "id": "HU1188",
+    "category": "Ünnepek",
+    "difficulty": "Könnyű",
+    "word": "PULYKA",
+    "taboo": [
+      "sült kacsa",
+      "bejgli",
+      "töltött káposzta",
+      "hal",
+      "mákos guba"
+    ]
+  },
+  {
+    "id": "HU1189",
+    "category": "Ünnepek",
+    "difficulty": "Könnyű",
+    "word": "SZELLEM",
+    "taboo": [
+      "tök",
+      "jelmez",
+      "édesség",
+      "pók",
+      "denevér"
+    ]
+  },
+  {
+    "id": "HU1190",
+    "category": "Ünnepek",
+    "difficulty": "Könnyű",
+    "word": "TORMA",
+    "taboo": [
+      "nyuszi",
+      "locsolóvíz",
+      "locsolkodás",
+      "sonka",
+      "kalács"
+    ]
+  },
+  {
+    "id": "HU1191",
+    "category": "Ünnepek",
+    "difficulty": "Könnyű",
+    "word": "FENYŐÁG",
+    "taboo": [
+      "karácsonyfa",
+      "mikulás",
+      "ajándék",
+      "szaloncukor",
+      "gyertya"
+    ]
+  },
+  {
+    "id": "HU1192",
+    "category": "Ünnepek",
+    "difficulty": "Könnyű",
+    "word": "BEJGLI",
+    "taboo": [
+      "halászlé",
+      "töltött káposzta",
+      "zserbó",
+      "mézeskalács",
+      "kalács"
+    ]
+  },
+  {
+    "id": "HU1193",
+    "category": "Ünnepek",
+    "difficulty": "Könnyű",
+    "word": "TOBOZ",
+    "taboo": [
+      "gömb",
+      "angyalhaj",
+      "szaloncukor",
+      "girland",
+      "csillagszóró"
+    ]
+  },
+  {
+    "id": "HU1194",
+    "category": "Ünnepek",
+    "difficulty": "Könnyű",
+    "word": "GYERTYA",
+    "taboo": [
+      "karácsonyfa",
+      "mikulás",
+      "ajándék",
+      "szaloncukor",
+      "hóember"
+    ]
+  },
+  {
+    "id": "HU1195",
+    "category": "Ünnepek",
+    "difficulty": "Nehéz",
+    "word": "ELF – MIKULÁS LETTEM",
+    "taboo": [
+      "reszkessetek betörők",
+      "grincs",
+      "polár expressz",
+      "karácsonyi ének",
+      "jégvarázs"
+    ]
+  },
+  {
+    "id": "HU1196",
+    "category": "Ünnepek",
+    "difficulty": "Nehéz",
+    "word": "JÉZUSKÁM KÉRLEK SZÁLLJ LE HOZZÁNK",
+    "taboo": [
+      "mennyből az angyal",
+      "csendes éj",
+      "kis karácsony, nagy karácsony",
+      "jingle bells",
+      "pásztorok, pásztorok"
+    ]
+  },
+  {
+    "id": "HU1197",
+    "category": "Ünnepek",
+    "difficulty": "Nehéz",
+    "word": "ALL I WANT FOR CHRISTMAS IS YOU",
+    "taboo": [
+      "mennyből az angyal",
+      "csendes éj",
+      "kis karácsony, nagy karácsony",
+      "jingle bells",
+      "jézuskám kérlek szállj le hozzánk"
+    ]
+  },
+  {
+    "id": "HU1198",
+    "category": "Ünnepek",
+    "difficulty": "Nehéz",
+    "word": "CSODA A 34. UTCÁBAN",
+    "taboo": [
+      "reszkessetek betörők",
+      "grincs",
+      "polár expressz",
+      "elf – mikulás lettem",
+      "karácsonyi ének"
+    ]
+  },
+  {
+    "id": "HU1199",
+    "category": "Ünnepek",
+    "difficulty": "Nehéz",
+    "word": "Ó, JÖJJETEK HÍVEK",
+    "taboo": [
+      "mennyből az angyal",
+      "csendes éj",
+      "kis karácsony, nagy karácsony",
+      "jingle bells",
+      "jézuskám kérlek szállj le hozzánk"
+    ]
+  },
+  {
+    "id": "HU1200",
+    "category": "Ünnepek",
+    "difficulty": "Nehéz",
+    "word": "MENNYBŐL AZ ANGYAL",
+    "taboo": [
+      "csendes éj",
+      "kis karácsony, nagy karácsony",
+      "jingle bells",
+      "jézuskám kérlek szállj le hozzánk",
+      "pásztorok, pásztorok"
     ]
   }
 ];

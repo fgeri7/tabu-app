@@ -307,3 +307,12 @@ input,textarea,select{
 .all-play-team-btn:active{transform:scale(.98)}
 
 .stats-mini{font-weight:900;white-space:nowrap;font-size:14px}
+
+/* v2.4.3 – megfejtés ne törjön ketté karakterenként */
+#game.active .tabu-card h2#word{
+  white-space:nowrap;
+  overflow-wrap:normal;
+  word-break:normal;
+  hyphens:none;
+  max-width:100%;
+}

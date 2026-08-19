@@ -1,5 +1,5 @@
-const CACHE='tabu-magyar-v2.4.2';
-const CORE=['./','./index.html','./index.html?v=2.1.0','./style.css?v=2.1.0','./app.js?v=2.1.0','./cards.js?v=2.1.0'];
+const CACHE='tabu-magyar-v2.4.3';
+const CORE=['./','./index.html','./index.html?v=2.4.3','./style.css?v=2.4.3','./app.js?v=2.4.3','./cards.js?v=2.4.3'];
 self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(CORE)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));
 self.addEventListener('fetch',e=>{

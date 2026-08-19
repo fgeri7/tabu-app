@@ -4,6 +4,7 @@ const show=id=>{
   screens.forEach(x=>x.classList.toggle("active",x.id===id));
   if(id==="home")renderResumeHome();
   if(id==="setup")renderSetupPlayers();
+  if(id==="gameEnd")renderGameEnd();
 };
 let timerId=null;
 let touchStartY=0;
@@ -454,9 +455,10 @@ function fitTargetWord(){
   if(!el)return;
 
   el.style.fontSize="";
-  el.style.whiteSpace="normal";
-  el.style.overflowWrap="break-word";
+  el.style.whiteSpace="nowrap";
+  el.style.overflowWrap="normal";
   el.style.wordBreak="normal";
+  el.style.hyphens="none";
   el.style.maxHeight="none";
   el.style.overflow="hidden";
   el.style.display="block";
@@ -464,31 +466,33 @@ function fitTargetWord(){
   el.style.minWidth="0";
   el.style.boxSizing="border-box";
 
-  // V1.3-hoz közeli alapméret, de a megfejtés soha nem lóghat ki.
-  // Legfeljebb két sor engedélyezett; háromsoros tördelés helyett
-  // fokozatosan csökkentjük a betűméretet.
+  // Először mindig egy sorban próbáljuk tartani a teljes megfejtést.
+  // Ez különösen fontos az olyan egybeírt szavaknál, mint az ARANYGALUSKA:
+  // a szót nem szabad karakterenként kettétörni csak azért, hogy nagyobb maradjon.
   let size=42;
-  const minSize=24;
-
-  const fits=()=>{
-    const lineHeight=size*1.05;
-    return el.scrollWidth<=el.clientWidth+2 &&
-           el.scrollHeight<=lineHeight*2+3;
-  };
-
-  el.style.fontSize=size+"px";
+  const minSize=18;
   el.style.lineHeight="1.05";
 
-  while(size>minSize && !fits()){
-    size-=1;
+  while(size>minSize){
     el.style.fontSize=size+"px";
-    el.style.lineHeight="1.05";
+    if(el.scrollWidth<=el.clientWidth+2) break;
+    size-=1;
   }
 
-  // Végső biztosíték: két soron belül maradjon a kártya.
-  const lineHeight=size*1.05;
-  el.style.maxHeight=`${lineHeight*2+4}px`;
+  // Ha még így sem férne ki egy sorban, csak ezután engedjük a természetes,
+  // szóközök menti kétsoros tördelést. Egyetlen hosszú szót továbbra sem törünk
+  // karakterenként; szükség esetén kisebb betűméretet használunk.
+  if(el.scrollWidth>el.clientWidth+2){
+    el.style.whiteSpace="normal";
+    el.style.overflowWrap="normal";
+    el.style.wordBreak="normal";
+    const lineHeight=size*1.05;
+    el.style.maxHeight=`${lineHeight*2+4}px`;
+  }else{
+    el.style.maxHeight="none";
+  }
 }
+
 function nextCard(){
   if(!state.deck.length)state.deck=deckFor();
   if(!state.deck.length)return;
@@ -996,10 +1000,28 @@ function renderRoundScores(){
 }
 function changeRoundScore(team,delta){
   state.scores[team]=Math.max(0,state.scores[team]+delta);
+
+  // Ha a kézi módosítás az utolsó normál kör után döntetlent hoz létre,
+  // és a hirtelen halál be van kapcsolva, a mérkőzésnek azonnal folytatódnia kell.
+  const isNormalTurn=current()?.cycle!=="⚡";
+  const isFinalNormalTurn=isNormalTurn && state.pos+1>=state.sequence.length;
+  if(isFinalNormalTurn && state.suddenDeath && state.scores[0]===state.scores[1]){
+    state.gameStarted=true;
+    state.resumeGameId=state.resumeGameId||uid("game");
+    state.resumeScreen="roundEnd";
+    state.paused=true;
+    state.turnStats={correct:0,pass:0,tabu:0};
+    buildSuddenDeath();
+    state.roundEndSudden=true;
+    renderRoundScores();
+    persistCurrentGame();
+    showTurnEnd(true);
+    return;
+  }
+
   renderRoundScores();
   update();
   persistCurrentGame();
-  // Refresh the round summary text so the lead requirement remains accurate.
   const sudden=state.roundEndSudden===true;
   showTurnEnd(sudden);
 }
@@ -1043,15 +1065,7 @@ function changeScore(team,delta){
   if(state.gameStarted===false && state.statsRecorded)recordCompletedGameStats();
   persistCurrentGame();
 
-  if($("#gameEnd")?.classList.contains("active")){
-    const[a,b]=state.scores;
-    $("#winner").textContent=a===b
-      ?"Döntetlen!"
-      :`${a>b?state.teams[0]:state.teams[1]} nyert!`;
-    $("#finalScores").innerHTML=
-      `<div>🔵 ${state.teams[0]}: ${a}</div>`+
-      `<div>🔴 ${state.teams[1]}: ${b}</div>`;
-  }
+  if($("#gameEnd")?.classList.contains("active")) renderGameEnd();
 }
 
 function recordCompletedGameStats(){
@@ -1153,6 +1167,17 @@ function renderStats(){
     }).join("")
     :`<p class="muted">Még nincs csapatstatisztika.</p>`;
 }
+function renderGameEnd(){
+  const [a,b]=state.scores;
+  renderManualScores();
+  $("#winner").textContent=
+    a===b?"Döntetlen!":
+    `${a>b?state.teams[0]:state.teams[1]} nyert!`;
+  $("#finalScores").innerHTML=
+    `<div>🔵 ${escapeHtml(state.teams[0])}: ${a}</div>`+
+    `<div>🔴 ${escapeHtml(state.teams[1])}: ${b}</div>`;
+}
+
 function endGame(){
   state.gameStarted=false;
   clearInterval(timerId);
@@ -1162,17 +1187,7 @@ function endGame(){
   if(savedId)removeSavedGame(savedId);
   state.resumeGameId=null;
 
-  const[a,b]=state.scores;
-
-  renderManualScores();
-  $("#winner").textContent=
-    a===b?"Döntetlen!":
-    `${a>b?state.teams[0]:state.teams[1]} nyert!`;
-
-  $("#finalScores").innerHTML=
-    `<div>🔵 ${state.teams[0]}: ${a}</div>`+
-    `<div>🔴 ${state.teams[1]}: ${b}</div>`;
-
+  renderGameEnd();
   recordCompletedGameStats();
   show("gameEnd");
 }
@@ -1337,10 +1352,19 @@ if($("#roundScorePlus1"))$("#roundScorePlus1").onclick=()=>changeRoundScore(0,1)
 if($("#roundScoreMinus2"))$("#roundScoreMinus2").onclick=()=>changeRoundScore(1,-1);
 if($("#roundScorePlus2"))$("#roundScorePlus2").onclick=()=>changeRoundScore(1,1);
 
-$("#roundCardsBtn")?.addEventListener("click",openRoundCards);
+$("#roundCardsBtn")?.addEventListener("click",()=>openRoundCards("roundEnd"));
 $("#gameEndRoundCardsBtn")?.addEventListener("click",()=>openRoundCards("gameEnd"));
 let roundCardsReturnScreen="roundEnd";
-$("#roundCardsBack")?.addEventListener("click",()=>show(roundCardsReturnScreen));
+function restoreFromRoundCards(){
+  const target=roundCardsReturnScreen||"roundEnd";
+  if(target==="gameEnd"){
+    renderGameEnd();
+    show("gameEnd");
+  }else{
+    showTurnEnd(state.roundEndSudden===true);
+  }
+}
+$("#roundCardsBack")?.addEventListener("click",restoreFromRoundCards);
 
 
 
