@@ -92,3 +92,26 @@ document.addEventListener("touchmove",e=>{
  const dy=e.touches[0].clientY-touchStartY;
  if(window.scrollY===0&&dy>0)e.preventDefault();
 },{passive:false});
+
+// Dynamic players: event delegation keeps the buttons working even
+// if the setup DOM is rebuilt or the page is restored from cache.
+function initPlayers(){
+  const t1=$("#team1Players"), t2=$("#team2Players");
+  if(t1 && !t1.children.length){ addPlayer(0,"Játékos 1"); addPlayer(0,"Játékos 2"); }
+  if(t2 && !t2.children.length){ addPlayer(1,"Játékos 1"); addPlayer(1,"Játékos 2"); }
+}
+document.addEventListener("click",e=>{
+  const add=e.target.closest("#addTeam1,#addTeam2");
+  if(add){
+    e.preventDefault();
+    addPlayer(add.id==="addTeam1"?0:1);
+    return;
+  }
+  const remove=e.target.closest(".remove-player");
+  if(remove){
+    e.preventDefault();
+    const box=remove.closest(".player-list");
+    if(box && box.children.length>1) remove.closest(".player-row")?.remove();
+  }
+});
+initPlayers();

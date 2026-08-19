@@ -54,3 +54,8 @@ input, textarea, select {
 .overlay.hidden{display:none}
 .overlay-card{width:min(100%,420px);background:linear-gradient(180deg,#17112f,#110c25);border:1px solid #4b367a;border-radius:26px;padding:28px;box-shadow:0 25px 80px #000b;text-align:center}
 .overlay-card button{width:100%;margin-top:10px}.dice-icon{font-size:64px}
+
+/* v0.6 setup cleanup */
+.player-list:empty{display:none}
+.player-team{margin-top:14px}
+.player-team>strong{display:block;margin-bottom:8px}
