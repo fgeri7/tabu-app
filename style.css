@@ -209,11 +209,12 @@ input,textarea,select{
   font-size:clamp(30px,7.2vw,42px);
   line-height:1.05;
   white-space:normal;
-  overflow-wrap:anywhere;
+  overflow-wrap:normal;
   word-break:normal;
   hyphens:none;
   max-width:100%;
   padding:0 4px;
+  white-space:normal;
 }
 @media(max-width:400px){#game.active .tabu-card h2#word{font-size:clamp(28px,7.5vw,38px)}}
 
@@ -279,3 +280,9 @@ input,textarea,select{
 .confirm-actions{display:flex;justify-content:flex-end;gap:12px}
 .confirm-actions button{min-width:100px}
 .confirm-actions .danger{background:#e94b63;color:#fff;border:0;border-radius:12px;padding:12px 18px;font-weight:700}
+
+/* Android: the undo control should respond on the first touch. */
+#gameUndoBtn{
+  touch-action:manipulation;
+  -webkit-tap-highlight-color:transparent;
+}

@@ -39,7 +39,8 @@ const state={
   teamPlayerIds:[[],[]],
   gameCardStats:{},
   statsRecorded:false,
-  completedStatsGameId:null
+  completedStatsGameId:null,
+  roundEndSudden:false
 };
 
 let savedGames=[];
@@ -439,6 +440,29 @@ function buildSequence(){
 
 function current(){return state.sequence[state.pos]}
 
+function fitTargetWord(){
+  const el=$("#word");
+  if(!el)return;
+  el.style.fontSize="";
+  el.style.whiteSpace="normal";
+  el.style.overflowWrap="normal";
+  el.style.wordBreak="normal";
+  el.style.maxHeight="none";
+
+  // Keep the normal/v1.3 visual size, shrinking only when needed.
+  let size=42;
+  el.style.fontSize=size+"px";
+  el.style.lineHeight="1.05";
+  const maxLines=2;
+  const lineHeight=size*1.05;
+  while(el.scrollHeight>lineHeight*maxLines+3 && size>24){
+    size-=1;
+    el.style.fontSize=size+"px";
+  }
+  el.style.maxHeight=`${size*1.05*maxLines+4}px`;
+  el.style.overflow="hidden";
+}
+
 function nextCard(){
   if(!state.deck.length)state.deck=deckFor();
   if(!state.deck.length)return;
@@ -448,10 +472,10 @@ function nextCard(){
   $("#category").textContent=state.card.category||"";
   $("#difficultyLabel").textContent=state.card.difficulty||"";
   $("#word").textContent=state.card.word;
-  const len=state.card.word.length;
-  $("#word").style.fontSize = len<=11 ? "42px" : len<=14 ? "38px" : len<=17 ? "34px" : "30px";
+  $("#word").style.fontSize="";
   $("#tabooList").innerHTML=state.card.taboo
     .map(x=>`<li>❌ ${x}</li>`).join("");
+  requestAnimationFrame(fitTargetWord);
 }
 
 function update(){
@@ -702,6 +726,7 @@ function showTurnEnd(sudden){
     leadText=`${state.teams[leader]} <strong>${Math.abs(state.scores[0]-state.scores[1])} ponttal vezet.</strong>`;
   }
 
+  state.roundEndSudden=!!sudden;
   $("#roundEndTitle").textContent=sudden?"Döntetlen – hirtelen halál!":"Kör vége";
   $("#roundStats").innerHTML=
     `<strong>Az állás: ${state.teams[0]} ${state.scores[0]} – ${state.scores[1]} ${state.teams[1]}</strong><br>`+
@@ -780,7 +805,16 @@ function awardOpponent(reason){
 function scoreAction(kind){
   const c=current();
   if(!c||!state.card)return;
-  state.undo={scores:[...state.scores],turnStats:{...state.turnStats},turnCards:[...state.turnCards],card:state.card,deck:[...state.deck],gameCardStats:cloneForStorage(state.gameCardStats)};
+  state.undo={
+    scores:[...state.scores],
+    turnStats:{...state.turnStats},
+    turnCards:[...state.turnCards],
+    card:state.card,
+    deck:[...state.deck],
+    gameCardStats:cloneForStorage(state.gameCardStats),
+    recentCards:cloneForStorage(state.recentCards),
+    sessionUsed:[...state.sessionUsed]
+  };
   updateGameUndo();
   if(kind==="correct"){state.scores[c.team]++;state.turnStats.correct++}
   else {state.scores[1-c.team]++;state.turnStats[kind] }
@@ -800,6 +834,7 @@ function scoreAction(kind){
     if(cardEl){cardEl.style.transition="none";cardEl.style.transform="translate3d(0,0,0)";cardEl.style.opacity="1";}
     nextCard();
     update();
+    updateGameUndo();
     persistCurrentGame();
   },140);
 }
@@ -812,7 +847,9 @@ function renderCurrentCard(){
   $("#category").textContent=state.card.category||"";
   $("#difficultyLabel").textContent=state.card.difficulty||"";
   $("#word").textContent=state.card.word;
+  $("#word").style.fontSize="";
   $("#tabooList").innerHTML=state.card.taboo.map(x=>`<li>❌ ${x}</li>`).join("");
+  requestAnimationFrame(fitTargetWord);
 }
 function updateGameUndo(){
   const b=$("#gameUndoBtn");
@@ -826,6 +863,11 @@ function undoAction(){
   state.card=state.undo.card;
   state.deck=[...state.undo.deck];
   state.gameCardStats=cloneForStorage(state.undo.gameCardStats||{});
+  if(Array.isArray(state.undo.recentCards)){
+    state.recentCards=cloneForStorage(state.undo.recentCards);
+    try{localStorage.setItem("tabu_recent_cards_v13",JSON.stringify(state.recentCards));}catch(e){}
+  }
+  state.sessionUsed=new Set(state.undo.sessionUsed||[]);
   state.undo=null;
   renderCurrentCard();
   update();
@@ -884,7 +926,7 @@ function changeRoundScore(team,delta){
   update();
   persistCurrentGame();
   // Refresh the round summary text so the lead requirement remains accurate.
-  const sudden=state.suddenDeath===true;
+  const sudden=state.roundEndSudden===true;
   showTurnEnd(sudden);
 }
 
@@ -1109,7 +1151,25 @@ if($("#pauseMinus2"))$("#pauseMinus2").onclick=()=>changeScore(1,-1);
 if($("#pausePlus2"))$("#pausePlus2").onclick=()=>changeScore(1,1);
 
 
-if($("#gameUndoBtn"))$("#gameUndoBtn").onclick=undoAction;
+if($("#gameUndoBtn")){
+  let undoTapLock=false;
+  const runUndo=()=>{
+    if(undoTapLock||!state.undo)return;
+    undoTapLock=true;
+    undoAction();
+    setTimeout(()=>undoTapLock=false,250);
+  };
+  $("#gameUndoBtn").addEventListener("pointerup",e=>{
+    e.preventDefault();
+    e.stopPropagation();
+    runUndo();
+  });
+  $("#gameUndoBtn").addEventListener("click",e=>{
+    e.preventDefault();
+    e.stopPropagation();
+    runUndo();
+  });
+}
 if($("#roundScoreMinus1"))$("#roundScoreMinus1").onclick=()=>changeRoundScore(0,-1);
 if($("#roundScorePlus1"))$("#roundScorePlus1").onclick=()=>changeRoundScore(0,1);
 if($("#roundScoreMinus2"))$("#roundScoreMinus2").onclick=()=>changeRoundScore(1,-1);
