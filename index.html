@@ -112,7 +112,8 @@
       <p class="forbidden-title">TILOS KIMONDANI</p>
       <ul id="tabooList"></ul>
     </article>
-    <div class="game-actions">
+    <button class="secondary game-undo" id="gameUndoBtn" disabled>↩ Utolsó akció visszavonása</button>
+<div class="game-actions">
       <button class="danger" id="tabooBtn">🚨 TABU!</button>
       <div class="action-row">
         <button id="passBtn">⏭ Passz</button>
@@ -143,9 +144,19 @@
 <section id="roundEnd" class="screen center">
     <div class="big-icon">⏱️</div><h1 id="roundEndTitle">Lejárt az idő!</h1>
     <p id="roundStats"></p>
-    <button class="secondary" id="undoActionBtn">↩ Utolsó akció visszavonása</button>
+<button class="secondary" id="roundCardsBtn">🃏 A kör lapjainak megtekintése</button>
   <button class="primary" id="nextRoundBtn">Következő kör →</button>
-  </section>
+  <div class="card round-score-editor">
+<h2>Pontok kézi módosítása</h2>
+<div class="score-edit-row"><strong id="roundScoreTeam1">Kék csapat</strong><button id="roundScoreMinus1">−1</button><span id="roundScoreEdit1">0</span><button id="roundScorePlus1">+1</button></div>
+<div class="score-edit-row"><strong id="roundScoreTeam2">Piros csapat</strong><button id="roundScoreMinus2">−1</button><span id="roundScoreEdit2">0</span><button id="roundScorePlus2">+1</button></div>
+</div>
+</section>
+
+  <section id="roundCards" class="screen">
+  <header><button class="back" id="roundCardsBack">‹</button><h1>Az előző kör lapjai</h1></header>
+  <div id="roundCardsList" class="round-cards-list"></div>
+</section>
 
   <section id="gameEnd" class="screen center">
     <div class="big-icon">🏆</div><h1 id="winner"></h1>

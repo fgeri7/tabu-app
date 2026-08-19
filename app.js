@@ -25,7 +25,8 @@ const state={
   paused:false,
   gameStarted:false,
   pendingDice:"classic",
-  turnStats:{correct:0,pass:0,tabu:0}
+  turnStats:{correct:0,pass:0,tabu:0},
+  turnCards:[]
 };
 
 function shuffle(a){return [...a].sort(()=>Math.random()-.5)}
@@ -218,6 +219,7 @@ function startGame(){
   state.gameStarted=true;
   state.paused=false;
   state.turnStats={correct:0,pass:0,tabu:0};
+  state.turnCards=[];
 
   buildSequence();
   show("game");
@@ -292,24 +294,72 @@ function buildSuddenDeath(){
   state.pos=0;
 }
 
+
+function outcomeLabel(kind){
+  return kind==="correct"
+    ?["✅","Eltalálás","correct"]
+    :kind==="pass"
+      ?["⏭️","Passz","pass"]
+      :["🚨","TABU","tabu"];
+}
+
+function renderRoundCards(){
+  const box=$("#roundCardsList");
+  if(!box)return;
+
+  if(!state.turnCards.length){
+    box.innerHTML=`<div class="card empty-round-cards">
+      <h2>Ebben a körben nem volt értékelt kártya.</h2>
+      <p>A kör idő lejárt, mielőtt egy feladványt értékeltetek volna.</p>
+    </div>`;
+    return;
+  }
+
+  box.innerHTML=state.turnCards.map((entry,i)=>{
+    const [icon,label,cls]=outcomeLabel(entry.outcome);
+    const c=entry.card;
+    return `<article class="card review-card">
+      <div class="review-top">
+        <span class="review-number">#${i+1}</span>
+        <span class="review-outcome ${cls}">${icon} ${label}</span>
+      </div>
+      <div class="review-category">${c.category||""}</div>
+      <div class="review-word">${c.word}</div>
+      <div class="review-label">Tiltott szavak</div>
+      <div class="review-taboo">${(c.taboo||[]).map(x=>`<span>❌ ${x}</span>`).join("")}</div>
+    </article>`;
+  }).join("");
+}
+
+function openRoundCards(){
+  renderRoundCards();
+  show("roundCards");
+}
+
 function showTurnEnd(sudden){
+  const normalTotal=state.sequence.filter(x=>x.cycle!=="⚡").length;
+  const completed=Math.min(state.pos+1,normalTotal);
+  const remaining=Math.max(0,normalTotal-completed);
   const lead=Math.abs(state.scores[0]-state.scores[1]);
   const next=state.sequence[state.pos+1];
-  const completed=sudden?0:Math.min(state.pos+1,state.totalTurns);
-  const remaining=sudden?0:Math.max(0,state.totalTurns-completed);
 
   $("#roundEndTitle").textContent=sudden?"Döntetlen – hirtelen halál!":"Kör vége";
   $("#roundStats").innerHTML=
-    `<strong>${state.teams[0]} ${state.scores[0]} – ${state.scores[1]} ${state.teams[1]}</strong><br>`+
+    `<strong>Az állás: ${state.teams[0]} ${state.scores[0]} – ${state.scores[1]} ${state.teams[1]}</strong><br>`+
     (lead===0?"Döntetlen az állás.":`A következő csapatnak legalább <strong>${lead+1} pont</strong> kell a vezetés átvételéhez.`)+
-    `<br><small>${sudden?"Hirtelen halál: mindkét csapatnak lehetőséget kell kapnia.":`Játékos-körök: ${completed}/${state.totalTurns} · ${remaining} van hátra.`}</small>`+
+    `<br><small>${sudden?"Hirtelen halál – mindkét csapatnak játszania kell.":`Játékos-körök: ${completed}/${normalTotal} · ${remaining} van hátra.`}</small>`+
     (next?`<br><strong>${state.teams[next.team]} – ${state.players[next.team][next.player]} következik.</strong>`:"");
-  $("#nextRoundBtn").textContent=next?`${state.teams[next.team]} – ${state.players[next.team][next.player]} következik →`:"Játék vége →";
+
+  renderRoundScores();
+  $("#nextRoundBtn").textContent=next
+    ?`${state.teams[next.team]} – ${state.players[next.team][next.player]} következik →`
+    :"Játék vége →";
   show("roundEnd");
 }
 
 function continueAfterTurn(){
   state.turnStats={correct:0,pass:0,tabu:0};
+  state.turnCards=[];
 
   // Hirtelen halálban csak akkor döntünk, amikor mindkét csapat játszott.
   if(current()?.cycle==="⚡"&&state.pos%2===1){
@@ -364,9 +414,18 @@ function awardOpponent(reason){
 function scoreAction(kind){
   const c=current();
   if(!c||!state.card)return;
-  state.undo={scores:[...state.scores],turnStats:{...state.turnStats},card:state.card,deck:[...state.deck],time:state.time};
+  state.undo={scores:[...state.scores],turnStats:{...state.turnStats},turnCards:[...state.turnCards],card:state.card,deck:[...state.deck]};
+  updateGameUndo();
   if(kind==="correct"){state.scores[c.team]++;state.turnStats.correct++}
   else {state.scores[1-c.team]++;state.turnStats[kind]++}
+
+  state.turnCards.push({
+    card:{...state.card, taboo:[...(state.card.taboo||[])]},
+    outcome:kind,
+    team:c.team,
+    player:c.player
+  });
+
   feedback();
   const cardEl=$("#game .tabu-card");
   setTimeout(()=>{
@@ -379,23 +438,28 @@ $("#correctBtn").onclick=()=>scoreAction("correct");
 $("#passBtn").onclick=()=>scoreAction("pass");
 $("#tabooBtn").onclick=()=>scoreAction("tabu");
 
+function renderCurrentCard(){
+  if(!state.card)return;
+  $("#category").textContent=state.card.category||"";
+  $("#difficultyLabel").textContent=state.card.difficulty||"";
+  $("#word").textContent=state.card.word;
+  $("#tabooList").innerHTML=state.card.taboo.map(x=>`<li>❌ ${x}</li>`).join("");
+}
+function updateGameUndo(){
+  const b=$("#gameUndoBtn");
+  if(b)b.disabled=!state.undo;
+}
 function undoAction(){
   if(!state.undo)return;
   state.scores=[...state.undo.scores];
   state.turnStats={...state.undo.turnStats};
+  state.turnCards=[...state.undo.turnCards];
   state.card=state.undo.card;
   state.deck=[...state.undo.deck];
-  state.time=state.undo.time;
   state.undo=null;
-  if(state.card){
-    $("#category").textContent=state.card.category||"";
-    $("#difficultyLabel").textContent=state.card.difficulty||"";
-    $("#word").textContent=state.card.word;
-    const len=state.card.word.length;
-    $("#word").style.fontSize = len<=11 ? "42px" : len<=14 ? "38px" : len<=17 ? "34px" : "30px";
-    $("#tabooList").innerHTML=state.card.taboo.map(x=>`<li>❌ ${x}</li>`).join("");
-  }
+  renderCurrentCard();
   update();
+  updateGameUndo();
 }
 
 function pauseGame(){
@@ -426,6 +490,21 @@ $("#resumeBtn").onclick=resumeGame;
 $("#pauseHomeBtn").onclick=goHome;
 $("#pauseEndBtn").onclick=goHome;
 
+
+function renderRoundScores(){
+  if($("#roundScoreEdit1"))$("#roundScoreEdit1").textContent=state.scores[0];
+  if($("#roundScoreEdit2"))$("#roundScoreEdit2").textContent=state.scores[1];
+  if($("#roundScoreTeam1"))$("#roundScoreTeam1").textContent=state.teams[0];
+  if($("#roundScoreTeam2"))$("#roundScoreTeam2").textContent=state.teams[1];
+}
+function changeRoundScore(team,delta){
+  state.scores[team]=Math.max(0,state.scores[team]+delta);
+  renderRoundScores();
+  update();
+  // Refresh the round summary text so the lead requirement remains accurate.
+  const sudden=state.suddenDeath===true;
+  showTurnEnd(sudden);
+}
 
 function renderManualScores(){
   $("#scoreEdit1").textContent=state.scores[0];
@@ -530,10 +609,6 @@ if("serviceWorker"in navigator){
 }
 
 if($("#undoActionBtn"))$("#undoActionBtn").onclick=undoAction;
-if($("#scoreMinus1"))$("#scoreMinus1").onclick=()=>changeScore(0,-1);
-if($("#scorePlus1"))$("#scorePlus1").onclick=()=>changeScore(0,1);
-if($("#scoreMinus2"))$("#scoreMinus2").onclick=()=>changeScore(1,-1);
-if($("#scorePlus2"))$("#scorePlus2").onclick=()=>changeScore(1,1);
 
 (function(){
   let sx=0,sy=0,el=null;
@@ -571,3 +646,13 @@ if($("#pauseMinus1"))$("#pauseMinus1").onclick=()=>changeScore(0,-1);
 if($("#pausePlus1"))$("#pausePlus1").onclick=()=>changeScore(0,1);
 if($("#pauseMinus2"))$("#pauseMinus2").onclick=()=>changeScore(1,-1);
 if($("#pausePlus2"))$("#pausePlus2").onclick=()=>changeScore(1,1);
+
+
+if($("#gameUndoBtn"))$("#gameUndoBtn").onclick=undoAction;
+if($("#roundScoreMinus1"))$("#roundScoreMinus1").onclick=()=>changeRoundScore(0,-1);
+if($("#roundScorePlus1"))$("#roundScorePlus1").onclick=()=>changeRoundScore(0,1);
+if($("#roundScoreMinus2"))$("#roundScoreMinus2").onclick=()=>changeRoundScore(1,-1);
+if($("#roundScorePlus2"))$("#roundScorePlus2").onclick=()=>changeRoundScore(1,1);
+
+$("#roundCardsBtn")?.addEventListener("click",openRoundCards);
+$("#roundCardsBack")?.addEventListener("click",()=>show("roundEnd"));
