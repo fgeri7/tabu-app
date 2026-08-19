@@ -315,34 +315,99 @@ function continueAfterTurn(){
   else startTimer();
 }
 
-// Pontozás: passz/TABU esetén NINCS levonás.
-// Az ellenfél egyszerűen +1 pontot kap.
-$("#correctBtn").onclick=()=>{
+// Pontozási műveletek. A swipe és a gombok ugyanazokat a funkciókat hívják.
+function awardCorrect(){
   const c=current();
+  if(!c)return;
   state.scores[c.team]++;
   state.turnStats.correct++;
   feedback();
   nextCard();
   update();
-};
+}
 
-$("#passBtn").onclick=()=>{
+function awardOpponent(reason){
   const c=current();
+  if(!c)return;
   state.scores[1-c.team]++;
-  state.turnStats.pass++;
+  state.turnStats[reason]++;
   feedback();
   nextCard();
   update();
-};
+}
 
-$("#tabooBtn").onclick=()=>{
-  const c=current();
-  state.scores[1-c.team]++;
-  state.turnStats.tabu++;
-  feedback();
-  nextCard();
-  update();
-};
+// Gombok
+$("#correctBtn").onclick=awardCorrect;
+$("#passBtn").onclick=()=>awardOpponent("pass");
+$("#tabooBtn").onclick=()=>awardOpponent("tabu");
+
+// Kártya-pöccintés:
+// jobbra  = Kitaláltuk / saját csapat +1
+// felfelé = Passz / ellenfél +1
+// balra   = TABU / ellenfél +1
+// Nincs külön swipe-indikátor a UI-ban.
+let swipe={active:false,x:0,y:0,moved:false};
+const SWIPE_THRESHOLD=70;
+const cardEl=$(".tabu-card");
+
+cardEl.addEventListener("touchstart",e=>{
+  if(e.touches.length!==1)return;
+  swipe={active:true,x:e.touches[0].clientX,y:e.touches[0].clientY,moved:false};
+},{passive:true});
+
+cardEl.addEventListener("touchmove",e=>{
+  if(!swipe.active||e.touches.length!==1)return;
+  const dx=e.touches[0].clientX-swipe.x;
+  const dy=e.touches[0].clientY-swipe.y;
+  if(Math.hypot(dx,dy)<10)return;
+
+  swipe.moved=true;
+  swipe.lastX=e.touches[0].clientX;
+  swipe.lastY=e.touches[0].clientY;
+  // A kártya természetesen követi az ujjat, de nincs rajta külön jelzés.
+  const limitedX=Math.max(-85,Math.min(85,dx));
+  const limitedY=Math.max(-70,Math.min(70,dy));
+  cardEl.style.transform=`translate(${limitedX}px,${limitedY}px) rotate(${limitedX*0.025}deg)`;
+  e.preventDefault();
+},{passive:false});
+
+cardEl.addEventListener("touchend",()=>{
+  if(!swipe.active)return;
+
+  const dx=cardEl.style.transform;
+  cardEl.style.transform="";
+
+  // Read the final displacement from the saved gesture by tracking it separately.
+  // The touchend event has no touches, so use the last move coordinates.
+  const last=swipe.lastX===undefined?swipe.x:swipe.lastX;
+  const lastY=swipe.lastY===undefined?swipe.y:swipe.lastY;
+  const deltaX=last-swipe.x;
+  const deltaY=lastY-swipe.y;
+
+  swipe.active=false;
+  if(!swipe.moved)return;
+
+  if(Math.max(Math.abs(deltaX),Math.abs(deltaY))<SWIPE_THRESHOLD)return;
+
+  if(Math.abs(deltaX)>=Math.abs(deltaY)){
+    if(deltaX>0)awardCorrect();
+    else awardOpponent("tabu");
+  }else if(deltaY<0){
+    awardOpponent("pass");
+  }
+});
+
+cardEl.addEventListener("touchcancel",()=>{
+  swipe.active=false;
+  cardEl.style.transform="";
+});
+
+// Store the latest touch position for swipe-end direction detection.
+cardEl.addEventListener("touchmove",e=>{
+  if(!swipe.active||e.touches.length!==1)return;
+  swipe.lastX=e.touches[0].clientX;
+  swipe.lastY=e.touches[0].clientY;
+},{passive:true});
 
 function pauseGame(){
   if(!state.gameStarted||timerId===null)return;
