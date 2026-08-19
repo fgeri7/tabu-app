@@ -29,11 +29,7 @@
     <div class="card">
       <label>🔵 Csapat 1 neve<input id="team1" value="Kék csapat"></label>
       <label>🔴 Csapat 2 neve<input id="team2" value="Piros csapat"></label>
-      <div class="grid2">
-        <label>Körök<select id="rounds"><option>3</option><option selected>5</option><option>7</option><option>10</option></select></label>
-        <label>Idő / kör<select id="duration"><option value="30">30 mp</option><option selected value="60">60 mp</option><option value="90">90 mp</option></select></label>
-      </div>
-      <label>Nehézség<select id="difficulty"><option value="all">Vegyes</option><option value="Könnyű">Könnyű</option><option value="Normál">Normál</option><option value="Nehéz">Nehéz</option></select></label>
+<label>Nehézség<select id="difficulty"><option value="all">Vegyes</option><option value="Könnyű">Könnyű</option><option value="Normál">Normál</option><option value="Nehéz">Nehéz</option></select></label>
     </div>
     
 <div class="card player-config">
@@ -98,6 +94,14 @@
 <button id="pauseHomeBtn">🏠 Főmenü</button>
 <button class="danger-outline" id="pauseEndBtn">🛑 Játék befejezése</button>
 </div></div>
+<div id="diceOverlay" class="overlay hidden">
+  <div class="overlay-card dice-card">
+    <div id="diceIcon" class="dice-icon">🎲</div>
+    <h2 id="diceTitle">Game-changer</h2>
+    <p id="diceDescription"></p>
+    <button class="primary" id="diceContinueBtn">Rendben, kezdjük! →</button>
+  </div>
+</div>
 <section id="roundEnd" class="screen center">
     <div class="big-icon">⏱️</div><h1 id="roundEndTitle">Lejárt az idő!</h1>
     <p id="roundStats"></p>
@@ -116,10 +120,10 @@
     <div class="card rules">
 <h2>A cél</h2><p>Juttasd el a csapattársaidhoz a feladványszót úgy, hogy közben nem mondhatod ki a kártyán szereplő tiltott szavakat.</p>
 <h2>Játékmenet</h2><p>A két csapat felváltva játszik. Az egyik csapat játékosa a magyarázó, a csapattársai tippelnek, az ellenfél pedig figyeli a kártyát és a szabályok betartását.</p>
-<h2>Pontozás</h2><p><strong>✓ Kitalált szó: +1 pont</strong> a magyarázó csapatnak.</p>
-<p><strong>⏭ Passz: +1 pont az ellenfélnek; a saját csapat pontszámából nem vonunk le pontot.</strong> a magyarázó csapatnak, és +1 pont az ellenfélnek.</p>
-<p><strong>🚨 TABU: −1 pont</strong> a magyarázó csapatnak, és +1 pont az ellenfélnek.</p>
-<p>Ez a klasszikus Hasbro Tabu pontozási logikája: a Passz: +1 pont az ellenfélnek; a saját csapat pontszámából nem vonunk le pontot.</p>
+<h2>Pontozás</h2>
+<p><strong>✓ Kitalált szó: +1 pont</strong> a magyarázó csapatnak.</p>
+<p><strong>⏭ Passz: +1 pont az ellenfélnek.</strong> A saját csapat pontszámából nem vonunk le pontot.</p>
+<p><strong>🚨 TABU: +1 pont az ellenfélnek.</strong> A saját csapat pontszámából nem vonunk le pontot.</p>
 <h2>Fontos szabályok</h2><p>A tiltott szavak bármely alakja sem használható. Tilos továbbá a feladványszó egyértelmű részeinek, kezdőbetűinek, rímének vagy „úgy hangzik, mint” típusú utalásnak a használata.</p>
 <h2>Idő</h2><p>A kör a beállított idő leteltéig tart. A jelenlegi appverzióban a körök száma külön beállítható; ez az app egyszerűsítése a klasszikus játékmenethez.</p>
 </div></section>
