@@ -100,7 +100,7 @@
 </section>
 
 <section id="game" class="screen">
-    <div class="game-controls"><button id="pauseBtn" class="icon-btn">⏸️</button><button id="gameMenuBtn" class="icon-btn">☰</button></div><div class="game-top">
+    <div class="game-controls"><button id="gameUndoBtn" class="icon-btn undo-icon" disabled aria-label="Utolsó akció visszavonása" title="Utolsó akció visszavonása">↶</button><button id="gameMenuBtn" class="icon-btn">☰</button></div><div class="game-top">
       <div><small id="roundLabel"></small><strong id="teamLabel"></strong><small id="playerLabel"></small></div>
       <div id="timer">01:00</div>
       <div class="scoreline"><span id="score1">0</span> – <span id="score2">0</span></div>
@@ -112,7 +112,6 @@
       <p class="forbidden-title">TILOS KIMONDANI</p>
       <ul id="tabooList"></ul>
     </article>
-    <button class="secondary game-undo" id="gameUndoBtn" disabled>↩ Utolsó akció visszavonása</button>
 <div class="game-actions">
       <button class="danger" id="tabooBtn">🚨 TABU!</button>
       <div class="action-row">

@@ -340,13 +340,28 @@ function showTurnEnd(sudden){
   const normalTotal=state.sequence.filter(x=>x.cycle!=="⚡").length;
   const completed=Math.min(state.pos+1,normalTotal);
   const remaining=Math.max(0,normalTotal-completed);
-  const lead=Math.abs(state.scores[0]-state.scores[1]);
   const next=state.sequence[state.pos+1];
+  let leadText="Döntetlen az állás.";
+
+  if(next){
+    const nextTeam=next.team;
+    const otherTeam=1-nextTeam;
+    const diff=state.scores[nextTeam]-state.scores[otherTeam];
+
+    if(diff>0){
+      leadText=`A következő csapat <strong>${diff} ponttal vezet.</strong>`;
+    }else if(diff<0){
+      leadText=`A következő csapatnak legalább <strong>${Math.abs(diff)+1} pont</strong> kell a vezetés átvételéhez.`;
+    }
+  }else if(state.scores[0]!==state.scores[1]){
+    const leader=state.scores[0]>state.scores[1]?0:1;
+    leadText=`${state.teams[leader]} <strong>${Math.abs(state.scores[0]-state.scores[1])} ponttal vezet.</strong>`;
+  }
 
   $("#roundEndTitle").textContent=sudden?"Döntetlen – hirtelen halál!":"Kör vége";
   $("#roundStats").innerHTML=
     `<strong>Az állás: ${state.teams[0]} ${state.scores[0]} – ${state.scores[1]} ${state.teams[1]}</strong><br>`+
-    (lead===0?"Döntetlen az állás.":`A következő csapatnak legalább <strong>${lead+1} pont</strong> kell a vezetés átvételéhez.`)+
+    leadText+
     `<br><small>${sudden?"Hirtelen halál – mindkét csapatnak játszania kell.":`Játékos-körök: ${completed}/${normalTotal} · ${remaining} van hátra.`}</small>`+
     (next?`<br><strong>${state.teams[next.team]} – ${state.players[next.team][next.player]} következik.</strong>`:"");
 
@@ -484,7 +499,6 @@ function goHome(){
   show("home");
 }
 
-$("#pauseBtn").onclick=pauseGame;
 $("#gameMenuBtn").onclick=pauseGame;
 $("#resumeBtn").onclick=resumeGame;
 $("#pauseHomeBtn").onclick=goHome;

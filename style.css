@@ -202,7 +202,7 @@ input,textarea,select{
 }
 
 .score-editor{margin-top:12px}.score-edit-row{display:grid;grid-template-columns:1fr 48px 42px 48px;gap:8px;align-items:center;margin:10px 0}.score-edit-row button{height:42px;border-radius:12px;font-size:20px}.score-edit-row span{text-align:center;font-weight:700}.score-editor h2{margin-bottom:10px}
-#undoActionBtn{width:100%;margin-bottom:10px}.swipe-flying{transition:transform .16s cubic-bezier(.2,.8,.2,1),opacity .16s ease!important}
+.swipe-flying{transition:transform .16s cubic-bezier(.2,.8,.2,1),opacity .16s ease!important}
 
 /* v1.3 – target word always fits the card */
 #game.active .tabu-card h2#word{
@@ -221,7 +221,7 @@ input,textarea,select{
 #game.active .tabu-card h2#word{white-space:normal;overflow-wrap:anywhere;word-break:normal;max-width:100%;padding:0 4px}
 
 .round-score-editor{margin-top:12px}.round-score-editor h2{margin-bottom:10px}
-.game-undo{width:100%;margin:10px 0 12px}.game-undo:disabled{opacity:.4}
+.undo-icon{font-size:30px;line-height:1;padding:7px 13px}.undo-icon:disabled{opacity:.35}
 
 #roundCardsList{display:flex;flex-direction:column;gap:12px;padding-bottom:24px}
 .review-card{padding:16px}
