@@ -60,4 +60,33 @@ input, textarea, select {
 .player-team{margin-top:14px}
 .player-team>strong{display:block;margin-bottom:8px}
 
-.player-team{margin-top:14px}.player-team>strong{display:block;margin-bottom:8px}.player-list{display:flex;flex-direction:column;gap:8px;margin:8px 0}.player-row{display:flex;gap:8px}.player-row input{flex:1}.remove-player{width:48px;flex:0 0 48px}.add-player{width:100%;margin-top:6px}.check-row{display:flex;align-items:center;gap:10px}.check-row input{width:auto;margin:0}#playerLabel{display:block;color:#c4b5fd;font-size:12px;margin-top:2px}.overlay{position:fixed;inset:0;z-index:1000;background:#070413cc;backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;padding:20px}.overlay.hidden{display:none}.overlay-card{width:min(100%,420px);background:linear-gradient(180deg,#17112f,#110c25);border:1px solid #4b367a;border-radius:26px;padding:28px;box-shadow:0 25px 80px #000b;text-align:center}.overlay-card button{width:100%;margin-top:10px}.dice-icon{font-size:64px}
+/* v0.8 setup */
+.player-config{margin-top:12px}
+.player-team{margin-top:14px}
+.player-team>strong{display:block;margin-bottom:8px}
+.player-list{display:flex;flex-direction:column;gap:8px;margin:8px 0}
+.player-row{display:flex;gap:8px}
+.player-row input{flex:1}
+.remove-player{width:48px;flex:0 0 48px}
+.add-player{width:100%;margin-top:6px}
+.check-row{display:flex;align-items:center;gap:10px}
+.check-row input{width:auto;margin:0}
+#playerLabel{display:block;color:#c4b5fd;font-size:12px;margin-top:2px}
+
+/* No long-press selection/copy in the app; text fields remain editable. */
+html,body,body *{
+  -webkit-user-select:none;
+  user-select:none;
+  -webkit-touch-callout:none;
+}
+input,textarea,select{
+  -webkit-user-select:text;
+  user-select:text;
+  -webkit-touch-callout:default;
+}
+
+.overlay{position:fixed;inset:0;z-index:1000;background:#070413cc;backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;padding:20px}
+.overlay.hidden{display:none}
+.overlay-card{width:min(100%,420px);background:linear-gradient(180deg,#17112f,#110c25);border:1px solid #4b367a;border-radius:26px;padding:28px;box-shadow:0 25px 80px #000b;text-align:center}
+.overlay-card button{width:100%;margin-top:10px}
+.dice-icon{font-size:64px}

@@ -25,48 +25,80 @@
   </section>
 
   <section id="setup" class="screen">
-    <header><button class="back" data-back="home">‹</button><h1>Új játék</h1></header>
-    <div class="card">
-      <label>🔵 Csapat 1 neve<input id="team1" value="Kék csapat"></label>
-      <label>🔴 Csapat 2 neve<input id="team2" value="Piros csapat"></label>
-<label>Nehézség<select id="difficulty"><option value="all">Vegyes</option><option value="Könnyű">Könnyű</option><option value="Normál">Normál</option><option value="Nehéz">Nehéz</option></select></label>
-    </div>
-    
-<div class="card player-config">
-  <h2>Játékosok</h2>
-  <p class="muted">Adj hozzá annyi játékost, amennyivel játszotok. A két csapat létszáma eltérhet.</p>
-  <div class="player-team">
-    <strong>🔵 1. csapat játékosai</strong>
-    <div id="team1Players" class="player-list"></div>
-    <button type="button" class="secondary add-player" id="addTeam1">＋ Játékos hozzáadása</button>
-  </div>
-  <div class="player-team">
-    <strong>🔴 2. csapat játékosai</strong>
-    <div id="team2Players" class="player-list"></div>
-    <button type="button" class="secondary add-player" id="addTeam2">＋ Játékos hozzáadása</button>
-  </div>
-</div>
-<div class="card player-config">
-  <h2>Játékszabályok</h2>
-  <label>Teljes fordulók
-    <select id="cycles">
-      <option value="1">1</option><option value="2" selected>2</option>
-      <option value="3">3</option><option value="4">4</option><option value="5">5</option>
-    </select>
-  </label>
-  <label>Köridő
-    <select id="duration">
-      <option value="30">30 mp</option><option value="45">45 mp</option>
-      <option value="60" selected>60 mp</option><option value="90">90 mp</option><option value="120">120 mp</option>
-    </select>
-  </label>
-  <label class="check-row"><input type="checkbox" id="suddenDeath" checked> Döntetlen esetén hirtelen halál</label>
-  <label class="check-row"><input type="checkbox" id="gameChanger"> 🎲 Game-changer dobókocka használata</label>
-</div>
-<button class="primary" id="startBtn">Játék indítása →</button>
-  </section>
+  <header><button class="back" data-back="home">‹</button><h1>Új játék</h1></header>
 
-  <section id="game" class="screen">
+  <div class="card">
+    <label>🔵 Csapat 1 neve
+      <input id="team1" value="Kék csapat" autocomplete="off">
+    </label>
+    <label>🔴 Csapat 2 neve
+      <input id="team2" value="Piros csapat" autocomplete="off">
+    </label>
+    <label>Nehézség
+      <select id="difficulty">
+        <option value="all">Vegyes</option>
+        <option value="Könnyű">Könnyű</option>
+        <option value="Normál">Normál</option>
+        <option value="Nehéz">Nehéz</option>
+      </select>
+    </label>
+  </div>
+
+  <div class="card player-config">
+    <h2>Játékosok</h2>
+    <p class="muted">Adj hozzá annyi játékost, amennyivel játszotok. A két csapat létszáma eltérhet.</p>
+
+    <div class="player-team">
+      <strong>🔵 1. csapat játékosai</strong>
+      <div id="team1Players" class="player-list"></div>
+      <button type="button" class="secondary add-player" id="addTeam1">＋ Játékos hozzáadása</button>
+    </div>
+
+    <div class="player-team">
+      <strong>🔴 2. csapat játékosai</strong>
+      <div id="team2Players" class="player-list"></div>
+      <button type="button" class="secondary add-player" id="addTeam2">＋ Játékos hozzáadása</button>
+    </div>
+  </div>
+
+  <div class="card player-config">
+    <h2>Játékszabályok</h2>
+
+    <label>Teljes fordulók
+      <select id="cycles">
+        <option value="1">1</option>
+        <option value="2" selected>2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+    </label>
+
+    <label>Köridő
+      <select id="duration">
+        <option value="30">30 mp</option>
+        <option value="45">45 mp</option>
+        <option value="60" selected>60 mp</option>
+        <option value="90">90 mp</option>
+        <option value="120">120 mp</option>
+      </select>
+    </label>
+
+    <label class="check-row">
+      <input type="checkbox" id="suddenDeath" checked>
+      Döntetlen esetén hirtelen halál
+    </label>
+
+    <label class="check-row">
+      <input type="checkbox" id="gameChanger">
+      🎲 Game-changer dobókocka használata
+    </label>
+  </div>
+
+  <button class="primary" id="startBtn">Játék indítása →</button>
+</section>
+
+<section id="game" class="screen">
     <div class="game-controls"><button id="pauseBtn" class="icon-btn">⏸️</button><button id="gameMenuBtn" class="icon-btn">☰</button></div><div class="game-top">
       <div><small id="roundLabel"></small><strong id="teamLabel"></strong><small id="playerLabel"></small></div>
       <div id="timer">01:00</div>
@@ -116,17 +148,29 @@
   </section>
 
   <section id="rules" class="screen">
-    <header><button class="back" data-back="home">‹</button><h1>Játékszabályok</h1></header>
-    <div class="card rules">
-<h2>A cél</h2><p>Juttasd el a csapattársaidhoz a feladványszót úgy, hogy közben nem mondhatod ki a kártyán szereplő tiltott szavakat.</p>
-<h2>Játékmenet</h2><p>A két csapat felváltva játszik. Az egyik csapat játékosa a magyarázó, a csapattársai tippelnek, az ellenfél pedig figyeli a kártyát és a szabályok betartását.</p>
-<h2>Pontozás</h2>
-<p><strong>✓ Kitalált szó: +1 pont</strong> a magyarázó csapatnak.</p>
-<p><strong>⏭ Passz: +1 pont az ellenfélnek.</strong> A saját csapat pontszámából nem vonunk le pontot.</p>
-<p><strong>🚨 TABU: +1 pont az ellenfélnek.</strong> A saját csapat pontszámából nem vonunk le pontot.</p>
-<h2>Fontos szabályok</h2><p>A tiltott szavak bármely alakja sem használható. Tilos továbbá a feladványszó egyértelmű részeinek, kezdőbetűinek, rímének vagy „úgy hangzik, mint” típusú utalásnak a használata.</p>
-<h2>Idő</h2><p>A kör a beállított idő leteltéig tart. A jelenlegi appverzióban a körök száma külön beállítható; ez az app egyszerűsítése a klasszikus játékmenethez.</p>
-</div></section>
+  <header><button class="back" data-back="home">‹</button><h1>Játékszabályok</h1></header>
+  <div class="card rules">
+    <h2>A cél</h2>
+    <p>Juttasd el a csapattársaidhoz a feladványszót úgy, hogy közben nem mondhatod ki a kártyán szereplő tiltott szavakat.</p>
+
+    <h2>Játékmenet</h2>
+    <p>A két csapat felváltva játszik. Egy körben az aktuális csapat egyik játékosa magyaráz, a csapattársai tippelnek, az ellenfél pedig figyeli a kártyát és a szabályok betartását.</p>
+
+    <h2>Pontozás</h2>
+    <p><strong>✓ Kitalált szó: +1 pont</strong> a magyarázó csapatnak.</p>
+    <p><strong>⏭ Passz: +1 pont az ellenfélnek.</strong> A saját csapat pontszámából nem vonunk le pontot.</p>
+    <p><strong>🚨 TABU: +1 pont az ellenfélnek.</strong> A saját csapat pontszámából nem vonunk le pontot.</p>
+
+    <h2>Fordulók</h2>
+    <p>A fordulókban a játékosok sorban következnek. Például 2–2 játékosnál: 1. csapat 1. játékosa → 2. csapat 1. játékosa → 1. csapat 2. játékosa → 2. csapat 2. játékosa, majd a beállított számú forduló ismétlődik.</p>
+
+    <h2>Hirtelen halál</h2>
+    <p>Döntetlen esetén újabb páros körök következnek. A játék csak akkor dőlhet el, ha mindkét csapat megkapta az adott hirtelen halál-kört.</p>
+
+    <h2>Game-changer</h2>
+    <p>Bekapcsolva a kör elején a dobókocka egy különleges játékmódot választ: Egy kitaláló, Dupla idő, Szobor, Mindenki játszik vagy Klasszikus.</p>
+  </div>
+</section>
 
   <section id="settings" class="screen">
     <header><button class="back" data-back="home">‹</button><h1>Beállítások</h1></header>
