@@ -40,8 +40,8 @@
 </section>
 
 <section id="game" class="screen">
-    <div class="game-top">
-      <div><small id="roundLabel"></small><strong id="teamLabel"></strong></div>
+    <div class="game-controls"><button id="pauseBtn" class="icon-btn">⏸️</button><button id="gameMenuBtn" class="icon-btn">☰</button></div><div class="game-top">
+      <div><small id="roundLabel"></small><strong id="teamLabel"></strong><small id="playerLabel"></small></div>
       <div id="timer">01:00</div>
       <div class="scoreline"><span id="score1">0</span> – <span id="score2">0</span></div>
     </div>
@@ -61,7 +61,13 @@
     </div>
   </section>
 
-  <div id="diceOverlay" class="overlay hidden"><div class="overlay-card dice-card"><div id="diceIcon" class="dice-icon">🎲</div><h2 id="diceTitle">Game-changer</h2><p id="diceDescription"></p><button class="primary" id="diceContinueBtn">Rendben, kezdjük! →</button></div></div><section id="roundEnd" class="screen center">
+  <div id="pauseOverlay" class="overlay hidden"><div class="overlay-card">
+<div class="big-icon">⏸️</div><h2>Játék szüneteltetve</h2>
+<button class="primary" id="resumeBtn">▶ Folytatás</button>
+<button id="pauseHomeBtn">🏠 Főmenü</button>
+<button class="danger-outline" id="pauseEndBtn">🛑 Játék befejezése</button>
+</div></div>
+<div id="diceOverlay" class="overlay hidden"><div class="overlay-card dice-card"><div id="diceIcon" class="dice-icon">🎲</div><h2 id="diceTitle">Game-changer</h2><p id="diceDescription"></p><button class="primary" id="diceContinueBtn">Rendben, kezdjük! →</button></div></div><section id="roundEnd" class="screen center">
     <div class="big-icon">⏱️</div><h1 id="roundEndTitle">Lejárt az idő!</h1>
     <p id="roundStats"></p>
     <button class="primary" id="nextRoundBtn">Következő kör →</button>
@@ -77,12 +83,15 @@
   <section id="rules" class="screen">
     <header><button class="back" data-back="home">‹</button><h1>Játékszabályok</h1></header>
     <div class="card rules">
-      <h2>A cél</h2><p>Mondd körül a feladványszót úgy, hogy a kártyán szereplő tiltott szavakat nem mondhatod ki.</p>
-      <h2>Játékmenet</h2><p>A két csapat felváltva játszik. Az egyik csapat egyik játékosa a magyarázó, a többiek próbálják kitalálni a szót.</p>
-      <h2>Pontozás</h2><p>✓ Kitalált szó: +1 pont. ⏭ Passz: 0 pont. 🚨 TABU: 0 pont, és a kártya lezárul.</p>
-      <h2>Fontos</h2><p>A tiltott szavak ragozott vagy egyértelműen felismerhető alakját se használd.</p>
-    </div>
-  </section>
+<h2>A cél</h2><p>Juttasd el a csapattársaidhoz a feladványszót úgy, hogy közben nem mondhatod ki a kártyán szereplő tiltott szavakat.</p>
+<h2>Játékmenet</h2><p>A két csapat felváltva játszik. Az egyik csapat játékosa a magyarázó, a csapattársai tippelnek, az ellenfél pedig figyeli a kártyát és a szabályok betartását.</p>
+<h2>Pontozás</h2><p><strong>✓ Kitalált szó: +1 pont</strong> a magyarázó csapatnak.</p>
+<p><strong>⏭ Passz: −1 pont</strong> a magyarázó csapatnak, és +1 pont az ellenfélnek.</p>
+<p><strong>🚨 TABU: −1 pont</strong> a magyarázó csapatnak, és +1 pont az ellenfélnek.</p>
+<p>Ez a klasszikus Hasbro Tabu pontozási logikája: a passzolt vagy „lebuktatott” kártyák után az ellenfél kapja a pontot.</p>
+<h2>Fontos szabályok</h2><p>A tiltott szavak bármely alakja sem használható. Tilos továbbá a feladványszó egyértelmű részeinek, kezdőbetűinek, rímének vagy „úgy hangzik, mint” típusú utalásnak a használata.</p>
+<h2>Idő</h2><p>A kör a beállított idő leteltéig tart. A jelenlegi appverzióban a körök száma külön beállítható; ez az app egyszerűsítése a klasszikus játékmenethez.</p>
+</div></section>
 
   <section id="settings" class="screen">
     <header><button class="back" data-back="home">‹</button><h1>Beállítások</h1></header>
