@@ -148,13 +148,14 @@
     <div class="big-icon">⏱️</div><h1 id="roundEndTitle">Lejárt az idő!</h1>
     <p id="roundStats"></p>
 <button class="secondary" id="roundCardsBtn">🃏 A kör lapjainak megtekintése</button>
-  <button class="secondary" id="roundEndHomeBtn">⌂ Főmenü – játék mentése</button>
   <button class="primary" id="nextRoundBtn">Következő kör →</button>
   <div class="card round-score-editor">
 <h2>Pontok kézi módosítása</h2>
 <div class="score-edit-row"><strong id="roundScoreTeam1">Kék csapat</strong><button id="roundScoreMinus1">−1</button><span id="roundScoreEdit1">0</span><button id="roundScorePlus1">+1</button></div>
 <div class="score-edit-row"><strong id="roundScoreTeam2">Piros csapat</strong><button id="roundScoreMinus2">−1</button><span id="roundScoreEdit2">0</span><button id="roundScorePlus2">+1</button></div>
 </div>
+<button class="secondary" id="roundEndHomeBtn">⌂ Főmenü – játék mentése</button>
+
 </section>
 
   <section id="roundCards" class="screen">
@@ -242,3 +243,14 @@
 <script src="app.js?v=2.0.0"></script>
 </body>
 </html>
+
+<div class="modal-overlay" id="customConfirmModal" hidden>
+  <div class="confirm-modal" role="dialog" aria-modal="true">
+    <h3 id="customConfirmTitle">Megerősítés</h3>
+    <p id="customConfirmText"></p>
+    <div class="confirm-actions">
+      <button class="secondary" id="customConfirmCancel">Mégse</button>
+      <button class="danger" id="customConfirmOk">OK</button>
+    </div>
+  </div>
+</div>

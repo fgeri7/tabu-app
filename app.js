@@ -111,13 +111,13 @@ function savePlayerName(id,name){
   if(dup){ alert("Ez a név már szerepel a játékosok között."); renderPlayerManagement(); return; }
   p.name=name; persistPlayersAndStats(); renderPlayerManagement(); renderSetupPlayers();
 }
-function deleteManagedPlayer(id){
+async function deleteManagedPlayer(id){
   const p=playerById(id); if(!p)return;
   const hasStats=statsDB.games.some(g=>(g.teams||[]).some(t=>(t.playerIds||[]).includes(id)));
   const msg=hasStats
     ?`${p.name} már szerepel korábbi statisztikákban. A játékos törlése a korábbi statisztikákat nem törli, de új játékba nem lesz választható. Folytatod?`
     :`Törlöd ${p.name} játékost a játékoslistából?`;
-  if(!confirm(msg))return;
+  if(!(await customConfirm(msg)))return;
   playersDB=playersDB.filter(x=>x.id!==id);
   persistPlayersAndStats(); renderPlayerManagement(); renderSetupPlayers();
 }
@@ -125,7 +125,8 @@ function renderSetupPlayers(){
   const boxes=[$("#team1Players"),$("#team2Players")]; if(boxes.some(x=>!x))return;
   boxes.forEach((box,team)=>{
     const selected=[...box.querySelectorAll("select")].map(x=>x.value);
-    if(!selected.length){ selected.push(""); }
+    // Új játék képernyőn alapból két játékoshely legyen csapatonként.
+    while(selected.length<2) selected.push("");
     box.innerHTML="";
     selected.forEach((id,i)=>addSetupPlayerRow(team,id));
   });
@@ -276,12 +277,12 @@ function resumeSavedGame(id){
   }
 }
 
-function deleteSavedGamePrompt(id){
+async function deleteSavedGamePrompt(id){
   const entry=savedGames.find(g=>g.id===id);
   if(!entry)return;
   const s=entry.snapshot;
   const teamText=`${s.teams[0]} ${s.scores[0]} – ${s.scores[1]} ${s.teams[1]}`;
-  if(!window.confirm(`Törlöd ezt a félbehagyott játékot?\n\n${teamText}\n\nEz nem vonható vissza.`))return;
+  if(!(await customConfirm(`Törlöd ezt a félbehagyott játékot?\n\n${teamText}\n\nEz nem vonható vissza.`)) )return;
   if(state.resumeGameId===id)state.resumeGameId=null;
   removeSavedGame(id);
   renderResumeHome();
@@ -534,6 +535,8 @@ function startGame(){
   state.difficulty=$("#difficulty").value;
   state.suddenDeath=$("#suddenDeath").checked;
   state.gameChanger=$("#gameChanger").checked;
+  // Az előző játék/kör kockaeredménye nem öröklődhet át.
+  state.pendingDice="classic";
 
   state.scores=[0,0];
   state.pos=0;
@@ -733,7 +736,7 @@ function continueAfterTurn(){
     show("game");
     nextCard();
     if(state.gameChanger)showDiceBeforeTurn();
-    else startTimer();
+    else { state.pendingDice="classic"; startTimer(); }
     persistCurrentGame();
     return;
   }
@@ -1115,8 +1118,39 @@ if($("#roundScorePlus2"))$("#roundScorePlus2").onclick=()=>changeRoundScore(1,1)
 $("#roundCardsBtn")?.addEventListener("click",openRoundCards);
 $("#roundCardsBack")?.addEventListener("click",()=>show("roundEnd"));
 
-$("#roundEndHomeBtn")?.addEventListener("click",()=>{
-  persistActiveGame();
-  show("home");
-  renderHome();
+
+
+function customConfirm(message){
+  return new Promise(resolve=>{
+    const modal=$("#customConfirmModal");
+    const text=$("#customConfirmText");
+    const ok=$("#customConfirmOk");
+    const cancel=$("#customConfirmCancel");
+    if(!modal||!text||!ok||!cancel){ resolve(false); return; }
+    text.textContent=message;
+    modal.hidden=false;
+    const finish=(value)=>{
+      modal.hidden=true;
+      ok.removeEventListener("click",onOk);
+      cancel.removeEventListener("click",onCancel);
+      resolve(value);
+    };
+    const onOk=()=>finish(true);
+    const onCancel=()=>finish(false);
+    ok.addEventListener("click",onOk);
+    cancel.addEventListener("click",onCancel);
+  });
+}
+
+document.addEventListener("click",e=>{
+  const homeBtn=e.target.closest("#roundEndHomeBtn");
+  if(!homeBtn)return;
+  e.preventDefault();
+  try{
+    persistCurrentGame();
+    show("home");
+    renderResumeHome();
+  }catch(err){
+    console.error("Round-end save/home failed:",err);
+  }
 });

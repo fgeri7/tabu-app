@@ -270,3 +270,12 @@ input,textarea,select{
 @media(max-width:400px){.inline-add{grid-template-columns:1fr}.stats-row{align-items:flex-start}.stats-mini{font-size:12px}}
 
 #roundEndHomeBtn{margin-top:8px}
+
+#customConfirmModal{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.72);padding:20px}
+#customConfirmModal[hidden]{display:none}
+.confirm-modal{width:min(92vw,440px);border:1px solid rgba(177,92,255,.35);border-radius:24px;background:#17112b;color:#fff;padding:24px;box-shadow:0 20px 60px rgba(0,0,0,.45)}
+.confirm-modal h3{margin:0 0 12px;font-size:22px}
+.confirm-modal p{white-space:pre-line;margin:0 0 22px;line-height:1.45;color:#ddd}
+.confirm-actions{display:flex;justify-content:flex-end;gap:12px}
+.confirm-actions button{min-width:100px}
+.confirm-actions .danger{background:#e94b63;color:#fff;border:0;border-radius:12px;padding:12px 18px;font-weight:700}
