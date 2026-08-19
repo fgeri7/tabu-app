@@ -1,8 +1,13 @@
 const $=s=>document.querySelector(s);
 const screens=[...document.querySelectorAll(".screen")];
-const show=id=>screens.forEach(x=>x.classList.toggle("active",x.id===id));
+const show=id=>{
+  screens.forEach(x=>x.classList.toggle("active",x.id===id));
+  if(id==="home")renderResumeHome();
+};
 let timerId=null;
 let touchStartY=0;
+
+const RESUME_STORAGE_KEY="tabu_saved_games_v18";
 
 const state={
   teams:["Kék csapat","Piros csapat"],
@@ -26,8 +31,289 @@ const state={
   gameStarted:false,
   pendingDice:"classic",
   turnStats:{correct:0,pass:0,tabu:0},
-  turnCards:[]
+  turnCards:[],
+  resumeGameId:null,
+  resumeScreen:"game",
+  diceShowing:false,
+  teamPlayerIds:[[],[]],
+  gameCardStats:{},
+  statsRecorded:false,
+  completedStatsGameId:null
 };
+
+let savedGames=[];
+const PLAYERS_STORAGE_KEY="tabu_players_v20";
+const STATS_STORAGE_KEY="tabu_stats_v20";
+let playersDB=[];
+let statsDB={games:[]};
+
+function uid(prefix="id") {
+  return `${prefix}-${Date.now()}-${Math.random().toString(36).slice(2,10)}`;
+}
+
+function loadPlayersAndStats(){
+  try{ playersDB=JSON.parse(localStorage.getItem(PLAYERS_STORAGE_KEY)||"[]"); }catch(e){ playersDB=[]; }
+  if(!Array.isArray(playersDB))playersDB=[];
+  try{ statsDB=JSON.parse(localStorage.getItem(STATS_STORAGE_KEY)||'{"games":[]}'); }catch(e){ statsDB={games:[]}; }
+  if(!statsDB||!Array.isArray(statsDB.games))statsDB={games:[]};
+}
+function persistPlayersAndStats(){
+  try{ localStorage.setItem(PLAYERS_STORAGE_KEY,JSON.stringify(playersDB)); }catch(e){}
+  try{ localStorage.setItem(STATS_STORAGE_KEY,JSON.stringify(statsDB)); }catch(e){}
+}
+function playerById(id){ return playersDB.find(p=>p.id===id); }
+function canonicalPlayerIds(ids){
+  return [...new Set(ids)].sort((a,b)=>{
+    const pa=playerById(a),pb=playerById(b);
+    return (pa?.createdAt||0)-(pb?.createdAt||0) || String(a).localeCompare(String(b));
+  });
+}
+function canonicalTeamKey(ids){ return canonicalPlayerIds(ids).join("|"); }
+function canonicalTeamLabel(ids, fallbackNames=[]){
+  const canon=canonicalPlayerIds(ids);
+  const names=canon.map(id=>playerById(id)?.name).filter(Boolean);
+  if(names.length===canon.length)return names.join(" & ");
+  return fallbackNames.length?fallbackNames.join(" & "):names.join(" & ");
+}
+function ensurePlayersFromLegacyNames(names){
+  return (names||[]).map(name=>{
+    let p=playersDB.find(x=>x.name.trim().toLowerCase()===String(name).trim().toLowerCase());
+    if(!p){ p={id:uid("player"),name:String(name).trim(),createdAt:Date.now()+playersDB.length}; playersDB.push(p); }
+    return p.id;
+  });
+}
+function renderPlayerManagement(){
+  const box=$("#playersList"); if(!box)return;
+  if(!playersDB.length){
+    box.innerHTML=`<div class="card empty-state"><h2>Még nincs mentett játékos</h2><p class="muted">Hozd létre a játékosokat, ezután az új játék indításakor legördülő menüből választhatjátok ki őket.</p></div>`;
+    return;
+  }
+  const sorted=[...playersDB].sort((a,b)=>(a.createdAt||0)-(b.createdAt||0));
+  box.innerHTML=sorted.map(p=>`<div class="managed-player"><input data-player-name="${p.id}" value="${escapeHtml(p.name)}" autocomplete="off"><button class="danger-outline player-delete" data-player-delete="${p.id}" title="Játékos törlése">🗑</button></div>`).join("");
+}
+function escapeHtml(v){ return String(v??"").replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[m])); }
+function addManagedPlayer(){
+  const name=( $("#newPlayerName")?.value||"" ).trim();
+  if(!name){ alert("Adj meg egy játékosnevet."); return; }
+  if(playersDB.some(p=>p.name.trim().toLowerCase()===name.toLowerCase())){ alert("Ez a játékos már szerepel a listában."); return; }
+  playersDB.push({id:uid("player"),name,createdAt:Date.now()});
+  persistPlayersAndStats();
+  $("#newPlayerName").value="";
+  renderPlayerManagement();
+}
+function savePlayerName(id,name){
+  const p=playerById(id); if(!p)return;
+  name=String(name||"").trim();
+  if(!name)return;
+  const dup=playersDB.find(x=>x.id!==id&&x.name.trim().toLowerCase()===name.toLowerCase());
+  if(dup){ alert("Ez a név már szerepel a játékosok között."); renderPlayerManagement(); return; }
+  p.name=name; persistPlayersAndStats(); renderPlayerManagement(); renderSetupPlayers();
+}
+function deleteManagedPlayer(id){
+  const p=playerById(id); if(!p)return;
+  const hasStats=statsDB.games.some(g=>(g.teams||[]).some(t=>(t.playerIds||[]).includes(id)));
+  const msg=hasStats
+    ?`${p.name} már szerepel korábbi statisztikákban. A játékos törlése a korábbi statisztikákat nem törli, de új játékba nem lesz választható. Folytatod?`
+    :`Törlöd ${p.name} játékost a játékoslistából?`;
+  if(!confirm(msg))return;
+  playersDB=playersDB.filter(x=>x.id!==id);
+  persistPlayersAndStats(); renderPlayerManagement(); renderSetupPlayers();
+}
+function renderSetupPlayers(){
+  const boxes=[$("#team1Players"),$("#team2Players")]; if(boxes.some(x=>!x))return;
+  boxes.forEach((box,team)=>{
+    const selected=[...box.querySelectorAll("select")].map(x=>x.value);
+    if(!selected.length){ selected.push(""); }
+    box.innerHTML="";
+    selected.forEach((id,i)=>addSetupPlayerRow(team,id));
+  });
+  updateSetupPlayerOptions();
+}
+function addSetupPlayerRow(team,selectedId=""){
+  const box=$("#team"+(team+1)+"Players"); if(!box)return;
+  const row=document.createElement("div"); row.className="player-row";
+  const select=document.createElement("select"); select.className="setup-player-select"; select.dataset.team=team;
+  select.innerHTML=`<option value="">-- Játékos választása --</option>`+playersDB.map(p=>`<option value="${p.id}">${escapeHtml(p.name)}</option>`).join("");
+  select.value=selectedId;
+  select.onchange=updateSetupPlayerOptions;
+  const remove=document.createElement("button"); remove.type="button"; remove.className="remove-player"; remove.textContent="✕"; remove.setAttribute("aria-label","Játékos eltávolítása");
+  remove.onclick=()=>{ if(box.children.length>1){row.remove();updateSetupPlayerOptions();} };
+  row.append(select,remove); box.append(row);
+}
+function updateSetupPlayerOptions(){
+  const selects=[...document.querySelectorAll(".setup-player-select")];
+  const chosen=new Set(selects.map(s=>s.value).filter(Boolean));
+  selects.forEach(sel=>{
+    [...sel.options].forEach(opt=>{
+      if(!opt.value){opt.disabled=false;return;}
+      opt.disabled=chosen.has(opt.value)&&opt.value!==sel.value;
+    });
+  });
+}
+function getSelectedPlayers(team){
+  return [...document.querySelectorAll(`#team${team+1}Players .setup-player-select`)].map(s=>s.value).filter(Boolean);
+}
+function validateSetupPlayers(){
+  if(!playersDB.length){ alert("Először hozz létre legalább két játékost a Játékosok menüben."); show("players"); return false; }
+  const ids=[...getSelectedPlayers(0),...getSelectedPlayers(1)];
+  if(ids.length<2){ alert("Legalább két játékost válassz ki, egyet-egyet mindkét csapatba."); return false; }
+  if(new Set(ids).size!==ids.length){ alert("Ugyanaz a játékos egy játékban csak egyszer szerepelhet."); return false; }
+  if(!getSelectedPlayers(0).length||!getSelectedPlayers(1).length){ alert("Mindkét csapatba válassz legalább egy játékost."); return false; }
+  return true;
+}
+function playerNamesFromIds(ids){ return ids.map(id=>playerById(id)?.name||"Játékos"); }
+
+
+function cloneForStorage(value){
+  return JSON.parse(JSON.stringify(value));
+}
+
+function loadSavedGames(){
+  try{
+    const raw=localStorage.getItem(RESUME_STORAGE_KEY);
+    savedGames=raw?JSON.parse(raw):[];
+    if(!Array.isArray(savedGames))savedGames=[];
+  }catch(e){savedGames=[];}
+}
+
+function persistSavedGames(){
+  try{
+    localStorage.setItem(RESUME_STORAGE_KEY,JSON.stringify(savedGames));
+  }catch(e){}
+}
+
+function currentResumeSnapshot(){
+  return {
+    teams:cloneForStorage(state.teams),
+    players:cloneForStorage(state.players),
+    scores:cloneForStorage(state.scores),
+    cycles:state.cycles,
+    duration:state.duration,
+    difficulty:state.difficulty,
+    suddenDeath:state.suddenDeath,
+    gameChanger:state.gameChanger,
+    sequence:cloneForStorage(state.sequence),
+    pos:state.pos,
+    deck:cloneForStorage(state.deck),
+    card:cloneForStorage(state.card),
+    recentCards:cloneForStorage(state.recentCards),
+    sessionUsed:Array.from(state.sessionUsed||[]),
+    totalTurns:state.totalTurns,
+    time:state.time,
+    paused:!!state.paused,
+    gameStarted:true,
+    pendingDice:state.pendingDice,
+    diceShowing:!!state.diceShowing,
+    teamPlayerIds:cloneForStorage(state.teamPlayerIds),
+    gameCardStats:cloneForStorage(state.gameCardStats),
+    statsRecorded:!!state.statsRecorded,
+    completedStatsGameId:state.completedStatsGameId||null,
+    turnStats:cloneForStorage(state.turnStats),
+    turnCards:cloneForStorage(state.turnCards),
+    undo:cloneForStorage(state.undo),
+    screen:state.resumeScreen||"game"
+  };
+}
+
+function persistCurrentGame(){
+  if(!state.resumeGameId)return;
+  const idx=savedGames.findIndex(g=>g.id===state.resumeGameId);
+  const snap=currentResumeSnapshot();
+  const entry={
+    id:state.resumeGameId,
+    createdAt:idx>=0?savedGames[idx].createdAt:Date.now(),
+    updatedAt:Date.now(),
+    snapshot:snap
+  };
+  if(idx>=0)savedGames[idx]=entry;
+  else savedGames.unshift(entry);
+  savedGames.sort((a,b)=>b.updatedAt-a.updatedAt);
+  persistSavedGames();
+}
+
+function removeSavedGame(id){
+  savedGames=savedGames.filter(g=>g.id!==id);
+  persistSavedGames();
+}
+
+function resumeSavedGame(id){
+  const entry=savedGames.find(g=>g.id===id);
+  if(!entry||!entry.snapshot)return;
+  const s=entry.snapshot;
+  Object.keys(s).forEach(k=>{ if(k!=="sessionUsed"&&k!=="screen") state[k]=cloneForStorage(s[k]); });
+  state.sessionUsed=new Set(s.sessionUsed||[]);
+  state.teamPlayerIds=s.teamPlayerIds||[[],[]];
+  state.gameCardStats=s.gameCardStats||{};
+  state.statsRecorded=!!s.statsRecorded;
+  state.completedStatsGameId=s.completedStatsGameId||null;
+  if((!state.teamPlayerIds[0]?.length||!state.teamPlayerIds[1]?.length) && state.players?.length===2){
+    state.teamPlayerIds=[ensurePlayersFromLegacyNames(state.players[0]),ensurePlayersFromLegacyNames(state.players[1])];
+    persistPlayersAndStats();
+  }
+  state.resumeGameId=entry.id;
+  state.resumeScreen=s.screen||"game";
+  state.gameStarted=true;
+  state.paused=true;
+  state.diceShowing=!!s.diceShowing;
+  $("#pauseOverlay")?.classList.add("hidden");
+  $("#diceOverlay")?.classList.add("hidden");
+  renderResumeHome();
+  show(state.resumeScreen);
+  if(state.resumeScreen==="game"){
+    renderCurrentCard();
+    update();
+    updateGameUndo();
+    if(state.diceShowing){
+      showDiceBeforeTurn();
+    }else{
+      startTimerFromRemaining();
+    }
+  }else if(state.resumeScreen==="roundEnd"){
+    renderRoundScores();
+    showTurnEnd(false);
+  }
+}
+
+function deleteSavedGamePrompt(id){
+  const entry=savedGames.find(g=>g.id===id);
+  if(!entry)return;
+  const s=entry.snapshot;
+  const teamText=`${s.teams[0]} ${s.scores[0]} – ${s.scores[1]} ${s.teams[1]}`;
+  if(!window.confirm(`Törlöd ezt a félbehagyott játékot?\n\n${teamText}\n\nEz nem vonható vissza.`))return;
+  if(state.resumeGameId===id)state.resumeGameId=null;
+  removeSavedGame(id);
+  renderResumeHome();
+}
+
+function resumeGameSummary(entry){
+  const s=entry.snapshot;
+  const c=s.sequence?.[s.pos];
+  const currentTurn=c?`${s.teams[c.team]} – ${s.players[c.team]?.[c.player]||"Játékos"} következik`:"";
+  const screen=s.screen||"game";
+  const where=screen==="roundEnd"?"Kör vége":currentTurn;
+  return {score:`${s.teams[0]} ${s.scores[0]} – ${s.scores[1]} ${s.teams[1]}`,where};
+}
+
+function renderResumeHome(){
+  const box=$("#unfinishedGames");
+  if(!box)return;
+  if(!savedGames.length){box.innerHTML="";return;}
+  box.innerHTML=`<div class="resume-panel">
+    <div class="resume-title">Félbehagyott játékok</div>
+    ${savedGames.map(entry=>{
+      const s=entry.snapshot, info=resumeGameSummary(entry);
+      const date=new Date(entry.updatedAt||entry.createdAt).toLocaleString("hu-HU",{month:"numeric",day:"numeric",hour:"2-digit",minute:"2-digit"});
+      return `<div class="resume-game">
+        <div class="resume-score">${info.score}</div>
+        <div class="resume-meta">${info.where}<br>Utolsó mentés: ${date} · ${s.time!=null?`hátralévő idő: ${fmt(Math.max(0,s.time))}`:""}</div>
+        <div class="resume-actions">
+          <button class="primary" data-resume-id="${entry.id}">▶ Folytatás</button>
+          <button class="resume-delete" data-delete-resume-id="${entry.id}" aria-label="Félbehagyott játék törlése">🗑</button>
+        </div>
+      </div>`;
+    }).join("")}
+  </div>`;
+}
 
 function shuffle(a){return [...a].sort(()=>Math.random()-.5)}
 function fmt(n){return String(n).padStart(2,"0")}
@@ -55,48 +341,29 @@ function rememberCard(card){
   localStorage.setItem("tabu_recent_cards_v13",JSON.stringify(state.recentCards));
 }
 
-function addPlayer(team,name=""){
-  const box=$("#team"+(team+1)+"Players");
-  if(!box)return;
+// A Tensionhez hasonló manuális újrakeverés: a játékban már kihúzott
+// kártyák ismét visszakerülnek a használható pakliba. Az éppen látható
+// kártyát szándékosan kihagyjuk, hogy ugyanaz a feladvány ne jelenhessen
+// meg közvetlenül egymás után.
+function reshuffleDeck(){
+  const filtered=TABU_CARDS.filter(c=>state.difficulty==="all"||c.difficulty===state.difficulty);
+  const currentId=state.card?.id||null;
 
-  const row=document.createElement("div");
-  row.className="player-row";
+  state.sessionUsed=new Set();
+  state.recentCards=[];
+  try{localStorage.removeItem("tabu_recent_cards_v13")}catch(e){}
 
-  const input=document.createElement("input");
-  input.value=name;
-  input.placeholder=`Játékos ${box.children.length+1}`;
-  input.autocomplete="off";
+  state.deck=shuffle(filtered.filter(c=>c.id!==currentId));
+  // Az undo az előző pakliállapotot állítaná vissza, ezért újrakeverés után
+  // tudatosan töröljük, hogy ne lehessen véletlenül visszavonni az új paklit.
+  state.undo=null;
+  updateGameUndo();
+  persistCurrentGame();
 
-  const remove=document.createElement("button");
-  remove.type="button";
-  remove.className="remove-player";
-  remove.textContent="✕";
-  remove.setAttribute("aria-label","Játékos törlése");
-  remove.onclick=()=>{
-    if(box.children.length>1)row.remove();
-  };
-
-  row.append(input,remove);
-  box.append(row);
+  alert("A pakli újrakeverve. A korábban már kihúzott kártyák ismét játékba kerülhetnek.");
 }
 
-function initPlayers(){
-  const a=$("#team1Players"),b=$("#team2Players");
-  if(a&&!a.children.length){
-    addPlayer(0,"Játékos 1");
-    addPlayer(0,"Játékos 2");
-  }
-  if(b&&!b.children.length){
-    addPlayer(1,"Játékos 1");
-    addPlayer(1,"Játékos 2");
-  }
-}
-
-function getPlayers(team){
-  const box=$("#team"+(team+1)+"Players");
-  return [...box.querySelectorAll("input")]
-    .map((x,i)=>x.value.trim()||`Játékos ${i+1}`);
-}
+function addPlayer(team,selectedId=""){ addSetupPlayerRow(team,selectedId); updateSetupPlayerOptions(); }
 
 /*
   A körök sorrendje:
@@ -183,14 +450,35 @@ function startTimer(){
     :state.duration;
 
   state.paused=false;
+  state.diceShowing=false;
+  state.resumeScreen="game";
   update();
+  persistCurrentGame();
 
   timerId=setInterval(()=>{
     if(state.paused)return;
 
     state.time--;
     update();
+    persistCurrentGame();
 
+    if(state.time<=0)endTurn();
+  },1000);
+}
+
+function startTimerFromRemaining(){
+  clearInterval(timerId);
+  state.paused=false;
+  state.diceShowing=false;
+  state.resumeScreen="game";
+  update();
+  persistCurrentGame();
+
+  timerId=setInterval(()=>{
+    if(state.paused)return;
+    state.time--;
+    update();
+    persistCurrentGame();
     if(state.time<=0)endTurn();
   },1000);
 }
@@ -201,10 +489,9 @@ function startGame(){
     $("#team2").value.trim()||"Piros csapat"
   ];
 
-  state.players=[
-    getPlayers(0),
-    getPlayers(1)
-  ];
+  if(!validateSetupPlayers())return;
+  state.teamPlayerIds=[getSelectedPlayers(0),getSelectedPlayers(1)];
+  state.players=[playerNamesFromIds(state.teamPlayerIds[0]),playerNamesFromIds(state.teamPlayerIds[1])];
 
   state.cycles=+$("#cycles").value;
   state.duration=+$("#duration").value;
@@ -220,6 +507,13 @@ function startGame(){
   state.paused=false;
   state.turnStats={correct:0,pass:0,tabu:0};
   state.turnCards=[];
+  state.gameCardStats={};
+  state.teamPlayerIds=state.teamPlayerIds||[[],[]];
+  state.statsRecorded=false;
+  state.completedStatsGameId=null;
+  state.resumeGameId=uid();
+  state.resumeScreen="game";
+  state.diceShowing=false;
 
   buildSequence();
   show("game");
@@ -227,9 +521,12 @@ function startGame(){
 
   if(state.gameChanger)showDiceBeforeTurn();
   else startTimer();
+  persistCurrentGame();
 }
 
 function showDiceBeforeTurn(){
+  state.diceShowing=true;
+  state.resumeScreen="game";
   state.pendingDice=
     shuffle(["single","double","statue","all","classic"])[0];
 
@@ -250,10 +547,12 @@ function showDiceBeforeTurn(){
   $("#diceTitle").textContent=data[1];
   $("#diceDescription").textContent=data[2];
   $("#diceOverlay").classList.remove("hidden");
+  persistCurrentGame();
 }
 
 $("#diceContinueBtn").onclick=()=>{
   $("#diceOverlay").classList.add("hidden");
+  state.diceShowing=false;
   startTimer();
 };
 
@@ -262,12 +561,18 @@ function endTurn(){
   timerId=null;
 
   if(state.pos+1<state.sequence.length){
+    state.resumeScreen="roundEnd";
+    state.paused=true;
+    persistCurrentGame();
     showTurnEnd(false);
     return;
   }
 
   if(state.scores[0]===state.scores[1]&&state.suddenDeath){
     buildSuddenDeath();
+    state.resumeScreen="roundEnd";
+    state.paused=true;
+    persistCurrentGame();
     showTurnEnd(true);
     return;
   }
@@ -375,6 +680,11 @@ function showTurnEnd(sudden){
 function continueAfterTurn(){
   state.turnStats={correct:0,pass:0,tabu:0};
   state.turnCards=[];
+  state.gameCardStats={};
+  state.teamPlayerIds=state.teamPlayerIds||[[],[]];
+  state.statsRecorded=false;
+  state.resumeScreen="game";
+  state.diceShowing=false;
 
   // Hirtelen halálban csak akkor döntünk, amikor mindkét csapat játszott.
   if(current()?.cycle==="⚡"&&state.pos%2===1){
@@ -388,6 +698,7 @@ function continueAfterTurn(){
     nextCard();
     if(state.gameChanger)showDiceBeforeTurn();
     else startTimer();
+    persistCurrentGame();
     return;
   }
 
@@ -402,6 +713,7 @@ function continueAfterTurn(){
 
   if(state.gameChanger)showDiceBeforeTurn();
   else startTimer();
+  persistCurrentGame();
 }
 
 // Pontozási műveletek. A swipe és a gombok ugyanazokat a funkciókat hívják.
@@ -429,10 +741,12 @@ function awardOpponent(reason){
 function scoreAction(kind){
   const c=current();
   if(!c||!state.card)return;
-  state.undo={scores:[...state.scores],turnStats:{...state.turnStats},turnCards:[...state.turnCards],card:state.card,deck:[...state.deck]};
+  state.undo={scores:[...state.scores],turnStats:{...state.turnStats},turnCards:[...state.turnCards],card:state.card,deck:[...state.deck],gameCardStats:cloneForStorage(state.gameCardStats)};
   updateGameUndo();
   if(kind==="correct"){state.scores[c.team]++;state.turnStats.correct++}
-  else {state.scores[1-c.team]++;state.turnStats[kind]++}
+  else {state.scores[1-c.team]++;state.turnStats[kind] }
+  const pid=state.teamPlayerIds?.[c.team]?.[c.player];
+  if(pid){ state.gameCardStats[pid]=state.gameCardStats[pid]||{correct:0,pass:0,tabu:0}; state.gameCardStats[pid][kind]++; }
 
   state.turnCards.push({
     card:{...state.card, taboo:[...(state.card.taboo||[])]},
@@ -447,6 +761,7 @@ function scoreAction(kind){
     if(cardEl){cardEl.style.transition="none";cardEl.style.transform="translate3d(0,0,0)";cardEl.style.opacity="1";}
     nextCard();
     update();
+    persistCurrentGame();
   },140);
 }
 $("#correctBtn").onclick=()=>scoreAction("correct");
@@ -471,29 +786,42 @@ function undoAction(){
   state.turnCards=[...state.undo.turnCards];
   state.card=state.undo.card;
   state.deck=[...state.undo.deck];
+  state.gameCardStats=cloneForStorage(state.undo.gameCardStats||{});
   state.undo=null;
   renderCurrentCard();
   update();
   updateGameUndo();
+  state.resumeScreen="game";
+  persistCurrentGame();
 }
 
 function pauseGame(){
   if(!state.gameStarted||timerId===null)return;
   state.paused=true;
+  state.resumeScreen="game";
+  persistCurrentGame();
   $("#pauseOverlay").classList.remove("hidden");
 }
 
 function resumeGame(){
   state.paused=false;
   $("#pauseOverlay").classList.add("hidden");
+  state.resumeScreen="game";
+  persistCurrentGame();
   update();
 }
 
 function goHome(){
+  if(state.gameStarted){
+    state.paused=true;
+    state.resumeScreen="game";
+    persistCurrentGame();
+  }
   clearInterval(timerId);
   timerId=null;
   state.gameStarted=false;
   state.paused=false;
+  state.diceShowing=false;
   $("#pauseOverlay").classList.add("hidden");
   $("#diceOverlay").classList.add("hidden");
   show("home");
@@ -515,6 +843,7 @@ function changeRoundScore(team,delta){
   state.scores[team]=Math.max(0,state.scores[team]+delta);
   renderRoundScores();
   update();
+  persistCurrentGame();
   // Refresh the round summary text so the lead requirement remains accurate.
   const sudden=state.suddenDeath===true;
   showTurnEnd(sudden);
@@ -534,12 +863,67 @@ function changeScore(team,delta){
   state.scores[team]=Math.max(0,state.scores[team]+delta);
   renderManualScores();
   update();
+  if(state.gameStarted===false && state.statsRecorded)recordCompletedGameStats();
+  persistCurrentGame();
+  if($("#gameEnd")?.classList.contains("active")){
+    const[a,b]=state.scores; $("#winner").textContent=a===b?"Döntetlen!":`${a>b?state.teams[0]:state.teams[1]} nyert!`;
+    $("#finalScores").innerHTML=`<div>🔵 ${state.teams[0]}: ${a}</div><div>🔴 ${state.teams[1]}: ${b}</div>`;
+  }
+}
+
+function recordCompletedGameStats(){
+  const teamIds=state.teamPlayerIds||[[],[]];
+  if(!teamIds[0]?.length||!teamIds[1]?.length)return;
+  const record={
+    id:state.completedStatsGameId||state.resumeGameId||uid("game"),
+    teams:[
+      {playerIds:canonicalPlayerIds(teamIds[0]),name:canonicalTeamLabel(teamIds[0],state.players[0]),score:state.scores[0]},
+      {playerIds:canonicalPlayerIds(teamIds[1]),name:canonicalTeamLabel(teamIds[1],state.players[1]),score:state.scores[1]}
+    ],
+    playerActions:cloneForStorage(state.gameCardStats||{}),
+    playerNames:Object.fromEntries((teamIds.flat()).map(id=>[id,playerById(id)?.name||"Játékos"])),
+    completedAt:Date.now()
+  };
+  const idx=statsDB.games.findIndex(g=>g.id===record.id);
+  if(idx>=0)statsDB.games[idx]=record; else statsDB.games.push(record);
+  state.statsRecorded=true;
+  persistPlayersAndStats();
+}
+function statAggregatePlayer(id){
+  const r={games:0,wins:0,losses:0,draws:0,correct:0,pass:0,tabu:0};
+  statsDB.games.forEach(g=>{
+    const ti=(g.teams||[]).findIndex(t=>(t.playerIds||[]).includes(id)); if(ti<0)return;
+    const a=g.teams[ti].score,b=g.teams[1-ti].score; r.games++; if(a>b)r.wins++; else if(a<b)r.losses++; else r.draws++;
+    const acts=g.playerActions?.[id]||{}; r.correct+=acts.correct||0; r.pass+=acts.pass||0; r.tabu+=acts.tabu||0;
+  }); return r;
+}
+function statAggregateTeam(key){
+  const r={games:0,wins:0,losses:0,draws:0,pointsFor:0,pointsAgainst:0};
+  statsDB.games.forEach(g=>{
+    const ti=(g.teams||[]).findIndex(t=>canonicalTeamKey(t.playerIds||[])===key); if(ti<0)return;
+    const a=g.teams[ti].score,b=g.teams[1-ti].score; r.games++; r.pointsFor+=a; r.pointsAgainst+=b; if(a>b)r.wins++; else if(a<b)r.losses++; else r.draws++;
+  }); return r;
+}
+function renderStats(){
+  const pbox=$("#individualStatsList"),tbox=$("#teamStatsList"); if(!pbox||!tbox)return;
+  const historical=new Map();
+  statsDB.games.forEach(g=>Object.entries(g.playerNames||{}).forEach(([id,name])=>historical.set(id,name)));
+  playersDB.forEach(p=>historical.set(p.id,p.name));
+  const players=[...historical.entries()].map(([id,name])=>({id,name,createdAt:playerById(id)?.createdAt||0})).sort((a,b)=>(a.createdAt||0)-(b.createdAt||0)||a.name.localeCompare(b.name));
+  pbox.innerHTML=players.length?players.map(p=>{const r=statAggregatePlayer(p.id);return `<div class="stats-row"><div><strong>${escapeHtml(p.name)}</strong><small>${r.games} játék · ${r.wins} győzelem · ${r.losses} vereség · ${r.draws} döntetlen</small></div><div class="stats-mini">✓ ${r.correct} · ⏭ ${r.pass} · 🚨 ${r.tabu}</div></div>`}).join(""):`<p class="muted">Még nincs játékos.</p>`;
+  const groups=new Map();
+  statsDB.games.forEach(g=>(g.teams||[]).forEach(t=>{const key=canonicalTeamKey(t.playerIds||[]);if(!groups.has(key))groups.set(key,{ids:canonicalPlayerIds(t.playerIds||[]),name:canonicalTeamLabel(t.playerIds||[],t.name?.split(" & ")||[])});}));
+  tbox.innerHTML=groups.size?[...groups.entries()].map(([key,g])=>{const r=statAggregateTeam(key);return `<div class="stats-row"><div><strong>${escapeHtml(g.name)}</strong><small>${r.games} játék · ${r.wins} győzelem · ${r.losses} vereség · ${r.draws} döntetlen</small></div><div class="stats-mini">${r.pointsFor}–${r.pointsAgainst}</div></div>`}).join(""):`<p class="muted">Még nincs csapatstatisztika.</p>`;
 }
 
 function endGame(){
   state.gameStarted=false;
   clearInterval(timerId);
   timerId=null;
+  state.completedStatsGameId=state.completedStatsGameId||state.resumeGameId||uid("game");
+  const savedId=state.resumeGameId;
+  if(savedId)removeSavedGame(savedId);
+  state.resumeGameId=null;
 
   const[a,b]=state.scores;
 
@@ -552,6 +936,7 @@ function endGame(){
     `<div>🔵 ${state.teams[0]}: ${a}</div>`+
     `<div>🔴 ${state.teams[1]}: ${b}</div>`;
 
+  recordCompletedGameStats();
   show("gameEnd");
 }
 
@@ -563,30 +948,53 @@ $("#againBtn").onclick=()=>show("setup");
 $("#homeBtn").onclick=()=>show("home");
 $("#rulesBtn").onclick=()=>show("rules");
 $("#settingsBtn").onclick=()=>show("settings");
+$("#reshuffleDeckBtn").onclick=()=>{
+  const hasGame=!!state.resumeGameId;
+  if(!hasGame){
+    try{localStorage.removeItem("tabu_recent_cards_v13")}catch(e){}
+    state.recentCards=[];
+    alert("Nincs aktív vagy félbehagyott játék. A következő játék teljesen újrakevert paklival indul.");
+    return;
+  }
+  if(!window.confirm("Újrakevered a paklit? A már kihúzott kártyák visszakerülnek a pakliba, így újra előkerülhetnek."))return;
+  reshuffleDeck();
+};
+document.addEventListener("click",e=>{
+  const resume=e.target.closest("[data-resume-id]");
+  if(resume){ resumeSavedGame(resume.dataset.resumeId); return; }
+  const del=e.target.closest("[data-delete-resume-id]");
+  if(del){ deleteSavedGamePrompt(del.dataset.deleteResumeId); return; }
+});
 
 document.querySelectorAll("[data-back]")
   .forEach(b=>b.onclick=()=>show(b.dataset.back));
 
-// Dynamic player buttons.
+// Játékoskezelés és csapat-összeállítás.
 document.addEventListener("click",e=>{
   const add=e.target.closest("#addTeam1,#addTeam2");
-  if(add){
-    e.preventDefault();
-    addPlayer(add.id==="addTeam1"?0:1);
-    return;
-  }
+  if(add){ e.preventDefault(); addSetupPlayerRow(add.id==="addTeam1"?0:1); updateSetupPlayerOptions(); return; }
+  const del=e.target.closest("[data-player-delete]");
+  if(del){ e.preventDefault(); deleteManagedPlayer(del.dataset.playerDelete); return; }
+});
+$("#addManagedPlayer")?.addEventListener("click",addManagedPlayer);
+$("#newPlayerName")?.addEventListener("keydown",e=>{if(e.key==="Enter")addManagedPlayer()});
+$("#playersBack")?.addEventListener("click",()=>show("home"));
+$("#statsBack")?.addEventListener("click",()=>show("home"));
+$("#playersBtn")?.addEventListener("click",()=>{renderPlayerManagement();show("players")});
+$("#statsBtn")?.addEventListener("click",()=>{renderStats();show("stats")});
+$("#setupPlayersManageBtn")?.addEventListener("click",()=>{renderPlayerManagement();show("players")});
 
-  const remove=e.target.closest(".remove-player");
-  if(remove){
-    e.preventDefault();
-    const box=remove.closest(".player-list");
-    if(box&&box.children.length>1){
-      remove.closest(".player-row")?.remove();
-    }
-  }
+document.addEventListener("change",e=>{
+  const inp=e.target.closest("[data-player-name]");
+  if(inp)savePlayerName(inp.dataset.playerName,inp.value);
 });
 
-initPlayers();
+loadPlayersAndStats();
+loadSavedGames();
+renderResumeHome();
+renderSetupPlayers();
+renderPlayerManagement();
+renderStats();
 
 // Pull-to-refresh protection, while preserving normal scrolling.
 document.addEventListener("touchstart",e=>{

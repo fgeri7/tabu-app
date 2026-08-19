@@ -237,3 +237,34 @@ input,textarea,select{
 .review-taboo{display:flex;flex-wrap:wrap;gap:7px}
 .review-taboo span{background:rgba(255,255,255,.06);border-radius:10px;padding:7px 9px;font-weight:650}
 .empty-round-cards{text-align:center}
+
+/* Félbehagyott játékok */
+.unfinished-games{margin:0 0 16px}
+.resume-panel{background:linear-gradient(180deg,rgba(124,58,237,.16),rgba(20,16,43,.96));border:1px solid rgba(167,139,250,.45);border-radius:22px;padding:16px 16px 12px;box-shadow:0 10px 35px rgba(0,0,0,.18)}
+.resume-title{font-size:13px;font-weight:900;letter-spacing:1px;text-transform:uppercase;color:#c4b5fd;margin-bottom:10px}
+.resume-game{padding:11px 0;border-top:1px solid rgba(167,139,250,.18)}
+.resume-game:first-of-type{border-top:0;padding-top:0}
+.resume-meta{font-size:12px;color:#a1a1aa;line-height:1.5;margin-bottom:9px}
+.resume-score{font-size:17px;font-weight:900;margin-bottom:9px}
+.resume-actions{display:flex;gap:8px}
+.resume-actions button{flex:1;margin:0}
+.resume-delete{flex:0 0 48px!important;padding:10px!important}
+
+
+/* v2.0 – játékoskezelés és statisztikák */
+.manage-players-link{width:100%;margin-top:10px}
+.managed-player{display:grid;grid-template-columns:1fr 52px;gap:8px;margin-bottom:8px}
+.managed-player input{margin:0}
+.player-delete{padding:10px 8px;color:#fca5a5}
+.inline-add{display:grid;grid-template-columns:1fr auto;gap:8px}
+.inline-add input{margin:0}
+.empty-state{text-align:center}
+.stats-list{display:flex;flex-direction:column;gap:8px}
+.stats-row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:13px 0;border-top:1px solid #34265a}
+.stats-row:first-child{border-top:0}
+.stats-row strong{display:block}
+.stats-row small{display:block;color:#a78bfa;margin-top:3px;line-height:1.35}
+.stats-mini{font-weight:900;white-space:nowrap;font-size:13px}
+.setup-player-select{margin:0;flex:1}
+.player-row{align-items:center}
+@media(max-width:400px){.inline-add{grid-template-columns:1fr}.stats-row{align-items:flex-start}.stats-mini{font-size:12px}}

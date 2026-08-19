@@ -7,9 +7,9 @@
 <meta name="description" content="Tabu Magyar – magyar nyelvű, kétcsapatos szójáték.">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <link rel="manifest" href="manifest.json">
-<link rel="stylesheet" href="style.css?v=1.3.0">
+<link rel="stylesheet" href="style.css?v=2.0.0">
 <title>Tabu Magyar</title>
-<!-- Tabu Magyar v1.3.0: gameplay, deck priority and card-fit fixes -->
+<!-- Tabu Magyar v2.0.0: félbehagyott játékok és pakli újrakeverés -->
 <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png"></head>
 <body>
 <main id="app">
@@ -18,8 +18,11 @@
       <img class="brand-icon" src="icons/icon-512.png" alt="Tabu Magyar"><div class="logo">TABU <span>MAGYAR</span></div>
       <p>Magyar szójáték baráti társaságoknak</p>
     </div>
+    <div id="unfinishedGames" class="unfinished-games"></div>
     <div class="menu">
       <button class="primary" id="newGameBtn">🎮 Új játék</button>
+      <button id="playersBtn">👥 Játékosok</button>
+      <button id="statsBtn">📊 Statisztikák</button>
       <button id="rulesBtn">📖 Játékszabályok</button>
       <button id="settingsBtn">⚙️ Beállítások</button>
     </div>
@@ -46,8 +49,8 @@
   </div>
 
   <div class="card player-config">
-    <h2>Játékosok</h2>
-    <p class="muted">Adj hozzá annyi játékost, amennyivel játszotok. A két csapat létszáma eltérhet.</p>
+    <h2>Csapatok játékosai</h2>
+    <p class="muted">A Játékosok menüben létrehozott játékosok közül válassz. Ugyanaz a játékos egy mérkőzésen csak egyszer szerepelhet.</p>
 
     <div class="player-team">
       <strong>🔵 1. csapat játékosai</strong>
@@ -60,6 +63,7 @@
       <div id="team2Players" class="player-list"></div>
       <button type="button" class="secondary add-player" id="addTeam2">＋ Játékos hozzáadása</button>
     </div>
+    <button type="button" class="secondary manage-players-link" id="setupPlayersManageBtn">👥 Játékosok kezelése</button>
   </div>
 
   <div class="card player-config">
@@ -169,6 +173,30 @@
 </div>
 </section>
 
+  <section id="players" class="screen">
+    <header><button class="back" id="playersBack">‹</button><h1>Játékosok</h1></header>
+    <div class="card">
+      <h2>Új játékos</h2>
+      <div class="inline-add"><input id="newPlayerName" placeholder="Játékos neve" autocomplete="off"><button class="primary" id="addManagedPlayer">＋ Hozzáadás</button></div>
+      <p class="muted">A játékosok itt elmentve maradnak, így minden új játékban egyszerűen kiválaszthatók.</p>
+    </div>
+    <div id="playersList"></div>
+  </section>
+
+  <section id="stats" class="screen">
+    <header><button class="back" id="statsBack">‹</button><h1>Statisztikák</h1></header>
+    <div class="card">
+      <h2>Egyéni statisztikák</h2>
+      <p class="muted">A győzelmek mellett az értékelt kártyák eredményeit is vezetjük.</p>
+      <div id="individualStatsList" class="stats-list"></div>
+    </div>
+    <div class="card">
+      <h2>Csapatstatisztikák</h2>
+      <p class="muted">A csapat azonosítása a játékosokból történik, nem a mérkőzésen megadott csapatnévből.</p>
+      <div id="teamStatsList" class="stats-list"></div>
+    </div>
+  </section>
+
   <section id="rules" class="screen">
   <header><button class="back" data-back="home">‹</button><h1>Játékszabályok</h1></header>
   <div class="card rules">
@@ -201,9 +229,15 @@
       <label>Rezgés <input type="checkbox" id="vibrate" checked></label>
       <p class="muted">A beállítások automatikusan mentésre kerülnek.</p>
     </div>
+
+    <div class="card">
+      <h2>Pakli</h2>
+      <p class="muted">A már kihúzott kártyákat visszateszi a játékban használható pakliba, majd az egész elérhető paklit újrakeveri. A jelenleg látható kártya nem kerül vissza azonnal.</p>
+      <button class="secondary" id="reshuffleDeckBtn">🔀 Pakli újrakeverése</button>
+    </div>
   </section>
 </main>
-<script src="cards.js?v=1.3.0"></script>
-<script src="app.js?v=1.3.0"></script>
+<script src="cards.js?v=2.0.0"></script>
+<script src="app.js?v=2.0.0"></script>
 </body>
 </html>
