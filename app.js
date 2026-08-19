@@ -1019,11 +1019,21 @@ function changeRoundScore(team,delta){
     return;
   }
 
+  // Ha korábban a kézi módosítás döntetlent és hirtelen halált indított,
+  // majd a pontszámot visszaállítjuk egyenlőtlenre, a hirtelen halál
+  // feltétele megszűnt. Ilyenkor a játék ténylegesen véget ér, és vissza
+  // kell térni a normál győztes képernyőre.
+  if(state.roundEndSudden===true && state.scores[0]!==state.scores[1]){
+    state.roundEndSudden=false;
+    endGame();
+    return;
+  }
+
+  state.roundEndSudden=false;
   renderRoundScores();
   update();
   persistCurrentGame();
-  const sudden=state.roundEndSudden===true;
-  showTurnEnd(sudden);
+  showTurnEnd(false);
 }
 
 function renderManualScores(){
