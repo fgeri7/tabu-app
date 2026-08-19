@@ -200,3 +200,6 @@ input,textarea,select{
   opacity:.94;
   will-change:transform,opacity;
 }
+
+.score-editor{margin-top:12px}.score-edit-row{display:grid;grid-template-columns:1fr 48px 42px 48px;gap:8px;align-items:center;margin:10px 0}.score-edit-row button{height:42px;border-radius:12px;font-size:20px}.score-edit-row span{text-align:center;font-weight:700}.score-editor h2{margin-bottom:10px}
+#undoActionBtn{width:100%;margin-bottom:10px}.swipe-flying{transition:transform .16s cubic-bezier(.2,.8,.2,1),opacity .16s ease!important}

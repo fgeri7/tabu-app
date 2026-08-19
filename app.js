@@ -17,6 +17,8 @@ const state={
   pos:0,
   deck:[],
   card:null,
+  recentCards:JSON.parse(localStorage.getItem("tabu_recent_cards_v1")||"[]"),
+  undo:null,
   time:60,
   paused:false,
   gameStarted:false,
@@ -30,7 +32,19 @@ function feedback(){if($("#vibrate")?.checked&&navigator.vibrate)navigator.vibra
 
 function deckFor(){
   const filtered=TABU_CARDS.filter(c=>state.difficulty==="all"||c.difficulty===state.difficulty);
-  return shuffle(filtered.length?filtered:TABU_CARDS);
+  const history=new Map(state.recentCards.map(x=>[x.id,x.last]));
+  const now=Date.now();
+  return filtered.map(card=>({
+    card,last:history.get(card.id)||0,
+    age:history.has(card.id)?now-(history.get(card.id)||0):Number.MAX_SAFE_INTEGER
+  })).sort((a,b)=>b.age-a.age).map(x=>x.card);
+}
+function rememberCard(card){
+  if(!card?.id)return;
+  state.recentCards=state.recentCards.filter(x=>x.id!==card.id);
+  state.recentCards.unshift({id:card.id,last:Date.now()});
+  state.recentCards=state.recentCards.slice(0,TABU_CARDS.length);
+  localStorage.setItem("tabu_recent_cards_v1",JSON.stringify(state.recentCards));
 }
 
 function addPlayer(team,name=""){
@@ -114,7 +128,8 @@ function current(){return state.sequence[state.pos]}
 
 function nextCard(){
   if(!state.deck.length)state.deck=deckFor();
-  state.card=state.deck.pop();
+  state.card=state.deck.shift();
+  rememberCard(state.card);
 
   $("#category").textContent=state.card.category||"";
   $("#difficultyLabel").textContent=state.card.difficulty||"";
@@ -267,20 +282,19 @@ function buildSuddenDeath(){
 
 function showTurnEnd(sudden){
   const c=current();
+  const normalTotal=state.sequence.filter(x=>x.cycle!=="⚡").length;
+  const completed=Math.min(state.pos+1,normalTotal);
+  const remaining=Math.max(0,normalTotal-completed);
+  const lead=Math.abs(state.scores[0]-state.scores[1]);
+  const next=state.sequence[state.pos+1];
 
-  $("#roundEndTitle").textContent=
-    sudden?"Döntetlen – hirtelen halál!":"Kör vége";
-
-  $("#roundStats").textContent=sudden
-    ?"Mindkét csapat megkapja a saját lehetőségét. Csak egy teljes páros után dőlhet el a játék."
-    :`${state.teams[c.team]} – ${state.players[c.team][c.player]}: `
-     +`${state.turnStats.correct} megfejtés · `
-     +`${state.turnStats.tabu} TABU · `
-     +`${state.turnStats.pass} passz`;
-
-  $("#nextRoundBtn").textContent=
-    sudden?"Hirtelen halál indítása →":"Következő játékos →";
-
+  $("#roundEndTitle").textContent=sudden?"Döntetlen – hirtelen halál!":"Kör vége";
+  $("#roundStats").innerHTML=
+    `<strong>${state.teams[0]} ${state.scores[0]} – ${state.scores[1]} ${state.teams[1]}</strong><br>`+
+    (lead===0?"Döntetlen az állás.":`A következő csapatnak legalább <strong>${lead+1} pont</strong> kell a vezetés átvételéhez.`)+
+    `<br><small>${sudden?"Hirtelen halál – mindkét csapatnak játszania kell.":`Játékos-körök: ${completed}/${normalTotal} · ${remaining} van hátra.`}</small>`+
+    (next?`<br><strong>${state.teams[next.team]} – ${state.players[next.team][next.player]} következik.</strong>`:"");
+  $("#nextRoundBtn").textContent=next?`${state.teams[next.team]} – ${state.players[next.team][next.player]} következik →`:"Játék vége →";
   show("roundEnd");
 }
 
@@ -337,147 +351,36 @@ function awardOpponent(reason){
 }
 
 // Gombok
-$("#correctBtn").onclick=awardCorrect;
-$("#passBtn").onclick=()=>awardOpponent("pass");
-$("#tabooBtn").onclick=()=>awardOpponent("tabu");
-
-// Kártya-pöccintés:
-// jobbra  = Kitaláltuk / saját csapat +1
-// felfelé = TABU / ellenfél +1
-// balra   = Passz / ellenfél +1
-// Nincs külön swipe-indikátor a UI-ban.
-//
-// A mozdulat Tinder-szerű: a kártya ténylegesen követi az ujjat,
-// majd elég nagy húzásnál látványosan kirepül a képernyőről.
-let swipe={
-  active:false,
-  x:0,
-  y:0,
-  lastX:0,
-  lastY:0,
-  moved:false
-};
-let swipeLocked=false;
-const SWIPE_THRESHOLD=70;
-const cardEl=$(".tabu-card");
-
-function resetCardPosition(){
-  cardEl.classList.remove("swipe-exit");
-  cardEl.style.transition="none";
-  cardEl.style.transform="translate3d(0,0,0) rotate(0deg)";
-  requestAnimationFrame(()=>{
-    cardEl.style.transition="";
-  });
+function scoreAction(kind){
+  const c=current();
+  if(!c||!state.card)return;
+  state.undo={scores:[...state.scores],turnStats:{...state.turnStats},card:state.card,deck:[...state.deck],time:state.time};
+  if(kind==="correct"){state.scores[c.team]++;state.turnStats.correct++}
+  else {state.scores[1-c.team]++;state.turnStats[kind]++}
+  feedback();
+  nextCard();
+  update();
 }
+$("#correctBtn").onclick=()=>scoreAction("correct");
+$("#passBtn").onclick=()=>scoreAction("pass");
+$("#tabooBtn").onclick=()=>scoreAction("tabu");
 
-function completeSwipe(action, direction){
-  if(swipeLocked)return;
-  swipeLocked=true;
-
-  const w=window.innerWidth;
-  const h=window.innerHeight;
-
-  // Much farther than the visible edge, with a slight rotation for a
-  // more natural card-stack/Tinder-like departure.
-  let x=0,y=0,rotation=0;
-
-  if(direction==="right"){
-    x=w*1.35;
-    rotation=18;
-  }else if(direction==="left"){
-    x=-w*1.35;
-    rotation=-18;
-  }else if(direction==="up"){
-    y=-h*1.20;
-    rotation=direction==="up"?-3:0;
+function undoAction(){
+  if(!state.undo)return;
+  state.scores=[...state.undo.scores];
+  state.turnStats={...state.undo.turnStats};
+  state.card=state.undo.card;
+  state.deck=[...state.undo.deck];
+  state.time=state.undo.time;
+  state.undo=null;
+  if(state.card){
+    $("#category").textContent=state.card.category||"";
+    $("#difficultyLabel").textContent=state.card.difficulty||"";
+    $("#word").textContent=state.card.word;
+    $("#tabooList").innerHTML=state.card.taboo.map(x=>`<li>❌ ${x}</li>`).join("");
   }
-
-  cardEl.classList.add("swipe-exit");
-  cardEl.style.transform=
-    `translate3d(${x}px,${y}px,0) rotate(${rotation}deg)`;
-
-  // Let the card visibly leave the screen before the next card appears.
-  setTimeout(()=>{
-    action();
-    resetCardPosition();
-    swipeLocked=false;
-  },260);
+  update();
 }
-
-cardEl.addEventListener("touchstart",e=>{
-  if(swipeLocked||e.touches.length!==1)return;
-
-  swipe={
-    active:true,
-    x:e.touches[0].clientX,
-    y:e.touches[0].clientY,
-    lastX:e.touches[0].clientX,
-    lastY:e.touches[0].clientY,
-    moved:false
-  };
-
-  cardEl.style.transition="none";
-},{passive:true});
-
-cardEl.addEventListener("touchmove",e=>{
-  if(!swipe.active||swipeLocked||e.touches.length!==1)return;
-
-  const currentX=e.touches[0].clientX;
-  const currentY=e.touches[0].clientY;
-  const dx=currentX-swipe.x;
-  const dy=currentY-swipe.y;
-
-  swipe.lastX=currentX;
-  swipe.lastY=currentY;
-
-  if(Math.hypot(dx,dy)<8)return;
-
-  swipe.moved=true;
-
-  // Follow the finger freely instead of clamping to a small range.
-  // A small rotation is applied for the horizontal Tinder-like feel.
-  const rotation=Math.max(-16,Math.min(16,dx*0.055));
-  cardEl.style.transform=
-    `translate3d(${dx}px,${dy}px,0) rotate(${rotation}deg)`;
-
-  // Prevent the page from scrolling while the user is manipulating
-  // the game card.
-  e.preventDefault();
-},{passive:false});
-
-cardEl.addEventListener("touchend",()=>{
-  if(!swipe.active||swipeLocked)return;
-
-  const dx=swipe.lastX-swipe.x;
-  const dy=swipe.lastY-swipe.y;
-  const distance=Math.hypot(dx,dy);
-
-  swipe.active=false;
-
-  if(!swipe.moved||distance<SWIPE_THRESHOLD){
-    resetCardPosition();
-    return;
-  }
-
-  // Determine the dominant direction.
-  if(Math.abs(dx)>Math.abs(dy)){
-    if(dx>0){
-      completeSwipe(awardCorrect,"right");
-    }else{
-      completeSwipe(()=>awardOpponent("pass"),"left");
-    }
-  }else if(dy<0){
-    completeSwipe(()=>awardOpponent("tabu"),"up");
-  }else{
-    // Downward swipe is intentionally ignored.
-    resetCardPosition();
-  }
-});
-
-cardEl.addEventListener("touchcancel",()=>{
-  swipe.active=false;
-  if(!swipeLocked)resetCardPosition();
-});
 
 function pauseGame(){
   if(!state.gameStarted||timerId===null)return;
@@ -507,6 +410,18 @@ $("#resumeBtn").onclick=resumeGame;
 $("#pauseHomeBtn").onclick=goHome;
 $("#pauseEndBtn").onclick=goHome;
 
+
+function renderManualScores(){
+  $("#scoreEdit1").textContent=state.scores[0];
+  $("#scoreEdit2").textContent=state.scores[1];
+  $("#scoreEditTeam1").textContent=state.teams[0];
+  $("#scoreEditTeam2").textContent=state.teams[1];
+}
+function changeScore(team,delta){
+  state.scores[team]=Math.max(0,state.scores[team]+delta);
+  renderManualScores();
+}
+
 function endGame(){
   state.gameStarted=false;
   clearInterval(timerId);
@@ -514,6 +429,7 @@ function endGame(){
 
   const[a,b]=state.scores;
 
+  renderManualScores();
   $("#winner").textContent=
     a===b?"Döntetlen!":
     `${a>b?state.teams[0]:state.teams[1]} nyert!`;
@@ -591,3 +507,41 @@ if("serviceWorker"in navigator){
     navigator.serviceWorker.register("sw.js");
   });
 }
+
+if($("#undoActionBtn"))$("#undoActionBtn").onclick=undoAction;
+if($("#scoreMinus1"))$("#scoreMinus1").onclick=()=>changeScore(0,-1);
+if($("#scorePlus1"))$("#scorePlus1").onclick=()=>changeScore(0,1);
+if($("#scoreMinus2"))$("#scoreMinus2").onclick=()=>changeScore(1,-1);
+if($("#scorePlus2"))$("#scorePlus2").onclick=()=>changeScore(1,1);
+
+(function(){
+  let sx=0,sy=0,el=null;
+  document.addEventListener("pointerdown",e=>{
+    el=e.target.closest("#game .tabu-card,#game .challenge-card,#game .card");
+    if(!el||e.button>0)return;
+    sx=e.clientX;sy=e.clientY;
+  });
+  document.addEventListener("pointermove",e=>{
+    if(!el)return;
+    const dx=e.clientX-sx,dy=e.clientY-sy;
+    if(Math.abs(dx)+Math.abs(dy)>8){
+      el.style.transition="none";
+      el.style.transform=`translate(${dx}px,${dy}px) rotate(${Math.max(-12,Math.min(12,dx/25))}deg)`;
+    }
+  });
+  document.addEventListener("pointerup",e=>{
+    if(!el)return;
+    const card=el,dx=e.clientX-sx,dy=e.clientY-sy;
+    el=null;
+    if(Math.max(Math.abs(dx),Math.abs(dy))<70){card.style.transition="";card.style.transform="";return}
+    let action=null,x=0,y=0,r=0;
+    if(Math.abs(dx)>=Math.abs(dy)&&dx>0){action="correct";x=innerWidth*1.35;r=22}
+    else if(Math.abs(dx)>=Math.abs(dy)&&dx<0){action="pass";x=-innerWidth*1.35;r=-22}
+    else if(dy<0){action="tabu";y=-innerHeight*1.25}
+    if(!action){card.style.transition="transform .16s ease";card.style.transform="";return}
+    card.style.transition="transform .16s cubic-bezier(.2,.8,.2,1),opacity .16s ease";
+    card.style.transform=`translate(${x}px,${y}px) rotate(${r}deg)`;
+    card.style.opacity="0";
+    setTimeout(()=>{scoreAction(action);},90);
+  });
+})();

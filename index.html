@@ -137,7 +137,8 @@
 <section id="roundEnd" class="screen center">
     <div class="big-icon">⏱️</div><h1 id="roundEndTitle">Lejárt az idő!</h1>
     <p id="roundStats"></p>
-    <button class="primary" id="nextRoundBtn">Következő kör →</button>
+    <button class="secondary" id="undoActionBtn">↩ Utolsó akció visszavonása</button>
+  <button class="primary" id="nextRoundBtn">Következő kör →</button>
   </section>
 
   <section id="gameEnd" class="screen center">
@@ -145,7 +146,12 @@
     <div id="finalScores" class="final-scores"></div>
     <button class="primary" id="againBtn">🔄 Új játék</button>
     <button id="homeBtn">Főmenü</button>
-  </section>
+  <div class="card score-editor">
+<h2>Pontok kézi módosítása</h2>
+<div class="score-edit-row"><strong id="scoreEditTeam1">Kék csapat</strong><button id="scoreMinus1">−1</button><span id="scoreEdit1">0</span><button id="scorePlus1">+1</button></div>
+<div class="score-edit-row"><strong id="scoreEditTeam2">Piros csapat</strong><button id="scoreMinus2">−1</button><span id="scoreEdit2">0</span><button id="scorePlus2">+1</button></div>
+</div>
+</section>
 
   <section id="rules" class="screen">
   <header><button class="back" data-back="home">‹</button><h1>Játékszabályok</h1></header>
