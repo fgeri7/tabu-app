@@ -203,3 +203,19 @@ input,textarea,select{
 
 .score-editor{margin-top:12px}.score-edit-row{display:grid;grid-template-columns:1fr 48px 42px 48px;gap:8px;align-items:center;margin:10px 0}.score-edit-row button{height:42px;border-radius:12px;font-size:20px}.score-edit-row span{text-align:center;font-weight:700}.score-editor h2{margin-bottom:10px}
 #undoActionBtn{width:100%;margin-bottom:10px}.swipe-flying{transition:transform .16s cubic-bezier(.2,.8,.2,1),opacity .16s ease!important}
+
+/* v1.3 – target word always fits the card */
+#game.active .tabu-card h2#word{
+  font-size:clamp(30px,7.2vw,42px);
+  line-height:1.05;
+  white-space:normal;
+  overflow-wrap:anywhere;
+  word-break:normal;
+  hyphens:none;
+  max-width:100%;
+  padding:0 4px;
+}
+@media(max-width:400px){#game.active .tabu-card h2#word{font-size:clamp(28px,7.5vw,38px)}}
+
+.pause-score-editor{margin-top:14px;padding-top:14px;border-top:1px solid #3c2d68}.pause-score-editor>strong{display:block;margin-bottom:8px}.pause-score-editor .score-edit-row{grid-template-columns:1fr 44px 38px 44px;margin:7px 0}.pause-score-editor button{padding:8px 4px}
+#game.active .tabu-card h2#word{white-space:normal;overflow-wrap:anywhere;word-break:normal;max-width:100%;padding:0 4px}

@@ -7,8 +7,9 @@
 <meta name="description" content="Tabu Magyar – magyar nyelvű, kétcsapatos szójáték.">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <link rel="manifest" href="manifest.json">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css?v=1.3.0">
 <title>Tabu Magyar</title>
+<!-- Tabu Magyar v1.3.0: gameplay, deck priority and card-fit fixes -->
 <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png"></head>
 <body>
 <main id="app">
@@ -124,6 +125,11 @@
 <div class="big-icon">⏸️</div><h2>Játék szüneteltetve</h2>
 <button class="primary" id="resumeBtn">▶ Folytatás</button>
 <button id="pauseHomeBtn">🏠 Főmenü</button>
+<div id="pauseScoreEditor" class="pause-score-editor">
+  <strong>Pontok módosítása</strong>
+  <div class="score-edit-row"><span id="pauseScoreTeam1">Kék csapat</span><button id="pauseMinus1">−1</button><b id="pauseScore1">0</b><button id="pausePlus1">+1</button></div>
+  <div class="score-edit-row"><span id="pauseScoreTeam2">Piros csapat</span><button id="pauseMinus2">−1</button><b id="pauseScore2">0</b><button id="pausePlus2">+1</button></div>
+</div>
 <button class="danger-outline" id="pauseEndBtn">🛑 Játék befejezése</button>
 </div></div>
 <div id="diceOverlay" class="overlay hidden">
@@ -187,7 +193,7 @@
     </div>
   </section>
 </main>
-<script src="cards.js"></script>
-<script src="app.js"></script>
+<script src="cards.js?v=1.3.0"></script>
+<script src="app.js?v=1.3.0"></script>
 </body>
 </html>

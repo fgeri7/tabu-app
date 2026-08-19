@@ -17,8 +17,10 @@ const state={
   pos:0,
   deck:[],
   card:null,
-  recentCards:JSON.parse(localStorage.getItem("tabu_recent_cards_v1")||"[]"),
+  recentCards:JSON.parse(localStorage.getItem("tabu_recent_cards_v13")||"[]"),
+  sessionUsed:new Set(),
   undo:null,
+  totalTurns:0,
   time:60,
   paused:false,
   gameStarted:false,
@@ -34,17 +36,22 @@ function deckFor(){
   const filtered=TABU_CARDS.filter(c=>state.difficulty==="all"||c.difficulty===state.difficulty);
   const history=new Map(state.recentCards.map(x=>[x.id,x.last]));
   const now=Date.now();
-  return filtered.map(card=>({
-    card,last:history.get(card.id)||0,
+  // First exhaust every eligible card not yet used in this game.
+  const fresh=filtered.filter(c=>!state.sessionUsed.has(c.id));
+  const pool=fresh.length?fresh:filtered;
+  return pool.map(card=>({
+    card,
+    last:history.get(card.id)||0,
     age:history.has(card.id)?now-(history.get(card.id)||0):Number.MAX_SAFE_INTEGER
   })).sort((a,b)=>b.age-a.age).map(x=>x.card);
 }
 function rememberCard(card){
   if(!card?.id)return;
+  state.sessionUsed.add(card.id);
   state.recentCards=state.recentCards.filter(x=>x.id!==card.id);
   state.recentCards.unshift({id:card.id,last:Date.now()});
   state.recentCards=state.recentCards.slice(0,TABU_CARDS.length);
-  localStorage.setItem("tabu_recent_cards_v1",JSON.stringify(state.recentCards));
+  localStorage.setItem("tabu_recent_cards_v13",JSON.stringify(state.recentCards));
 }
 
 function addPlayer(team,name=""){
@@ -122,18 +129,22 @@ function buildSequence(){
       });
     }
   }
+  state.totalTurns=state.sequence.length;
 }
 
 function current(){return state.sequence[state.pos]}
 
 function nextCard(){
   if(!state.deck.length)state.deck=deckFor();
+  if(!state.deck.length)return;
   state.card=state.deck.shift();
   rememberCard(state.card);
 
   $("#category").textContent=state.card.category||"";
   $("#difficultyLabel").textContent=state.card.difficulty||"";
   $("#word").textContent=state.card.word;
+  const len=state.card.word.length;
+  $("#word").style.fontSize = len<=11 ? "42px" : len<=14 ? "38px" : len<=17 ? "34px" : "30px";
   $("#tabooList").innerHTML=state.card.taboo
     .map(x=>`<li>❌ ${x}</li>`).join("");
 }
@@ -202,7 +213,8 @@ function startGame(){
 
   state.scores=[0,0];
   state.pos=0;
-  state.deck=deckFor();
+  state.sessionUsed=new Set();
+  state.deck=[];
   state.gameStarted=true;
   state.paused=false;
   state.turnStats={correct:0,pass:0,tabu:0};
@@ -281,18 +293,16 @@ function buildSuddenDeath(){
 }
 
 function showTurnEnd(sudden){
-  const c=current();
-  const normalTotal=state.sequence.filter(x=>x.cycle!=="⚡").length;
-  const completed=Math.min(state.pos+1,normalTotal);
-  const remaining=Math.max(0,normalTotal-completed);
   const lead=Math.abs(state.scores[0]-state.scores[1]);
   const next=state.sequence[state.pos+1];
+  const completed=sudden?0:Math.min(state.pos+1,state.totalTurns);
+  const remaining=sudden?0:Math.max(0,state.totalTurns-completed);
 
   $("#roundEndTitle").textContent=sudden?"Döntetlen – hirtelen halál!":"Kör vége";
   $("#roundStats").innerHTML=
     `<strong>${state.teams[0]} ${state.scores[0]} – ${state.scores[1]} ${state.teams[1]}</strong><br>`+
     (lead===0?"Döntetlen az állás.":`A következő csapatnak legalább <strong>${lead+1} pont</strong> kell a vezetés átvételéhez.`)+
-    `<br><small>${sudden?"Hirtelen halál – mindkét csapatnak játszania kell.":`Játékos-körök: ${completed}/${normalTotal} · ${remaining} van hátra.`}</small>`+
+    `<br><small>${sudden?"Hirtelen halál: mindkét csapatnak lehetőséget kell kapnia.":`Játékos-körök: ${completed}/${state.totalTurns} · ${remaining} van hátra.`}</small>`+
     (next?`<br><strong>${state.teams[next.team]} – ${state.players[next.team][next.player]} következik.</strong>`:"");
   $("#nextRoundBtn").textContent=next?`${state.teams[next.team]} – ${state.players[next.team][next.player]} következik →`:"Játék vége →";
   show("roundEnd");
@@ -358,8 +368,12 @@ function scoreAction(kind){
   if(kind==="correct"){state.scores[c.team]++;state.turnStats.correct++}
   else {state.scores[1-c.team]++;state.turnStats[kind]++}
   feedback();
-  nextCard();
-  update();
+  const cardEl=$("#game .tabu-card");
+  setTimeout(()=>{
+    if(cardEl){cardEl.style.transition="none";cardEl.style.transform="translate3d(0,0,0)";cardEl.style.opacity="1";}
+    nextCard();
+    update();
+  },140);
 }
 $("#correctBtn").onclick=()=>scoreAction("correct");
 $("#passBtn").onclick=()=>scoreAction("pass");
@@ -377,6 +391,8 @@ function undoAction(){
     $("#category").textContent=state.card.category||"";
     $("#difficultyLabel").textContent=state.card.difficulty||"";
     $("#word").textContent=state.card.word;
+    const len=state.card.word.length;
+    $("#word").style.fontSize = len<=11 ? "42px" : len<=14 ? "38px" : len<=17 ? "34px" : "30px";
     $("#tabooList").innerHTML=state.card.taboo.map(x=>`<li>❌ ${x}</li>`).join("");
   }
   update();
@@ -416,10 +432,15 @@ function renderManualScores(){
   $("#scoreEdit2").textContent=state.scores[1];
   $("#scoreEditTeam1").textContent=state.teams[0];
   $("#scoreEditTeam2").textContent=state.teams[1];
+  $("#pauseScore1").textContent=state.scores[0];
+  $("#pauseScore2").textContent=state.scores[1];
+  $("#pauseScoreTeam1").textContent=state.teams[0];
+  $("#pauseScoreTeam2").textContent=state.teams[1];
 }
 function changeScore(team,delta){
   state.scores[team]=Math.max(0,state.scores[team]+delta);
   renderManualScores();
+  update();
 }
 
 function endGame(){
@@ -542,6 +563,11 @@ if($("#scorePlus2"))$("#scorePlus2").onclick=()=>changeScore(1,1);
     card.style.transition="transform .16s cubic-bezier(.2,.8,.2,1),opacity .16s ease";
     card.style.transform=`translate(${x}px,${y}px) rotate(${r}deg)`;
     card.style.opacity="0";
-    setTimeout(()=>{scoreAction(action);},90);
+    setTimeout(()=>{scoreAction(action);},140);
   });
 })();
+
+if($("#pauseMinus1"))$("#pauseMinus1").onclick=()=>changeScore(0,-1);
+if($("#pausePlus1"))$("#pausePlus1").onclick=()=>changeScore(0,1);
+if($("#pauseMinus2"))$("#pauseMinus2").onclick=()=>changeScore(1,-1);
+if($("#pausePlus2"))$("#pausePlus2").onclick=()=>changeScore(1,1);
