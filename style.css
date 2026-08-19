@@ -286,3 +286,22 @@ input,textarea,select{
   touch-action:manipulation;
   -webkit-tap-highlight-color:transparent;
 }
+
+/* All Play team selection */
+.all-play-card{max-width:430px}
+.all-play-card p{margin:8px 0 18px;line-height:1.45}
+.all-play-team-btn{
+  width:100%;
+  margin-top:10px;
+  padding:16px 18px;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:16px;
+  background:rgba(255,255,255,.07);
+  color:#fff;
+  font:inherit;
+  font-weight:800;
+  font-size:19px;
+  cursor:pointer;
+  touch-action:manipulation;
+}
+.all-play-team-btn:active{transform:scale(.98)}

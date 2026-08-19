@@ -40,7 +40,8 @@ const state={
   gameCardStats:{},
   statsRecorded:false,
   completedStatsGameId:null,
-  roundEndSudden:false
+  roundEndSudden:false,
+  pendingAllPlayAction:false
 };
 
 let savedGames=[];
@@ -267,6 +268,9 @@ function resumeSavedGame(id){
     renderCurrentCard();
     update();
     updateGameUndo();
+    if(state.pendingAllPlayAction){
+      showAllPlayChooser();
+    }
     if(state.diceShowing){
       showDiceBeforeTurn();
     }else{
@@ -577,6 +581,7 @@ function startGame(){
   state.deck=[];
   state.gameStarted=true;
   state.paused=false;
+  hideAllPlayChooser();
   state.turnStats={correct:0,pass:0,tabu:0};
   state.turnCards=[];
   state.gameCardStats={};
@@ -586,6 +591,7 @@ function startGame(){
   state.resumeGameId=uid();
   state.resumeScreen="game";
   state.diceShowing=false;
+  state.pendingAllPlayAction=false;
 
   buildSequence();
   show("game");
@@ -695,10 +701,13 @@ function renderRoundCards(){
   box.innerHTML=state.turnCards.map((entry,i)=>{
     const [icon,label,cls]=outcomeLabel(entry.outcome);
     const c=entry.card;
+    const awardedLabel=entry.outcome==="correct" && entry.awardedTeam!==undefined
+      ? ` – ${state.teams[entry.awardedTeam]}`
+      : "";
     return `<article class="card review-card">
       <div class="review-top">
         <span class="review-number">#${i+1}</span>
-        <span class="review-outcome ${cls}">${icon} ${label}</span>
+        <span class="review-outcome ${cls}">${icon} ${label}${awardedLabel}</span>
       </div>
       <div class="review-category">${c.category||""}</div>
       <div class="review-word">${c.word}</div>
@@ -758,6 +767,7 @@ function continueAfterTurn(){
   state.statsRecorded=false;
   state.resumeScreen="game";
   state.diceShowing=false;
+  state.pendingAllPlayAction=false;
 
   // Hirtelen halálban csak akkor döntünk, amikor mindkét csapat játszott.
   if(current()?.cycle==="⚡"&&state.pos%2===1){
@@ -789,6 +799,26 @@ function continueAfterTurn(){
   persistCurrentGame();
 }
 
+function showAllPlayChooser(){
+  const overlay=$("#allPlayOverlay");
+  if(!overlay)return;
+  $("#allPlayTeam1Btn span").textContent=state.teams[0];
+  $("#allPlayTeam2Btn span").textContent=state.teams[1];
+  state.pendingAllPlayAction=true;
+  overlay.classList.remove("hidden");
+  persistCurrentGame();
+}
+
+function hideAllPlayChooser(){
+  $("#allPlayOverlay")?.classList.add("hidden");
+  state.pendingAllPlayAction=false;
+}
+
+function completeAllPlayCorrect(team){
+  hideAllPlayChooser();
+  scoreAction("correct",team);
+}
+
 // Pontozási műveletek. A swipe és a gombok ugyanazokat a funkciókat hívják.
 function awardCorrect(){
   const c=current();
@@ -811,9 +841,17 @@ function awardOpponent(reason){
 }
 
 // Gombok
-function scoreAction(kind){
+function scoreAction(kind,awardedTeam=null){
   const c=current();
   if(!c||!state.card)return;
+
+  // Game-changer: Mindenki játszik.
+  // A "Kitaláltuk"/jobbra swipe nem köthető automatikusan a soron lévő csapathoz.
+  if(kind==="correct" && state.pendingDice==="all" && awardedTeam===null){
+    showAllPlayChooser();
+    return;
+  }
+
   state.undo={
     scores:[...state.scores],
     turnStats:{...state.turnStats},
@@ -825,16 +863,27 @@ function scoreAction(kind){
     sessionUsed:[...state.sessionUsed]
   };
   updateGameUndo();
-  if(kind==="correct"){state.scores[c.team]++;state.turnStats.correct++}
-  else {state.scores[1-c.team]++;state.turnStats[kind] }
+  if(kind==="correct"){
+    const scoringTeam=awardedTeam===0||awardedTeam===1?awardedTeam:c.team;
+    state.scores[scoringTeam]++;
+    state.turnStats.correct++;
+  }else{
+    state.scores[1-c.team]++;
+    state.turnStats[kind]++;
+  }
   const pid=state.teamPlayerIds?.[c.team]?.[c.player];
   if(pid){ state.gameCardStats[pid]=state.gameCardStats[pid]||{correct:0,pass:0,tabu:0}; state.gameCardStats[pid][kind]++; }
+
+  const awarded = kind==="correct"
+    ? (awardedTeam===0||awardedTeam===1?awardedTeam:c.team)
+    : (1-c.team);
 
   state.turnCards.push({
     card:{...state.card, taboo:[...(state.card.taboo||[])]},
     outcome:kind,
     team:c.team,
-    player:c.player
+    player:c.player,
+    awardedTeam:awarded
   });
 
   feedback();
@@ -850,6 +899,8 @@ function scoreAction(kind){
 $("#correctBtn").onclick=()=>scoreAction("correct");
 $("#passBtn").onclick=()=>scoreAction("pass");
 $("#tabooBtn").onclick=()=>scoreAction("tabu");
+if($("#allPlayTeam1Btn"))$("#allPlayTeam1Btn").onclick=()=>completeAllPlayCorrect(0);
+if($("#allPlayTeam2Btn"))$("#allPlayTeam2Btn").onclick=()=>completeAllPlayCorrect(1);
 
 function renderCurrentCard(){
   if(!state.card)return;
