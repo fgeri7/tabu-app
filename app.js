@@ -329,49 +329,54 @@ function feedback(){if($("#vibrate")?.checked&&navigator.vibrate)navigator.vibra
 
 function deckFor(){
   const filtered=TABU_CARDS.filter(c=>state.difficulty==="all"||c.difficulty===state.difficulty);
+  const currentId=state.card?.id||null;
+  const used=new Set(state.sessionUsed||[]);
   const history=new Map(state.recentCards.map(x=>[x.id,x.last]));
   const now=Date.now();
 
-  const pool=filtered.map(card=>({
-    card,
-    last:history.get(card.id)||0,
-    age:history.has(card.id)?now-(history.get(card.id)||0):Number.MAX_SAFE_INTEGER
-  }));
-
-  // First rank by freshness, then shuffle within similar freshness.
-  // This keeps old/unused cards preferred without creating predictable order.
-  pool.sort((a,b)=>b.age-a.age);
-  for(let i=0;i<pool.length;i++){
-    const j=i+Math.floor(Math.random()*Math.max(1,Math.min(12,pool.length-i)));
-    [pool[i],pool[j]]=[pool[j],pool[i]];
+  // A játék alatt ugyanaz a kártya nem kerülhet vissza addig, amíg
+  // az adott nehézségi pakli összes lapja el nem fogy.
+  let candidates=filtered.filter(c=>!used.has(c.id));
+  if(!candidates.length){
+    // A teljes aktuális pakli elfogyott: indulhat egy új ciklus,
+    // de az éppen látható lapot akkor sem tesszük közvetlenül vissza.
+    state.sessionUsed=new Set();
+    candidates=filtered.filter(c=>c.id!==currentId);
   }
 
-  // Build category buckets and interleave them. The result is still randomized,
-  // but prevents long runs of the same category.
-  const buckets=new Map();
-  for(const item of pool){
-    const key=item.card.category||"Egyéb";
-    if(!buckets.has(key))buckets.set(key,[]);
-    buckets.get(key).push(item.card);
-  }
-  const categories=[...buckets.keys()];
-  for(let i=categories.length-1;i>0;i--){
-    const j=Math.floor(Math.random()*(i+1));
-    [categories[i],categories[j]]=[categories[j],categories[i]];
-  }
+  // Elsődlegesen a még soha / régen játszott lapok legyenek elöl.
+  // Azonos frissességű lapok között továbbra is van véletlenszerűség.
+  const ranked=candidates.map(card=>{
+    const last=history.get(card.id);
+    return {
+      card,
+      age:last ? now-last : Number.MAX_SAFE_INTEGER,
+      last:last||0
+    };
+  }).sort((a,b)=>{
+    if(b.age!==a.age)return b.age-a.age;
+    return Math.random()-.5;
+  });
 
+  // Kategória-keverés úgy, hogy ne írjuk felül a frissességi prioritást:
+  // a következő lapot a legfrissebb lapok szűkebb mezőnyéből választjuk,
+  // és lehetőleg nem ugyanabból a kategóriából, mint az előző.
   const result=[];
+  const pool=[...ranked];
   let lastCategory=null;
-  while(result.length<pool.length){
-    const available=categories.filter(cat=>buckets.get(cat)?.length && cat!==lastCategory);
-    const candidates=available.length?available:categories.filter(cat=>buckets.get(cat)?.length);
-    if(!candidates.length)break;
-    const cat=candidates[Math.floor(Math.random()*candidates.length)];
-    const bucket=buckets.get(cat);
-    const idx=Math.floor(Math.random()*bucket.length);
-    result.push(bucket.splice(idx,1)[0]);
-    lastCategory=cat;
+
+  while(pool.length){
+    const windowSize=Math.min(18,pool.length);
+    const top=pool.slice(0,windowSize);
+    const different=top.filter(x=>(x.card.category||"Egyéb")!==lastCategory);
+    const choices=different.length?different:top;
+    const chosen=choices[Math.floor(Math.random()*choices.length)];
+    const idx=pool.indexOf(chosen);
+    pool.splice(idx,1);
+    result.push(chosen.card);
+    lastCategory=chosen.card.category||"Egyéb";
   }
+
   return result;
 }
 function rememberCard(card){
@@ -1045,6 +1050,21 @@ function statAggregateTeam(key){
     const a=g.teams[ti].score,b=g.teams[1-ti].score; r.games++; r.pointsFor+=a; r.pointsAgainst+=b; if(a>b)r.wins++; else if(a<b)r.losses++; else r.draws++;
   }); return r;
 }
+async function resetStats(){
+  if(!statsDB.games.length){
+    alert("Nincs törölhető statisztika.");
+    return;
+  }
+  const ok=await customConfirm(
+    "Törlöd az összes egyéni és csapatstatisztikát?\n\nA mentett játékosok nem törlődnek.\n\nEz nem vonható vissza."
+  );
+  if(!ok)return;
+
+  statsDB={games:[]};
+  persistPlayersAndStats();
+  renderStats();
+}
+
 function renderStats(){
   const pbox=$("#individualStatsList"),tbox=$("#teamStatsList"); if(!pbox||!tbox)return;
   const historical=new Map();
@@ -1123,6 +1143,7 @@ $("#playersBack")?.addEventListener("click",()=>show("home"));
 $("#statsBack")?.addEventListener("click",()=>show("home"));
 $("#playersBtn")?.addEventListener("click",()=>{renderPlayerManagement();show("players")});
 $("#statsBtn")?.addEventListener("click",()=>{renderStats();show("stats")});
+$("#resetStatsBtn")?.addEventListener("click",resetStats);
 $("#setupPlayersManageBtn")?.addEventListener("click",()=>{renderPlayerManagement();show("players")});
 
 document.addEventListener("change",e=>{
