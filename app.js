@@ -443,24 +443,33 @@ function current(){return state.sequence[state.pos]}
 function fitTargetWord(){
   const el=$("#word");
   if(!el)return;
+
   el.style.fontSize="";
   el.style.whiteSpace="normal";
   el.style.overflowWrap="normal";
   el.style.wordBreak="normal";
   el.style.maxHeight="none";
+  el.style.overflow="hidden";
 
-  // Keep the normal/v1.3 visual size, shrinking only when needed.
+  // Keep the normal/v1.3 visual size and shrink only as much as necessary.
+  // The target must fit horizontally AND may use at most two lines.
   let size=42;
+  const minSize=24;
   el.style.fontSize=size+"px";
   el.style.lineHeight="1.05";
-  const maxLines=2;
-  const lineHeight=size*1.05;
-  while(el.scrollHeight>lineHeight*maxLines+3 && size>24){
+
+  while(size>minSize){
+    const lineHeight=size*1.05;
+    const tooWide=el.scrollWidth>el.clientWidth+2;
+    const tooTall=el.scrollHeight>lineHeight*2+3;
+
+    if(!tooWide && !tooTall) break;
+
     size-=1;
     el.style.fontSize=size+"px";
   }
-  el.style.maxHeight=`${size*1.05*maxLines+4}px`;
-  el.style.overflow="hidden";
+
+  el.style.maxHeight=`${size*1.05*2+4}px`;
 }
 
 function nextCard(){
