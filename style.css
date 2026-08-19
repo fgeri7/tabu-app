@@ -268,3 +268,5 @@ input,textarea,select{
 .setup-player-select{margin:0;flex:1}
 .player-row{align-items:center}
 @media(max-width:400px){.inline-add{grid-template-columns:1fr}.stats-row{align-items:flex-start}.stats-mini{font-size:12px}}
+
+#roundEndHomeBtn{margin-top:8px}

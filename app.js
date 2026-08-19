@@ -3,6 +3,7 @@ const screens=[...document.querySelectorAll(".screen")];
 const show=id=>{
   screens.forEach(x=>x.classList.toggle("active",x.id===id));
   if(id==="home")renderResumeHome();
+  if(id==="setup")renderSetupPlayers();
 };
 let timerId=null;
 let touchStartY=0;
@@ -100,6 +101,7 @@ function addManagedPlayer(){
   persistPlayersAndStats();
   $("#newPlayerName").value="";
   renderPlayerManagement();
+  renderSetupPlayers();
 }
 function savePlayerName(id,name){
   const p=playerById(id); if(!p)return;
@@ -323,14 +325,48 @@ function deckFor(){
   const filtered=TABU_CARDS.filter(c=>state.difficulty==="all"||c.difficulty===state.difficulty);
   const history=new Map(state.recentCards.map(x=>[x.id,x.last]));
   const now=Date.now();
-  // First exhaust every eligible card not yet used in this game.
-  const fresh=filtered.filter(c=>!state.sessionUsed.has(c.id));
-  const pool=fresh.length?fresh:filtered;
-  return pool.map(card=>({
+
+  const pool=filtered.map(card=>({
     card,
     last:history.get(card.id)||0,
     age:history.has(card.id)?now-(history.get(card.id)||0):Number.MAX_SAFE_INTEGER
-  })).sort((a,b)=>b.age-a.age).map(x=>x.card);
+  }));
+
+  // First rank by freshness, then shuffle within similar freshness.
+  // This keeps old/unused cards preferred without creating predictable order.
+  pool.sort((a,b)=>b.age-a.age);
+  for(let i=0;i<pool.length;i++){
+    const j=i+Math.floor(Math.random()*Math.max(1,Math.min(12,pool.length-i)));
+    [pool[i],pool[j]]=[pool[j],pool[i]];
+  }
+
+  // Build category buckets and interleave them. The result is still randomized,
+  // but prevents long runs of the same category.
+  const buckets=new Map();
+  for(const item of pool){
+    const key=item.card.category||"Egyéb";
+    if(!buckets.has(key))buckets.set(key,[]);
+    buckets.get(key).push(item.card);
+  }
+  const categories=[...buckets.keys()];
+  for(let i=categories.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [categories[i],categories[j]]=[categories[j],categories[i]];
+  }
+
+  const result=[];
+  let lastCategory=null;
+  while(result.length<pool.length){
+    const available=categories.filter(cat=>buckets.get(cat)?.length && cat!==lastCategory);
+    const candidates=available.length?available:categories.filter(cat=>buckets.get(cat)?.length);
+    if(!candidates.length)break;
+    const cat=candidates[Math.floor(Math.random()*candidates.length)];
+    const bucket=buckets.get(cat);
+    const idx=Math.floor(Math.random()*bucket.length);
+    result.push(bucket.splice(idx,1)[0]);
+    lastCategory=cat;
+  }
+  return result;
 }
 function rememberCard(card){
   if(!card?.id)return;
@@ -1078,3 +1114,9 @@ if($("#roundScorePlus2"))$("#roundScorePlus2").onclick=()=>changeRoundScore(1,1)
 
 $("#roundCardsBtn")?.addEventListener("click",openRoundCards);
 $("#roundCardsBack")?.addEventListener("click",()=>show("roundEnd"));
+
+$("#roundEndHomeBtn")?.addEventListener("click",()=>{
+  persistActiveGame();
+  show("home");
+  renderHome();
+});
