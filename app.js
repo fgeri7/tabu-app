@@ -343,71 +343,141 @@ $("#tabooBtn").onclick=()=>awardOpponent("tabu");
 
 // Kártya-pöccintés:
 // jobbra  = Kitaláltuk / saját csapat +1
-// felfelé = Passz / ellenfél +1
-// balra   = TABU / ellenfél +1
+// felfelé = TABU / ellenfél +1
+// balra   = Passz / ellenfél +1
 // Nincs külön swipe-indikátor a UI-ban.
-let swipe={active:false,x:0,y:0,moved:false};
+//
+// A mozdulat Tinder-szerű: a kártya ténylegesen követi az ujjat,
+// majd elég nagy húzásnál látványosan kirepül a képernyőről.
+let swipe={
+  active:false,
+  x:0,
+  y:0,
+  lastX:0,
+  lastY:0,
+  moved:false
+};
+let swipeLocked=false;
 const SWIPE_THRESHOLD=70;
 const cardEl=$(".tabu-card");
 
+function resetCardPosition(){
+  cardEl.classList.remove("swipe-exit");
+  cardEl.style.transition="none";
+  cardEl.style.transform="translate3d(0,0,0) rotate(0deg)";
+  requestAnimationFrame(()=>{
+    cardEl.style.transition="";
+  });
+}
+
+function completeSwipe(action, direction){
+  if(swipeLocked)return;
+  swipeLocked=true;
+
+  const w=window.innerWidth;
+  const h=window.innerHeight;
+
+  // Much farther than the visible edge, with a slight rotation for a
+  // more natural card-stack/Tinder-like departure.
+  let x=0,y=0,rotation=0;
+
+  if(direction==="right"){
+    x=w*1.35;
+    rotation=18;
+  }else if(direction==="left"){
+    x=-w*1.35;
+    rotation=-18;
+  }else if(direction==="up"){
+    y=-h*1.20;
+    rotation=direction==="up"?-3:0;
+  }
+
+  cardEl.classList.add("swipe-exit");
+  cardEl.style.transform=
+    `translate3d(${x}px,${y}px,0) rotate(${rotation}deg)`;
+
+  // Let the card visibly leave the screen before the next card appears.
+  setTimeout(()=>{
+    action();
+    resetCardPosition();
+    swipeLocked=false;
+  },260);
+}
+
 cardEl.addEventListener("touchstart",e=>{
-  if(e.touches.length!==1)return;
-  swipe={active:true,x:e.touches[0].clientX,y:e.touches[0].clientY,moved:false};
+  if(swipeLocked||e.touches.length!==1)return;
+
+  swipe={
+    active:true,
+    x:e.touches[0].clientX,
+    y:e.touches[0].clientY,
+    lastX:e.touches[0].clientX,
+    lastY:e.touches[0].clientY,
+    moved:false
+  };
+
+  cardEl.style.transition="none";
 },{passive:true});
 
 cardEl.addEventListener("touchmove",e=>{
-  if(!swipe.active||e.touches.length!==1)return;
-  const dx=e.touches[0].clientX-swipe.x;
-  const dy=e.touches[0].clientY-swipe.y;
-  if(Math.hypot(dx,dy)<10)return;
+  if(!swipe.active||swipeLocked||e.touches.length!==1)return;
+
+  const currentX=e.touches[0].clientX;
+  const currentY=e.touches[0].clientY;
+  const dx=currentX-swipe.x;
+  const dy=currentY-swipe.y;
+
+  swipe.lastX=currentX;
+  swipe.lastY=currentY;
+
+  if(Math.hypot(dx,dy)<8)return;
 
   swipe.moved=true;
-  swipe.lastX=e.touches[0].clientX;
-  swipe.lastY=e.touches[0].clientY;
-  // A kártya természetesen követi az ujjat, de nincs rajta külön jelzés.
-  const limitedX=Math.max(-85,Math.min(85,dx));
-  const limitedY=Math.max(-70,Math.min(70,dy));
-  cardEl.style.transform=`translate(${limitedX}px,${limitedY}px) rotate(${limitedX*0.025}deg)`;
+
+  // Follow the finger freely instead of clamping to a small range.
+  // A small rotation is applied for the horizontal Tinder-like feel.
+  const rotation=Math.max(-16,Math.min(16,dx*0.055));
+  cardEl.style.transform=
+    `translate3d(${dx}px,${dy}px,0) rotate(${rotation}deg)`;
+
+  // Prevent the page from scrolling while the user is manipulating
+  // the game card.
   e.preventDefault();
 },{passive:false});
 
 cardEl.addEventListener("touchend",()=>{
-  if(!swipe.active)return;
+  if(!swipe.active||swipeLocked)return;
 
-  const dx=cardEl.style.transform;
-  cardEl.style.transform="";
-
-  // Read the final displacement from the saved gesture by tracking it separately.
-  // The touchend event has no touches, so use the last move coordinates.
-  const last=swipe.lastX===undefined?swipe.x:swipe.lastX;
-  const lastY=swipe.lastY===undefined?swipe.y:swipe.lastY;
-  const deltaX=last-swipe.x;
-  const deltaY=lastY-swipe.y;
+  const dx=swipe.lastX-swipe.x;
+  const dy=swipe.lastY-swipe.y;
+  const distance=Math.hypot(dx,dy);
 
   swipe.active=false;
-  if(!swipe.moved)return;
 
-  if(Math.max(Math.abs(deltaX),Math.abs(deltaY))<SWIPE_THRESHOLD)return;
+  if(!swipe.moved||distance<SWIPE_THRESHOLD){
+    resetCardPosition();
+    return;
+  }
 
-  if(Math.abs(deltaX)>=Math.abs(deltaY)){
-    if(deltaX>0)awardCorrect();
-    else awardOpponent("tabu");
-  }else if(deltaY<0){
-    awardOpponent("pass");
+  // Determine the dominant direction.
+  if(Math.abs(dx)>Math.abs(dy)){
+    if(dx>0){
+      completeSwipe(awardCorrect,"right");
+    }else{
+      completeSwipe(()=>awardOpponent("pass"),"left");
+    }
+  }else if(dy<0){
+    completeSwipe(()=>awardOpponent("tabu"),"up");
+  }else{
+    // Downward swipe is intentionally ignored.
+    resetCardPosition();
   }
 });
 
 cardEl.addEventListener("touchcancel",()=>{
   swipe.active=false;
-  cardEl.style.transform="";
+  if(!swipeLocked)resetCardPosition();
 });
-
-// Store the latest touch position for swipe-end direction detection.
-cardEl.addEventListener("touchmove",e=>{
-  if(!swipe.active||e.touches.length!==1)return;
-  swipe.lastX=e.touches[0].clientX;
-  swipe.lastY=e.touches[0].clientY;
-},{passive:true});
 
 function pauseGame(){
   if(!state.gameStarted||timerId===null)return;

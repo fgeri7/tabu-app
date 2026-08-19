@@ -191,3 +191,12 @@ input,textarea,select{
   #game.active .tabu-card h2{font-size:42px;margin-top:28px}
   #game.active .tabu-card li{font-size:21px}
 }
+
+/* Tinder-like card departure for swipe gestures. */
+.tabu-card.swipe-exit{
+  transition:
+    transform .26s cubic-bezier(.22,.61,.36,1),
+    opacity .26s ease;
+  opacity:.94;
+  will-change:transform,opacity;
+}
